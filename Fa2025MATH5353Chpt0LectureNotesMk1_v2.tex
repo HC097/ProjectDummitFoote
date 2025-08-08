@@ -1,0 +1,1121 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry, graphicx}
+\usepackage{titlesec}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{calculative}[theorem]{Calculative}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0pt}{}[.]
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{Chapter 0 – Preliminaries} \\
+\large Harley Caham Combest \\
+\large Su2025 MATH5353 Lecture Notes – Mk1
+\end{center}
+
+\vspace{1em}
+
+\section*{0.1 Basics}
+
+\subsection*{Historical Context}
+
+The concepts in this section --- sets, functions, and relations --- are so common now that they can feel ``obvious.'' 
+But each idea has a history:
+
+\begin{itemize}
+    \item \textbf{Sets}: Ancient mathematicians grouped things (all even numbers, all triangles of a certain kind) without naming the concept. 
+    In the late 19th century, \textbf{Georg Cantor} defined sets formally and introduced the symbols \( \in \), \( \subseteq \), and \( |A| \) for membership, subsets, and size.
+    \item \textbf{Functions}: In the 18th century, a ``function'' meant a formula. 
+    \textbf{Dirichlet} (1837) redefined it as a general rule pairing each input with exactly one output.
+    \item \textbf{Relations}: People long used ideas like ``has the same remainder'' or ``is the same shape'' without abstraction. 
+    By the early 20th century, the notion of a \emph{relation} was formalized within set theory, leading to the powerful concepts of \emph{equivalence relations} and \emph{partitions}.
+\end{itemize}
+
+This section establishes the exact definitions and notation for these ideas so that later topics can be expressed with full precision.
+
+\subsection*{Sets and Notation}
+
+A \textbf{set} is a collection of distinct objects, called \emph{elements} or \emph{members}.
+
+\begin{itemize}
+    \item \(\mathbf{x \in A}\): \(x\) is an element of \(A\).
+    \item \(\mathbf{x \notin A}\): \(x\) is not an element of \(A\).
+    \item \(\mathbf{B \subseteq A}\): every element of \(B\) is in \(A\) (``\(B\) is a subset of \(A\)'').
+    \item \(\mathbf{B \subset A}\): \(B\) is a \emph{proper} subset of \(A\) (and \(B \neq A\)).
+    \item \(\mathbf{\varnothing}\): the empty set.
+    \item \(\mathbf{|A|}\): the \emph{cardinality} (number of elements) of \(A\) if \(A\) is finite.
+\end{itemize}
+
+\paragraph{Subset by a Rule.}  
+We can describe a subset of \(A\) by giving a condition:
+\[
+B = \{ a \in A \mid \text{condition on } a \}.
+\]
+Example: If \(A = \{0,1,2,3\}\), then
+\[
+B = \{ n \in A \mid n \text{ is even} \} = \{0, 2\}.
+\]
+
+\paragraph{Cartesian Product.}  
+Given sets \(A\) and \(B\), the \emph{Cartesian product} \(A \times B\) is:
+\[
+A \times B = \{ (a,b) \mid a \in A, b \in B \}.
+\]
+Example: If \(A = \{1,2\}\) and \(B = \{x,y\}\), then
+\[
+A \times B = \{(1,x), (1,y), (2,x), (2,y)\}.
+\]
+
+\subsection*{Functions (Maps)}
+
+A \textbf{function} \(f: A \to B\) assigns \emph{exactly one} output in \(B\) to \emph{each} input in \(A\).
+
+\begin{itemize}
+    \item \textbf{Domain}: \(A\), the set of allowed inputs.
+    \item \textbf{Codomain}: \(B\), the set where outputs live.
+    \item \textbf{Value at \(a\)}: \(f(a)\).
+\end{itemize}
+
+\paragraph{Example.}
+Let \(A = \{0,1,2\}\), \(B = \{1,3,5,7\}\), and
+\[
+f(0) = 1, \quad f(1) = 3, \quad f(2) = 5.
+\]
+
+\paragraph{Image / Range.}  
+The \emph{image} (or \emph{range}) of \(f\) is:
+\[
+f(A) = \{ b \in B \mid b = f(a) \ \text{for some}\ a \in A \}.
+\]
+In the example: \(f(A) = \{1,3,5\}\).
+
+\paragraph{Preimage / Inverse Image.}  
+For \(C \subseteq B\), the \emph{preimage} of \(C\) is:
+\[
+f^{-1}(C) = \{ a \in A \mid f(a) \in C \}.
+\]
+If \(C = \{3,5\}\), then \(f^{-1}(C) = \{1,2\}\).
+
+\paragraph{Fiber over \(b\).}  
+The \emph{fiber} over a single \(b \in B\) is \(f^{-1}(\{b\})\), the set of all inputs mapping to \(b\).
+
+\subsection*{Special Types of Functions}
+
+\begin{itemize}
+    \item \textbf{Injective} (one-to-one): \(a_1 \neq a_2 \implies f(a_1) \neq f(a_2)\).
+    \item \textbf{Surjective} (onto): every \(b \in B\) has some \(a \in A\) with \(f(a) = b\).
+    \item \textbf{Bijective}: both injective and surjective; has a unique two-sided inverse.
+\end{itemize}
+
+\subsection*{Relations}
+
+A \textbf{binary relation} \(R\) on a set \(A\) is a subset of \(A \times A\).  
+We write \(a \,R\, b\) if \((a,b) \in R\).
+
+An \textbf{equivalence relation} has three properties:
+\begin{itemize}
+    \item Reflexive: \(a \,R\, a\) for all \(a \in A\).
+    \item Symmetric: \(a \,R\, b \implies b \,R\, a\).
+    \item Transitive: \(a \,R\, b\) and \(b \,R\, c \implies a \,R\, c\).
+\end{itemize}
+
+\paragraph{Equivalence Classes.}  
+For \(a \in A\), the \emph{equivalence class} \([a]\) is:
+\[
+[a] = \{ x \in A \mid x \,R\, a \}.
+\]
+
+\vspace{1pt}
+
+\noindent
+Any element of an equivalence class is called a \textit{representative} of said equivalence class.
+
+\vspace{1pt}
+
+\paragraph{Partitions.}  
+A \emph{partition} of \(A\) is a collection of nonempty, disjoint subsets whose union is \(A\).  
+Equivalence relations and partitions are two views of the same structure: the equivalence classes of an equivalence relation form a partition, and any partition defines an equivalence relation.
+
+\newpage
+
+\subsection*{Proposition 1 (Characterizing injections, surjections, bijections via inverses)}
+
+\vspace{1em}
+
+Let \( f : A \to B \) be a function.
+
+\vspace{1em}
+
+\begin{enumerate}
+    \item \(f\) is injective \(\Longleftrightarrow\) \(f\) has a \emph{left inverse}: there exists \(g : B \to A\) with \(g \circ f = \mathrm{id}_A\).
+    \item \(f\) is surjective \(\Longleftrightarrow\) \(f\) has a \emph{right inverse}: there exists \(h : B \to A\) with \(f \circ h = \mathrm{id}_B\).
+    \item \(f\) is bijective \(\Longleftrightarrow\) there exists \(g : B \to A\) with
+          \(f \circ g = \mathrm{id}_B\) and \(g \circ f = \mathrm{id}_A\).
+          In this case \(g\) is unique and equals \(f^{-1}\).
+    \item If \(A\) and \(B\) are finite with \(|A|=|B|\), then \(f\) is injective \(\Longleftrightarrow\) surjective \(\Longleftrightarrow\) bijective.
+\end{enumerate}
+
+\newpage
+
+\begin{proof}
+
+\noindent
+(1) ``\(\Rightarrow\)'' Assume \(f\) is injective. \\
+
+\noindent
+For each \(b \in B\), if there exists \(a \in A\) with \(f(a)=b\), define \(g(b):=a\) (this \(a\) is unique by injectivity).\\ 
+
+\noindent
+If no such \(a\) exists, define \(g(b)\) arbitrarily in \(A\) (choose a fixed \(a_0\in A\)). \\
+
+\noindent
+Then for every \(a\in A\), we have \(f(a)\) in the first case, so \(g(f(a))=a\). Hence \(g\circ f=\mathrm{id}_A\).\\
+
+\noindent
+``\(\Leftarrow\)'' Suppose there is \(g : B \to A\) with \(g\circ f=\mathrm{id}_A\). \\
+
+\noindent
+If \(f(a_1)=f(a_2)\), then applying \(g\) gives
+\[
+a_1=(g\circ f)(a_1)=(g\circ f)(a_2)=a_2,
+\]
+so \(f\) is injective.\\
+
+\dotfill
+
+\noindent
+(2) ``\(\Rightarrow\)'' Assume \(f\) is surjective.\\
+
+\noindent
+For each \(b\in B\), choose some \(a_b\in A\) with \(f(a_b)=b\) (choice is possible by surjectivity). \\
+
+\noindent
+Define \(h(b):=a_b\). Then \((f\circ h)(b)=f(a_b)=b\) for all \(b\), so \(f\circ h=\mathrm{id}_B\).\\
+
+\noindent
+``\(\Leftarrow\)'' If there is \(h\) with \(f\circ h=\mathrm{id}_B\), then for each \(b\in B\) we have \(b=(f\circ h)(b)=f(h(b))\), so \(b\) lies in the image of \(f\). Thus \(f\) is surjective.\\
+
+\dotfill
+
+\noindent
+(3) If \(f\) is bijective, then it has a two-sided inverse \(f^{-1}:B\to A\) with
+\(f\circ f^{-1}=\mathrm{id}_B\) and \(f^{-1}\circ f=\mathrm{id}_A\) (standard inverse of a bijection).\\
+
+\noindent
+Conversely, if there exists \(g\) with both identities, then by (1) \(f\) is injective (since it has a left inverse \(g\)) and by (2) \(f\) is surjective (since it has a right inverse \(g\)), hence bijective.\\
+
+\noindent
+\emph{Uniqueness of the inverse:} If \(g_1, g_2 : B\to A\) both satisfy
+\(f\circ g_i=\mathrm{id}_B\) and \(g_i\circ f=\mathrm{id}_A\) for \(i=1,2\), then
+\[
+g_1=(g_1\circ \mathrm{id}_B)=(g_1\circ (f\circ g_2))=((g_1\circ f)\circ g_2)=(\mathrm{id}_A\circ g_2)=g_2.
+\]
+
+\dotfill
+
+(4) Assume \(|A|=|B|<\infty\). \\
+
+\noindent
+If \(f\) is injective, then no two elements of \(A\) map to the same element of \(B\); with \(|A|=|B|\), this forces \(f\) to hit all of \(B\) (pigeonhole principle), hence \(f\) is surjective.\\
+
+\noindent
+Conversely, if \(f\) is surjective, then mapping \(|A|\) elements onto \(|B|=|A|\) elements forces no collisions, hence \(f\) is injective.\\
+
+\noindent
+Therefore injective \(\Leftrightarrow\) surjective, and either implies bijective.
+\end{proof}
+
+\newpage
+
+\subsection*{Quick Lemmas and Corollaries (Right after Proposition 1)}
+
+\paragraph{\textbf{Lemma A (Left inverse $\Rightarrow$ injective).}}
+If \(g\circ f=\mathrm{id}_A\) for some \(g:B\to A\), then \(f:A\to B\) is injective.
+
+\emph{Proof.} If \(f(a_1)=f(a_2)\), apply \(g\) to both sides:
+\(a_1=(g\circ f)(a_1)=(g\circ f)(a_2)=a_2\).\\
+
+So distinct inputs cannot collide; \(f\) is injective. \(\square\)
+
+\dotfill
+
+\paragraph{\textbf{Lemma B (Right inverse $\Rightarrow$ surjective).}}
+If \(f\circ h=\mathrm{id}_B\) for some \(h:B\to A\), then \(f:A\to B\) is surjective.\\
+
+\emph{Proof.} For any \(b\in B\), we have \(b=(f\circ h)(b)=f(h(b))\), so \(b\) is hit by \(f\). \(\square\)
+
+\dotfill
+
+\paragraph{\textbf{Lemma C (Two-sided inverse is unique).}}
+
+If \(g_1,g_2:B\to A\) both satisfy \(f\circ g_i=\mathrm{id}_B\) and \(g_i\circ f=\mathrm{id}_A\) for \(i=1,2\), then \(g_1=g_2\).\\
+
+\emph{Proof.} \(g_1 = g_1\circ \mathrm{id}_B = g_1\circ (f\circ g_2) = (g_1\circ f)\circ g_2 = \mathrm{id}_A\circ g_2 = g_2\). \(\square\)
+
+\dotfill
+
+\paragraph{\textbf{Lemma D (Fiber tests for injectivity/surjectivity).}}
+
+Let \(f:A\to B\). For \(b\in B\), the \emph{fiber} over \(b\) is \(f^{-1}(\{b\})=\{a\in A\mid f(a)=b\}\).
+
+\begin{enumerate}
+    \item \(f\) is injective \(\iff\) every fiber has size at most \(1\).
+    \item \(f\) is surjective \(\iff\) every fiber is nonempty.
+\end{enumerate}
+
+\emph{Proof.} (1) Injective means no two distinct inputs share an output, i.e.\ each fiber has \(\le 1\) point.\\
+
+\noindent
+(2) Surjective means every \(b\in B\) is hit by some \(a\in A\), i.e.\ each fiber is nonempty. \(\square\)
+
+\dotfill
+
+\paragraph{\textbf{Lemma E (Composition preserves injective/surjective).}}
+
+Let \(A\xrightarrow{f}B\xrightarrow{g}C\).
+
+\begin{enumerate}
+    \item If \(f\) and \(g\) are injective, then \(g\circ f\) is injective.
+    \item If \(f\) and \(g\) are surjective, then \(g\circ f\) is surjective.
+\end{enumerate}
+
+\emph{Proof.} (1) If \((g\circ f)(a_1)=(g\circ f)(a_2)\), injectivity of \(g\) gives \(f(a_1)=f(a_2)\), then injectivity of \(f\) gives \(a_1=a_2\).\\
+
+\noindent
+(2) Given \(c\in C\), surjectivity of \(g\) gives \(b\in B\) with \(g(b)=c\); surjectivity of \(f\) gives \(a\in A\) with \(f(a)=b\); then \((g\circ f)(a)=c\). \(\square\)
+
+\dotfill
+
+\paragraph{\textbf{Corollary F (Finite pigeonhole consequences).}}
+
+If \(A,B\) are finite with \(|A|=|B|\) and \(f:A\to B\), then:
+\begin{enumerate}
+    \item If \(f\) is injective, it is automatically surjective.
+    \item If \(f\) is surjective, it is automatically injective.
+\end{enumerate}
+
+\emph{Proof.} (1) Injective map \(A\to B\) between equal-size finite sets cannot miss any element of \(B\).\\
+
+\noindent
+(2) Dually, a surjection from \(|A|\) points onto \(|B|=|A|\) cannot identify two distinct inputs. \(\square\)
+
+\dotfill
+
+\paragraph{\textbf{Corollary G (Bijectivity and the inverse map).}}
+
+\(f:A\to B\) is bijective \(\iff\) there exists a unique \(f^{-1}:B\to A\) with \(f\circ f^{-1}=\mathrm{id}_B\) and \(f^{-1}\circ f=\mathrm{id}_A\).\\
+
+\emph{Proof.} ``\(\Rightarrow\)'' A bijection has both a left and right inverse; Lemma~C gives uniqueness.\\
+
+\noindent
+``\(\Leftarrow\)'' If such \(f^{-1}\) exists, Lemma~A gives injective and Lemma~B gives surjective. \(\square\)
+
+
+\newpage
+
+\subsection*{Proposition 2 (Equivalence relations \(\Longleftrightarrow\) partitions)}
+
+
+
+\noindent
+Let \(A\) be a nonempty set.
+
+\vspace{1em}
+
+\begin{enumerate}
+    \item If \(\sim\) is an equivalence relation on \(A\), then the set of equivalence classes
+          \(\{[a] : a\in A\}\) forms a partition of \(A\).
+    \item Conversely, if \(\{A_i\}_{i\in I}\) is a partition of \(A\) (each \(A_i\neq\varnothing\), \(A_i\cap A_j=\varnothing\) for \(i\neq j\), and \(\bigcup_{i\in I}A_i=A\)), then there is an equivalence relation \(\sim\) on \(A\) whose equivalence classes are exactly the \(A_i\).
+\end{enumerate}
+
+\newpage
+
+\begin{proof}
+
+\noindent
+(1) For an equivalence relation \(\sim\), define \([a]=\{x\in A: x\sim a\}\).\\
+
+\noindent
+Reflexivity gives \(a\in [a]\), so each class is nonempty.
+If \([a]\cap [b]\neq\varnothing\), pick \(x\) in the intersection.\\
+
+\noindent
+Then \(x\sim a\) and \(x\sim b\).\\
+
+\noindent
+By symmetry, \(a\sim x\); by transitivity with \(x\sim b\), we get \(a\sim b\).\\
+
+\noindent
+Now if \(y\in [a]\), then \(y\sim a\sim b\), hence \(y\in [b]\); similarly any \(z\in [b]\) lies in \([a]\).\\
+
+\noindent
+Thus \([a]=[b]\), proving the classes are pairwise disjoint unless equal.\\
+
+\noindent
+Finally, for any \(x\in A\), reflexivity gives \(x\in [x]\), so \(\bigcup_{a\in A}[a]=A\).\\
+
+\noindent
+Hence the classes form a partition.\\
+
+\dotfill
+
+\noindent
+(2) Given a partition \(\{A_i\}_{i\in I}\), define \(x\sim y\) iff \(x\) and \(y\) lie in the \emph{same} block \(A_i\).\\
+
+\noindent
+This is well-defined because the blocks are disjoint and cover \(A\).\\
+
+\noindent
+Reflexive: each \(x\) lies in some \(A_i\), so \(x\sim x\).\\
+
+\noindent
+Symmetric: if \(x\sim y\), they share the same \(A_i\), so \(y\sim x\).\\
+
+\noindent
+Transitive: if \(x\sim y\) and \(y\sim z\), then all three lie in the same \(A_i\), hence \(x\sim z\).\\
+
+\noindent
+Thus \(\sim\) is an equivalence relation; its classes are precisely the blocks \(A_i\).
+\end{proof}
+
+\newpage
+
+\section*{0.2 Properties of the Integers}
+
+\subsection*{Historical Context}
+
+
+The integers $\mathbb{Z} = \{\dots,-2,-1,0,1,2,\dots\}$ are among the oldest mathematical objects. \\
+
+\noindent
+Their properties have been studied since antiquity:
+
+\begin{itemize}
+    \item \textbf{Ancient Number Theory}: The Greeks, especially Euclid (c.\ 300 BCE), formalized results on divisibility, greatest common divisors, and primes in \emph{Elements}, Book VII.
+    \item \textbf{The Euclidean Algorithm}: Known to Euclid and perhaps earlier in Mesopotamia, this algorithm for finding the gcd of two integers remains fundamental today.
+    \item \textbf{Primes and Unique Factorization}: Euclid proved there are infinitely many primes. The idea that every integer factors uniquely into primes is implicit in ancient work and formalized in the Fundamental Theorem of Arithmetic.
+    \item \textbf{Euler's $\varphi$-function}: Introduced by Leonhard Euler (18th century) to generalize Fermat's Little Theorem and study multiplicative structure modulo $n$.
+\end{itemize}
+
+\noindent
+These basic properties underpin much of algebra and number theory. We state them precisely and prove them in the modern set-theoretic language.
+
+\newpage
+
+\subsection*{1. Well Ordering of $\mathbb{Z}^+$}
+
+
+\begin{proposition}[Well Ordering Principle]
+Every nonempty subset $A \subseteq \mathbb{Z}^+$ has a smallest element $m$ such that $m \le a$ for all $a \in A$.
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+Suppose $A$ is nonempty. \\
+
+\noindent
+Let $S = \{1,2,3,\dots\} \cap A$. \\
+
+\noindent
+If $1 \in A$ we are done. \\
+
+\noindent
+Otherwise, check $2,3,\dots$ in order. \\
+
+\noindent
+Because $A$ is a subset of the positive integers, and these are well ordered by the usual $\le$, we eventually find the first element of $A$. \\
+
+\noindent
+This minimal element $m$ is the one desired.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Well Ordering in practice]
+
+\noindent
+Let $A=\{\,n\in\mathbb{Z}^+ \mid n \text{ is a multiple of }5 \text{ and } n>12\,\}
+=\{15,20,25,\dots\}$.  \\
+
+\noindent
+Then $\min A=15$. This concretely illustrates that a nonempty subset of $\mathbb{Z}^+$ has a least element.
+\end{calculative}
+
+\newpage
+
+\subsection*{2. Divisibility}
+
+\noindent
+For $a,b\in\mathbb{Z}$ with $a\neq 0$, we say \emph{$a$ divides $b$} (write $a\mid b$) if there exists $c\in\mathbb{Z}$ with $b=ac$.
+
+\dotfill
+
+\begin{lemma}
+If $a\mid b$ and $a\mid c$, then $a \mid (sb + tc)$ for all $s,t\in\mathbb{Z}$.
+\end{lemma}
+
+\vspace{1em}
+
+\begin{proof}
+Write $b=ak$ and $c=al$.\\
+
+\noindent
+Then $sb+tc = s(ak) + t(al) = a(sk+tl)$, so $a$ divides $sb+tc$.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Divisibility is stable under $\mathbb{Z}$-linear combintions]
+
+\noindent
+Since $4\mid 20$ and $4\mid 28$, for any $s,t\in\mathbb{Z}$ we have $4\mid s\cdot 20+t\cdot 28$. \\
+
+\noindent
+Take $s=3$, $t=-2$: $3\cdot 20+(-2)\cdot 28=60-56=4$, and indeed $4\mid 4$.
+\end{calculative}
+
+
+\newpage
+
+\subsection*{3. Greatest Common Divisor and Least Common Multiple}
+
+\begin{definition}
+The \emph{greatest common divisor} of $a,b\in\mathbb{Z}\setminus\{0\}$ is the unique positive integer $d$ such that:
+\begin{enumerate}
+    \item $d\mid a$ and $d\mid b$ (common divisor),
+    \item if $e\mid a$ and $e\mid b$, then $e\mid d$ (greatest).
+\end{enumerate}
+Write $d = (a,b)$. If $(a,b)=1$ we say $a$ and $b$ are \emph{relatively prime}.
+\end{definition}
+
+\dotfill
+
+\begin{proposition}[Bezout's Identity]
+For $a,b\in\mathbb{Z}\setminus\{0\}$ there exist $x,y\in\mathbb{Z}$ such that $(a,b) = ax+by$.
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+Apply the Euclidean Algorithm to $a$ and $b$. \\
+
+\noindent
+This produces remainders $r_k$ satisfying
+\[
+r_{k-2} = q_k r_{k-1} + r_k,\quad 0 \le r_k < |r_{k-1}|.
+\]
+
+\noindent
+When $r_n\neq 0$ and $r_{n+1}=0$, we have $r_n = (a,b)$. \\
+
+\noindent
+Back-substitute each $r_k$ in terms of $a$ and $b$ to express $r_n$ as a $\mathbb{Z}$-linear combination of $a$ and $b$.
+\end{proof}
+
+\dotfill
+
+\begin{definition}
+The \emph{least common multiple} $\ell$ of $a$ and $b$ is the unique positive integer such that:
+\begin{enumerate}
+    \item $a\mid \ell$ and $b\mid \ell$,
+    \item if $a\mid m$ and $b\mid m$ then $\ell\mid m$.
+\end{enumerate}
+
+\noindent
+We write $\ell = \mathrm{lcm}(a,b)$. \\
+
+\noindent
+Relation: $(a,b)\cdot \mathrm{lcm}(a,b) = |ab|$.
+\end{definition}
+
+\newpage
+
+\subsection*{4. Division Algorithm and Euclidean Algorithm}
+
+\begin{proposition}[Division Algorithm]
+Given $a,b\in\mathbb{Z}$ with $b\neq 0$, there exist unique $q,r\in\mathbb{Z}$ such that
+\[
+a = qb + r,\quad 0 \le r < |b|.
+\]
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+Existence: Divide $a$ by $b$ in the usual sense to get a quotient $q$ and remainder $r$ satisfying the bounds.\\
+
+\noindent
+Uniqueness: If $a = qb + r = q'b + r'$ with $0\le r,r'<|b|$, subtracting gives $(q-q')b = r'-r$.\\
+
+\noindent
+The right side has absolute value less than $|b|$, so it must be $0$, hence $q=q'$ and $r=r'$.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Example: Division Algorithm in action]
+Let $a=101$ and $b=7$. 
+
+\noindent
+We seek $q,r$ with
+\[
+101 = q\cdot 7 + r, \quad 0 \le r < 7.
+\]
+
+\noindent
+Dividing: $7\times 14 = 98$, so $q=14$ and $r=3$. Thus
+\[
+101 = (14)\cdot 7 + 3,
+\]
+matching the abstract definition: $q,r\in\mathbb{Z}$ and $0\le r < |7|$.
+\end{calculative}
+
+\dotfill
+
+\begin{proposition}[Euclidean Algorithm]
+Repeated application of the Division Algorithm to $(a,b)$ terminates with remainder $0$ and last nonzero remainder equal to $(a,b)$.
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+Apply Division Algorithm: $a = q_0 b + r_0$, then $b = q_1 r_0 + r_1$, etc. \\
+
+\noindent
+Remainders strictly decrease in absolute value and are nonnegative, so the process stops. \\
+
+\noindent
+The last nonzero remainder divides the previous two terms in the sequence and thus divides any common divisor; hence it equals $(a,b)$.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Example: Euclidean Algorithm in action]
+
+\noindent
+Let $a=252$ and $b=165$.
+\[
+\begin{aligned}
+252 &= 1\cdot 165 + 87,\\
+165 &= 1\cdot 87 + 78,\\
+87 &= 1\cdot 78 + 9,\\
+78 &= 8\cdot 9 + 6,\\
+9 &= 1\cdot 6 + 3,\\
+6 &= 2\cdot 3 + 0.
+\end{aligned}
+\]
+
+\noindent
+The last nonzero remainder is $3$, so $(252,165)=3$.\\
+
+\noindent
+Back-substitution (Bezout coefficients):
+
+$3 = 9 - 1\cdot 6$,
+
+$6 = 78 - 8\cdot 9 \ \Rightarrow\ 3 = 9 - 1\cdot (78 - 8\cdot 9) = 9\cdot 9 - 1\cdot 78$,
+
+$9 = 87 - 1\cdot 78 \ \Rightarrow\ 3 = (87 - 78)\cdot 9 - 1\cdot 78 \ldots$ etc.,
+
+until we express $3 = 252\cdot x + 165\cdot y$.
+\end{calculative}
+
+\dotfill
+
+\begin{calculative}[gcd, lcm, and B\'ezout on a friendlier pair]
+
+\noindent
+For $a=84$, $b=60$:
+\[
+84=1\cdot 60+24,\quad 60=2\cdot 24+12,\quad 24=2\cdot 12+0,
+\]
+so $(84,60)=12$ and $\mathrm{lcm}(84,60)=\dfrac{84\cdot 60}{12}=420$.\\
+
+\noindent
+Back-substitution:
+\[
+12=60-2\cdot 24=60-2(84-60)=3\cdot 60-2\cdot 84,
+\]
+hence $12=-2\cdot 84+3\cdot 60$.
+\end{calculative}
+
+
+\newpage
+
+\subsection*{5. Primes and Fundamental Theorem of Arithmetic}
+
+\begin{definition}
+A prime is a positive integer $p>1$ whose only positive divisors are $1$ and $p$. \\
+
+\noindent
+Non-primes $>1$ are composite.
+\end{definition}
+
+\dotfill
+
+\begin{lemma}[Prime Divides a Product]
+If $p$ is prime and $p\mid ab$, then $p\mid a$ or $p\mid b$.
+\end{lemma}
+
+\vspace{1em}
+
+\begin{proof}
+If $p\nmid a$, then $(p,a)=1$. Bezout's Identity gives $px+ay=1$ for some $x,y$. Multiply by $b$:
+\[
+pbx + aby = b.
+\]
+Since $p\mid pbx$ and $p\mid ab y$, we have $p\mid b$.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[“Prime divides a product” at work]
+
+\noindent
+Let $p=5$, $a=14$, $b=15$. Then $ab=210$ and $5\mid 210$. \\
+
+\noindent
+Since $5\nmid 14$ (remainders $14\equiv -1\pmod 5$), it must be that $5\mid 15$, which holds.
+\end{calculative}
+
+\dotfill
+
+\begin{theorem}[Fundamental Theorem of Arithmetic]
+Every integer $n>1$ can be written uniquely (up to order) as
+\[
+n = p_1^{\alpha_1} p_2^{\alpha_2} \dots p_k^{\alpha_k}
+\]
+with distinct primes $p_i$ and positive integers $\alpha_i$.
+\end{theorem}
+
+\vspace{1em}
+
+\begin{proof}
+Existence: Induct on $n$. If $n$ is prime, done. If composite, write $n=ab$ with $a,b<n$, factor each by induction, and combine.\\
+
+
+\noindent
+Uniqueness: Suppose $n = p_1^{\alpha_1}\dots p_k^{\alpha_k} = q_1^{\beta_1}\dots q_m^{\beta_m}$ with primes in ascending order. $p_1\mid q_1^{\beta_1}\dots q_m^{\beta_m}$, so $p_1=q_j$ for some $j$. \\
+
+\noindent
+Cancel and repeat inductively to match all primes and exponents.\\
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Fundamental Theorem of Arithmetic: sample factorizations]
+
+\[
+360=2^3\cdot 3^2\cdot 5,\qquad 2310=2\cdot 3\cdot 5\cdot 7\cdot 11.
+\]
+
+\noindent
+Each factorization is unique up to the order of prime factors.
+\end{calculative}
+
+
+\newpage
+
+\subsection*{6. Euler's Totient Function}
+
+\begin{definition}
+For $n\in\mathbb{Z}^+$, $\varphi(n)$ is the number of integers $1\le a\le n$ with $(a,n)=1$.
+\end{definition}
+
+\dotfill
+
+\begin{theorem}[Chinese Remainder Theorem for Two Moduli]
+Let $m,n \in \mathbb{Z}^+$ with $\gcd(m,n)=1$.\\
+
+Then for any integers $a,b$ there exists an integer $x$ such that
+\[
+x \equiv a \pmod{m} \quad\text{and}\quad x \equiv b \pmod{n}.
+\]
+
+Moreover, this $x$ is unique modulo $mn$.
+\end{theorem}
+
+\vspace{1em}
+
+\begin{proof}
+Since $\gcd(m,n)=1$, Bezout's Identity gives integers $u,v$ with
+\[
+um + vn = 1.
+\]
+
+\noindent
+Define
+\[
+x := a \cdot (vn) + b \cdot (um).
+\]
+
+\noindent
+Then modulo $m$:
+\[
+x \equiv a\cdot(vn) + b\cdot(um) \equiv a\cdot(0) + b\cdot(um) \pmod{m}.
+\]
+
+\noindent
+But $um \equiv 0 \pmod{m}$ and $vn \equiv 1 \pmod{m}$ (since $vn = 1 - um$), so actually:
+\[
+x \equiv a\cdot 1 + b\cdot 0 \equiv a \pmod{m}.
+\]
+
+\noindent
+Similarly, modulo $n$:
+\[
+x \equiv a\cdot(vn) + b\cdot(um) \equiv a\cdot 0 + b\cdot 1 \equiv b \pmod{n}.
+\]
+
+\noindent
+Thus $x$ satisfies both congruences.\\
+
+\noindent
+If $x'$ is another such integer, then $m\mid(x-x')$ and $n\mid(x-x')$. 
+
+\noindent
+As $\gcd(m,n)=1$, it follows that $mn\mid(x-x')$, so $x\equiv x' \pmod{mn}$.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Chinese Remainder Theorem: solving a pair of congruences]
+
+\noindent
+Solve
+\[
+x\equiv 3 \pmod{4},\qquad x\equiv 2 \pmod{5}.
+\]
+
+\noindent
+Since $4(-1)+5(1)=1$, take $u=-1$, $v=1$, $m=4$, $n=5$, $a=3$, $b=2$ and set
+\[
+x=a\cdot (v n)+b\cdot (u m)=3\cdot 5+2\cdot (-4)=15-8=7.
+\]
+
+\noindent
+Check: $7\equiv 3\ (\mathrm{mod}\ 4)$ and $7\equiv 2\ (\mathrm{mod}\ 5)$.  
+
+\noindent
+General solution: $x\equiv 7\pmod{20}$.
+\end{calculative}
+
+
+\dotfill
+
+\begin{corollary}[Multiplicativity of $\varphi$]
+If $\gcd(a,b)=1$, then $\varphi(ab) = \varphi(a)\varphi(b)$.
+\end{corollary}
+
+\vspace{1em}
+
+\begin{proof}
+By the theorem, the reduction map
+\[
+\mathbb{Z}/(ab)\mathbb{Z} \ \longrightarrow\ \mathbb{Z}/a\mathbb{Z} \times \mathbb{Z}/b\mathbb{Z},
+\quad [x]_{ab} \mapsto ([x]_a,[x]_b)
+\]
+is a bijection of rings when $\gcd(a,b)=1$. This bijection restricts to a bijection of unit groups:
+\[
+(\mathbb{Z}/(ab)\mathbb{Z})^\times \ \cong\ (\mathbb{Z}/a\mathbb{Z})^\times \times (\mathbb{Z}/b\mathbb{Z})^\times.
+\]
+Taking cardinalities yields $\varphi(ab) = \varphi(a)\varphi(b)$.
+\end{proof}
+
+
+\dotfill
+
+\begin{proposition}[Values of $\varphi$]
+If $p$ is prime and $\alpha\ge 1$, then
+\[
+\varphi(p^\alpha) = p^\alpha - p^{\alpha-1} = p^{\alpha-1}(p-1).
+\]
+If $(a,b)=1$, then $\varphi(ab) = \varphi(a)\varphi(b)$.
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+For $p^\alpha$: The integers $1,\dots,p^\alpha$ divisible by $p$ are $p,2p,\dots, p^{\alpha-1}p$ — exactly $p^{\alpha-1}$ of them. \\
+
+\noindent
+Subtract from total $p^\alpha$ to get $\varphi(p^\alpha)$.\\
+
+\noindent
+For multiplicativity: By the Chinese Remainder Theorem, reduction modulo $a$ and $b$ is a bijection \\
+
+$(\mathbb{Z}/ab\mathbb{Z})^\times \cong (\mathbb{Z}/a\mathbb{Z})^\times\times (\mathbb{Z}/b\mathbb{Z})^\times$ when $(a,b)=1$, hence $\varphi(ab) = \varphi(a)\varphi(b)$.
+
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Counting $\varphi(n)$ by hand]
+
+\noindent
+For $n=12$, list $1\le a\le 12$ coprime to $12$: $\{1,5,7,11\}$.\\
+
+\noindent
+Thus $\varphi(12)=4$.  \\
+
+\noindent
+For $n=18$, the coprimes in $1,\dots,18$ are $\{1,5,7,11,13,17\}$, so $\varphi(18)=6$.  \\
+
+\noindent
+Formula check: $18=2\cdot 3^2$, so $\varphi(18)=18(1-\frac12)(1-\frac13)=18\cdot \frac12\cdot \frac23=6$.
+\end{calculative}
+
+\dotfill
+
+\begin{calculative}[Multiplicativity of $\varphi$ with coprime inputs]
+
+\noindent
+Let $a=8$, $b=15$; $\gcd(8,15)=1$.  \\
+
+\noindent
+$\varphi(8)=4$ (numbers $\{1,3,5,7\}$ mod $8$), $\varphi(15)=8$ (exclude multiples of $3$ or $5$). \\ 
+
+\noindent
+Then $\varphi(120)=\varphi(8)\varphi(15)=32$.  \\
+
+\noindent
+Direct check via formula: $120=2^3\cdot 3\cdot 5$, so 
+\[
+\varphi(120)=120\Big(1-\tfrac12\Big)\Big(1-\tfrac13\Big)\Big(1-\tfrac15\Big)=120\cdot \tfrac12\cdot \tfrac23\cdot \tfrac45=32.
+\]
+\end{calculative}
+
+\dotfill
+
+\begin{calculative}[Euler’s totient on prime powers]
+
+\noindent
+For $p=3$, $\alpha=2$: $\varphi(3^2)=3^2-3^{1}=9-3=6$.  \\
+
+\noindent
+Indeed, among $1,\dots,9$, the six coprime to $9$ are $\{1,2,4,5,7,8\}$.
+\end{calculative}
+
+\newpage
+
+\section*{0.3 $\mathbb{Z}/n\mathbb{Z}$: The Integers Modulo $n$}
+
+\subsection*{Historical Context}
+
+
+The study of integers \emph{modulo $n$} began in earnest with Carl Friedrich Gauss's \emph{Disquisitiones Arithmeticae} (1801).  \\
+
+\noindent
+Gauss introduced the notation $a \equiv b \pmod{n}$ and built a systematic theory of congruences.  \\
+
+\noindent
+The idea itself is older: the Chinese Remainder Theorem dates back to Sun Zi (3rd–5th century CE), and modular methods appear implicitly in work by Euler and Fermat.\\
+
+\noindent
+Today, $\mathbb{Z}/n\mathbb{Z}$ — the set of \emph{residue classes modulo $n$} — is fundamental in algebra, number theory, cryptography, and coding theory.  
+\noindent
+It allows us to treat numbers that differ by multiples of $n$ as \emph{the same} for arithmetic purposes, forming a finite ring.
+
+\newpage
+
+\subsection*{Congruence Modulo $n$}
+
+\begin{definition}
+Let $n \in \mathbb{Z}^+$. For $a,b\in\mathbb{Z}$ we say $a$ is \emph{congruent to} $b$ \emph{modulo $n$}, written
+\[
+a \equiv b \pmod{n},
+\]
+if $n \mid (a-b)$. Equivalently, $a$ and $b$ have the same remainder upon division by $n$.
+\end{definition}
+
+\dotfill
+
+\begin{proposition}
+Congruence modulo $n$ is an equivalence relation on $\mathbb{Z}$.
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+Reflexive: $a-a=0$ is divisible by $n$.  \\
+
+\noindent
+Symmetric: If $n\mid(a-b)$, then $n\mid(b-a)$. \\
+
+\noindent
+Transitive: If $n\mid(a-b)$ and $n\mid(b-c)$, then $n\mid[(a-b)+(b-c)]=a-c$.\\
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Checking congruence in two ways]
+Let $n=7$, $a=51$, and $b=16$.\\
+
+\noindent
+\emph{Method 1: Divisibility of the difference.}  
+Compute $a-b = 51-16 = 35$. Since $35 = 7\cdot 5$, we have $7\mid(a-b)$, hence
+\[
+51 \equiv 16 \pmod{7}.
+\]
+
+\noindent
+\emph{Method 2: Same remainder upon division by $n$.}  
+By the Division Algorithm:
+\[
+51 = 7\cdot 7 + 2, \quad 16 = 7\cdot 2 + 2.
+\]
+
+\noindent
+Both have remainder $2$ when divided by $7$, so $51 \equiv 16 \pmod{7}$.\\
+
+\noindent
+\emph{Conclusion:} The two methods agree — congruence modulo $n$ can be verified either by checking $n\mid(a-b)$ or by comparing remainders.
+\end{calculative}
+
+
+\newpage
+
+\subsection*{Residue Classes and $\mathbb{Z}/n\mathbb{Z}$}
+
+\begin{definition}
+The \emph{residue class} of $a\in\mathbb{Z}$ modulo $n$ is
+\[
+[a]_n = \{\, b\in\mathbb{Z} \mid b\equiv a \pmod{n} \,\}.
+\]
+The set of all residue classes is denoted $\mathbb{Z}/n\mathbb{Z} = \{[0]_n, [1]_n, \dots, [n-1]_n\}$.
+\end{definition}
+
+\dotfill
+
+\begin{calculative}[Residue classes mod $5$]
+$\mathbb{Z}/5\mathbb{Z}$ has the five classes $[0],[1],[2],[3],[4]$.  
+For instance, $[7]_5 = [2]_5$ since $7-2=5$ is divisible by $5$.
+\end{calculative}
+
+\dotfill
+
+\begin{proposition}[Well-defined operations (Theorem 3)]
+For $[a]_n, [b]_n\in\mathbb{Z}/n\mathbb{Z}$ define
+\[
+[a]_n + [b]_n := [a+b]_n,\quad [a]_n\cdot [b]_n := [ab]_n.
+\]
+
+\noindent
+These are \emph{well-defined}, i.e.\ the result does not depend on the choice of representatives.
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+Suppose $a\equiv a'\ (\mathrm{mod}\ n)$ and $b\equiv b'\ (\mathrm{mod}\ n)$. Then $n\mid(a-a')$ and $n\mid(b-b')$.  \\
+
+\noindent
+For addition: $(a+b)-(a'+b') = (a-a')+(b-b')$ is divisible by $n$, so $[a+b]_n = [a'+b']_n$.  \\
+
+\noindent
+For multiplication: $(ab)-(a'b') = b(a-a') + a'(b-b')$ is a sum of multiples of $n$, hence divisible by $n$.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Addition and multiplication mod $7$]
+$[3]_7+[5]_7 = [8]_7 = [1]_7$,  
+$[4]_7\cdot [6]_7 = [24]_7 = [3]_7$.
+\end{calculative}
+
+\newpage
+
+\subsection*{Units (Invertible Classes)}
+
+\begin{definition}
+A class $[a]_n \in \mathbb{Z}/n\mathbb{Z}$ is a \emph{unit} (i.e. is \emph{invertible}) if there exists $[b]_n$ with $[a]_n\cdot [b]_n = [1]_n$.  
+The set of units (i.e. invertible classes) is $(\mathbb{Z}/n\mathbb{Z})^\times$.
+\end{definition}
+
+\dotfill
+
+\begin{proposition}[Proposition 4]
+\[
+(\mathbb{Z}/n\mathbb{Z})^\times \;=\; \{\, [a]_n \in \mathbb{Z}/n\mathbb{Z} \mid (a,n)=1 \,\}.
+\]
+\end{proposition}
+
+\vspace{1em}
+
+\begin{proof}
+($\subseteq$) Let $[a]_n\in (\mathbb{Z}/n\mathbb{Z})^\times$.\\ 
+
+\noindent
+Then there exists $[b]_n$ such that
+\[
+[a]_n\cdot[b]_n = [1]_n.
+\]
+
+\noindent
+By definition of multiplication in $\mathbb{Z}/n\mathbb{Z}$, this means $ab \equiv 1 \pmod n$, i.e. $ab-1 = kn$ for some $k\in\mathbb{Z}$.\\ 
+
+\noindent
+Any common divisor of $a$ and $n$ must divide $1$, hence $\gcd(a,n)=1$.\\
+
+\noindent
+($\supseteq$) Conversely, suppose $\gcd(a,n)=1$. \\
+
+\noindent
+By B\'ezout’s Identity, there exist integers $x,y$ such that
+\[
+ax + ny = 1.
+\]
+
+\noindent
+Reducing modulo $n$, we have $ax \equiv 1 \pmod n$, so $[a]_n\cdot[x]_n = [1]_n$. \\
+
+\noindent
+Thus $[a]_n$ has a multiplicative inverse and is in $(\mathbb{Z}/n\mathbb{Z})^\times$.
+\end{proof}
+
+\dotfill
+
+\begin{calculative}[Example: Units mod $12$]
+The positive integers less than $12$ and coprime to $12$ are $1,5,7,11$. Thus:
+\[
+(\mathbb{Z}/12\mathbb{Z})^\times = \{[1],[5],[7],[11]\}.
+\]
+Check: $[5]_{12}^2=[25]_{12}=[1]_{12}$, so $[5]$ is its own inverse.
+\end{calculative}
+
+\dotfill
+
+\begin{calculative}[Example: Inverse via Euclidean Algorithm]
+
+\noindent
+Find the inverse of $[17]_{60}$. \\
+
+\noindent
+Apply the Euclidean Algorithm:
+\[
+60=3\cdot 17 + 9,\quad
+17 = 1\cdot 9 + 8,\quad
+9 = 1\cdot 8 + 1.
+\]
+Back-substitute:
+\[
+1 = 9 - 8
+= 9 - (17 - 9)
+= 2\cdot 9 - 17
+= 2(60 - 3\cdot 17) - 17
+= 2\cdot 60 - 7\cdot 17.
+\]
+
+\noindent
+Thus $-7$ is an inverse of $17$ modulo $60$, i.e.\ $[53]_{60}$ is the multiplicative inverse.
+\end{calculative}
+
+\end{document}
