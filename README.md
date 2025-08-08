@@ -1,7 +1,7 @@
 
-# Project BoyerBach – A Lecture Series on the History of Mathematics
+# Project DummitFoote – A Lecture Series on Abstract Algebra
 
-> A chronologically anchored, philosophically weighted, and mathematically rigorous lecture series following Boyer & Merzbach (3rd ed.).
+> A  mathematically rigorous lecture series following Dummit & Foote (3rd ed.).
 
 This repository hosts a 32-part lecture series created by Harley Caham Combest for MATH5353 (Fall 2025 and Spring 2026, under Dr. Malestein), focused on the technical and general approach to Algebra in the third edition of *Abstract Algebra* by David S. Dummit and Richard M. Foote.
 
@@ -12,7 +12,7 @@ Each lecture includes:
 
 ## 📺 Watch the Series
 
-[▶️ YouTube Playlist – Project DummitFoote]()
+[▶️ YouTube Playlist – Project DummitFoote](N/A)
 
 ## 📜 License
 
