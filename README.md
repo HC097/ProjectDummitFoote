@@ -12,7 +12,7 @@ Each lecture includes:
 
 ## 📺 Watch the Series
 
-[▶️ YouTube Playlist – Project DummitFoote](N/A)
+[▶️ YouTube Playlist – Project DummitFoote](https://www.youtube.com/playlist?list=PL0KmvrFqDNutFdj0traFl1niPkI_twLU1)
 
 ## 📜 License
 
