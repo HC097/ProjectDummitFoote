@@ -1,5 +1,5 @@
 
-# Project DummitFoote – A Lecture Series on Algebra
+# Project DummitFoote
 
 > A  mathematically rigorous lecture series following Dummit & Foote (3rd ed.).
 
