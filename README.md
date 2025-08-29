@@ -1,7 +1,7 @@
 
 # Project DummitFoote
 
-This repository hosts a 32-part lecture series created by Harley Caham Combest for MATH5353 (Abstract Algebra I in Fall 2025) & MATH5363 (Abstract Algebra II in Spring 2026) under Dr. Malestein), focused on the technical and general approach to Algebra in the third edition of *Abstract Algebra* by David S. Dummit and Richard M. Foote.
+This repository hosts a 32-part lecture series created by Harley Caham Combest for MATH5353 (Abstract Algebra I in Fall 2025) & MATH5363 (Abstract Algebra II in Spring 2026) with Dr. Malestein, focused on the technical and general approach to Algebra in the third edition of *Abstract Algebra* by David S. Dummit and Richard M. Foote.
 
 Each lecture includes:
 - A YouTube video
