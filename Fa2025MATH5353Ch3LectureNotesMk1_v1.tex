@@ -1,0 +1,1161 @@
+\documentclass[9pt]{article}
+\usepackage{amsmath, amssymb, geometry, graphicx}
+\usepackage{titlesec}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{calculative}[theorem]{Calculative}
+\newtheorem{exercise}[theorem]{Exercise}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0pt}{}[.]
+
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Inn}{\operatorname{Inn}}
+\newcommand{\Cl}{\operatorname{Cl}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{MATH5353} \\
+\large Harley Caham Combest \\
+\large Fa2025 Ch3 Quotient Groups and Homomorphisms Mk1
+\end{center}
+
+\newpage
+
+% D&F §3 — Historical Context for Chapter 3
+\dotfill
+\section*{Ch 3: Historical Context}
+\dotfill
+
+\newpage
+
+\noindent \textbf{Overview.} These are designed to test your memory on a few selected historical points on the basics of quotient groups and homomorphisms as presented in Ch3 of Dummit and Foote.\\
+
+\newpage
+
+\paragraph{Before “groups”: permutations and equations (1700s \textrightarrow\ early 1800s).}
+
+\newpage
+
+\begin{itemize}
+  \item \textbf{J. L. Lagrange} (Paris, 1770s–1780s). Studied permutations of polynomial roots, isolating the \emph{parity} of permutations (even/odd) and anticipating the sign homomorphism $\operatorname{sgn}:S_n\to\{\pm1\}$ and the alternating group $A_n$. His orbit–stabilizer style counting presages what becomes \emph{Lagrange’s Theorem} on subgroup indices and orders.
+  \item \textbf{A.-T. Vandermonde} and contemporaries (1770s). Worked explicitly with permutations; the fact that every permutation is a product of \emph{transpositions} becomes standard in this era.
+\end{itemize}
+
+\newpage
+
+\paragraph{Birth of group thinking (early–mid 1800s).}
+
+\newpage
+
+\begin{itemize}
+  \item \textbf{A.-L. Cauchy} (Paris, 1815; 1845). Deepened the theory of permutations; proved what we now call \emph{Cauchy’s Theorem}: if a prime $p$ divides $|G|$, then $G$ has an element of order $p$. (Chapter~3 presents the abelian case early for pedagogy.)
+  \item \textbf{É. Galois} (Paris, 1830–1832). Introduced groups to encode symmetries of roots. Emphasized subgroups stable under conjugation (\emph{invariant} $\equiv$ \emph{normal}) and used quotient-like reasoning. His criterion for solvability by radicals anticipates \emph{solvable groups} via chains with abelian quotients.
+\end{itemize}
+
+\newpage
+
+\paragraph{Systematizing subgroups, normality, and quotients (late 1800s).}
+
+\newpage
+
+\begin{itemize}
+  \item \textbf{C. Jordan} (Paris, 1870). In \emph{Traité des substitutions}, formalized permutations, \emph{invariant/normal} subgroups, cosets, and laid foundations for the \emph{Jordan–Hölder} perspective (maximal normal chains and their factors).
+  \item \textbf{O. Hölder} (Leipzig, 1889). Proved the modern uniqueness: any two \emph{composition series} have the same multiset of \emph{composition factors} (up to order/isomorphism).
+  \item \textbf{R. Dedekind}, \textbf{H. Weber}, and others (Germany, 1880s–1890s). Consolidated abstraction: standardized “normal” subgroups, clarified \emph{quotient} constructions, and popularized the \emph{normalizer} $N_G(H)$ and \emph{centralizer} $C_G(H)$.
+\end{itemize}
+
+\newpage
+
+\paragraph{Isomorphism theorems and lattice viewpoint (1900–1930s).}
+
+\newpage
+
+\begin{itemize}
+  \item The three \emph{Isomorphism Theorems} were implicit in 19th-century arguments (used in refinement/compare-factor proofs).
+  \item \textbf{E. Noether} (Göttingen, 1920s). Gave a sweeping abstract formulation across algebra (groups, rings, modules), yielding the modern, unified statement of the isomorphism theorems. Chapter~3 presents the group-specialized forms.
+\end{itemize}
+
+\newpage
+
+\paragraph{Alternating groups and the sign map (thread through the 1800s).}
+
+\newpage
+
+\begin{itemize}
+  \item From Lagrange’s parity arose the \emph{sign} map and $A_n=\ker(\operatorname{sgn})$. The simplicity of $A_n$ for $n\ge5$ (developed by late 19th century, with $A_5$ already in Galois’s sights) becomes a pillar of finite group theory; Chapter~3 supplies the kernel/quotient machinery underpinning such results.
+\end{itemize}
+
+\newpage
+
+\paragraph{Why Chapter 3 matters (the “why”).}
+
+\newpage
+
+\begin{itemize}
+  \item \textbf{Homomorphisms} make structure visible via maps; \textbf{kernels} and \textbf{images} encode what is forgotten and what is preserved.
+  \item \textbf{Quotients} are controlled collapses by normal subgroups; they isolate new structure while retaining a group law.
+  \item \textbf{Isomorphism Theorems} are the bookkeeping rules that relate subgroups, images, and preimages, enabling clean diagram chases and classification steps.
+  \item \textbf{Lagrange \& Cauchy} tie counting to structure: divisibility of orders forces existence of elements/subgroups of prescribed sizes.
+  \item \textbf{Jordan–Hölder} gives a canonical “fingerprint” (up to order) via composition factors, guiding classification strategies.
+  \item \textbf{Parity \& $A_n$} provide a prototypical kernel/quotient narrative with wide ramifications.
+\end{itemize}
+
+\newpage
+
+\paragraph{Minimal timeline (anchor points).}
+
+\newpage
+
+\begin{itemize}
+  \item 1770s–1780s (Paris): \textbf{Lagrange} — parity, cycle thinking; subgroup-order divisibility in embryo.
+  \item 1815–1845 (Paris): \textbf{Cauchy} — permutation theory; existence of $p$-torsion when $p\mid |G|$.
+  \item 1830–1832 (Paris): \textbf{Galois} — invariant/normal subgroups; solvable chains, quotient intuition.
+  \item 1870 (Paris): \textbf{Jordan} — invariant subgroups; early Jordan–Hölder framework.
+  \item 1889 (Leipzig): \textbf{Hölder} — uniqueness of composition factors (modern form).
+  \item 1920s (Göttingen): \textbf{Noether} — abstract isomorphism theorems across algebra.
+\end{itemize}
+
+\newpage
+
+
+\dotfill
+\section*{Ch 3: Lingua Franca}
+\dotfill
+
+\newpage
+
+\noindent \textbf{Overview.} These are designed to test your memory on the tools of the trade: the words, the axioms, the theorems, etc of the basics of quotient groups and homomorphisms as presented in Ch3 of Dummit and Foote.
+
+\newpage
+
+% D&F §3.1 — Kernel of a Homomorphism
+\noindent\textbf{Definition: Kernel of a Homomorphism.}
+
+\newpage
+
+Let $\varphi:G\to H$ be a group homomorphism. The \emph{kernel} of $\varphi$ is
+\[
+\ker\varphi=\{g\in G\mid \varphi(g)=1_H\}.
+\]
+
+\newpage
+
+% D&F §3.1 — Basic Properties of Homomorphisms
+\noindent\textbf{Proposition: Basic Properties of Homomorphisms.}
+
+\newpage
+
+Let $\varphi:G\to H$ be a homomorphism. Then for all $g\in G$ and $n\in\mathbb Z$:
+\begin{enumerate}
+  \item $\varphi(1_G)=1_H$.
+  \item $\varphi(g^{-1})=\varphi(g)^{-1}$.
+  \item $\varphi(g^n)=\varphi(g)^n$.
+  \item $\ker\varphi\le G$.
+  \item $\operatorname{im}\varphi\le H$.
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Homomorphisms carry the group law across: identities to identities, inverses to inverses, powers to powers; kernels and images inherit subgroup closure.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} $\varphi(1_G)=\varphi(1_G\cdot 1_G)=\varphi(1_G)\varphi(1_G)$, hence $\varphi(1_G)=1_H$ by cancellation in $H$.
+
+\textbf{Step 2.} $1_H=\varphi(1_G)=\varphi(gg^{-1})=\varphi(g)\varphi(g^{-1})$, so $\varphi(g^{-1})=\varphi(g)^{-1}$.
+
+\textbf{Step 3.} For $n\ge0$, use induction with multiplicativity; for $n<0$, combine Step 2 with the positive case.
+
+\textbf{Step 4.} If $x,y\in\ker\varphi$, then $\varphi(xy^{-1})=\varphi(x)\varphi(y)^{-1}=1_H$, so $xy^{-1}\in\ker\varphi$; nonempty since $1_G\in\ker\varphi$.
+
+\textbf{Step 5.} If $x=\varphi(a)$ and $y=\varphi(b)$ lie in $\operatorname{im}\varphi$, then $xy^{-1}=\varphi(a)\varphi(b)^{-1}=\varphi(ab^{-1})\in\operatorname{im}\varphi$.
+\end{proof}
+
+\newpage
+
+% D&F §3.1 — Quotient Group via a Homomorphism
+\noindent\textbf{Definition: Quotient Group via a Homomorphism.}
+
+\newpage
+
+If $\varphi:G\to H$ is a homomorphism with kernel $K=\ker\varphi$, the \emph{quotient group} $G/K$ has as elements the fibers (i.e., the left cosets of $K$ in $G$). Multiplication is defined by multiplying images in $H$: the product of the fibers above $a,b\in H$ is the fiber above $ab$.
+
+\newpage
+
+% D&F §3.1 — Fibers Are Cosets of the Kernel
+\noindent\textbf{Proposition: Fibers Are Cosets of the Kernel.}
+
+\newpage
+
+Let $\varphi:G\to H$ be a homomorphism with kernel $K$. If $X=\varphi^{-1}(a)$ is the fiber above $a\in H$ and $u\in X$, then $X=uK=\{uk\mid k\in K\}$; likewise $X=Ku$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Elements mapping to the same $a$ differ by kernel elements; each fiber is a translate of $K$ on either side.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} If $k\in K$, then $\varphi(uk)=\varphi(u)\varphi(k)=a\cdot1_H=a$, so $uk\in X$; hence $uK\subseteq X$.
+
+\textbf{Step 2.} If $g\in X$, then $\varphi(u^{-1}g)=\varphi(u)^{-1}\varphi(g)=a^{-1}a=1_H$, so $u^{-1}g\in K$ and $g=uk\in uK$; thus $X\subseteq uK$.
+
+\textbf{Step 3.} The right-coset statement is analogous.
+\end{proof}
+
+\newpage
+
+% D&F §3.1 — Left and Right Cosets
+\noindent\textbf{Definition: Left and Right Cosets.}
+
+\newpage
+
+For $N\le G$ and $g\in G$, the \emph{left coset} is $gN=\{gn\mid n\in N\}$ and the \emph{right coset} is $Ng=\{ng\mid n\in N\}$. Any element of a coset is called a \emph{representative}.
+
+\newpage
+
+% D&F §3.1 — Cosets Partition the Group; Equality Criterion
+\noindent\textbf{Proposition: Cosets Partition the Group; Equality Criterion.}
+
+\newpage
+
+Let $N\le G$. The left cosets of $N$ form a partition of $G$. Moreover, for $u,v\in G$,
+\[
+uN=vN \iff v^{-1}u\in N.
+\]
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Cosets are translates of a subgroup; they tile $G$ without overlap. Equality means the representatives differ by an element of $N$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} For each $g\in G$, $g=g\cdot1\in gN$, so $\bigcup_{g\in G}gN=G$.
+
+\textbf{Step 2.} If $uN\cap vN\neq\varnothing$, take $x=un=vm$. Then $u=vmn^{-1}\in vN$ and similarly $v\in uN$, hence $uN=vN$.
+
+\textbf{Step 3.} $uN=vN \iff u\in vN \iff u=vn$ for some $n\in N \iff v^{-1}u\in N$.
+\end{proof}
+
+\newpage
+
+% D&F §3.1 — Well-Defined Coset Multiplication and Criterion
+\noindent\textbf{Proposition: Well-Defined Coset Multiplication and Criterion.}
+
+\newpage
+
+Let $N\le G$.
+\begin{enumerate}
+  \item The rule $(uN)\cdot(vN)=(uv)N$ is well-defined on left cosets iff $gng^{-1}\in N$ for all $g\in G$, $n\in N$.
+  \item If it is well-defined, this rule makes the set of left cosets a group with identity $1N$ and inverse $(gN)^{-1}=g^{-1}N$.
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Changing representatives must not change the product; this forces stability under conjugation by every $g$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1 ($\Rightarrow$).} Assume well-defined. Take $u=1$, $u_1=n\in N$, $v=v_1=g^{-1}$. Then $1\cdot g^{-1}N = n\cdot g^{-1}N$, so $g^{-1}N=ng^{-1}N$. Hence $ng^{-1}=g^{-1}n'$ for some $n'\in N$, i.e., $gng^{-1}=n'\in N$.
+
+\textbf{Step 2 ($\Leftarrow$).} Assume $gng^{-1}\in N$ for all $g,n$. If $u_1=un$ and $v_1=vm$ with $n,m\in N$, then
+$u_1v_1=unvm=u(vnv^{-1})vm=(uv)(n'm)$ with $n'\in N$, so $u_1v_1\in(uv)N$ and $(u_1N)(v_1N)=(uv)N$.
+
+\textbf{Step 3.} Associativity, identity $1N$, and inverses $g^{-1}N$ descend from $G$.
+\end{proof}
+
+\newpage
+
+% D&F §3.1 — Normality, Conjugates, Normalizer
+\noindent\textbf{Definition: Normality, Conjugates, Normalizer.}
+
+\newpage
+
+For $g\in G$ and $n\in N$, the element $gng^{-1}$ is the \emph{conjugate} of $n$ by $g$; the set $gNg^{-1}=\{gng^{-1}\mid n\in N\}$ is the conjugate of $N$. An element $g$ \emph{normalizes} $N$ if $gNg^{-1}=N$. A subgroup $N$ is \emph{normal} in $G$ (written $N\trianglelefteq G$) if $gNg^{-1}=N$ for all $g\in G$.
+
+\newpage
+
+% D&F §3.1 — Characterizations of Normal Subgroups
+\noindent\textbf{Theorem: Characterizations of Normal Subgroups.}
+
+\newpage
+
+For $N\le G$, the following are equivalent:
+\begin{enumerate}
+  \item $N\trianglelefteq G$.
+  \item $N_G(N)=G$.
+  \item $gN=Ng$ for all $g\in G$.
+  \item The coset product in the previous proposition is well-defined and turns the set of left cosets into a group.
+  \item $gNg^{-1}\subseteq N$ for all $g\in G$.
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+“Normal” means conjugation-stable; this is exactly what makes arithmetic mod $N$ independent of representatives and equates left/right cosets.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} (1)$\Leftrightarrow$(5) is the definition.
+
+\textbf{Step 2.} (5)$\Rightarrow$(4) by the well-definedness criterion above.
+
+\textbf{Step 3.} (4)$\Rightarrow$(3): in the coset group, $gN$ has inverse $g^{-1}N$, so both left and right cosets represent the same element, hence $gN=Ng$.
+
+\textbf{Step 4.} (3)$\Rightarrow$(2): $gN=Ng$ implies $gNg^{-1}=N$, so $g\in N_G(N)$ for all $g$.
+
+\textbf{Step 5.} (2)$\Rightarrow$(1): If every $g$ normalizes $N$, then $N\trianglelefteq G$.
+\end{proof}
+
+\newpage
+
+% D&F §3.1 — Kernels Are Exactly Normal Subgroups
+\noindent\textbf{Proposition: Kernels Are Exactly Normal Subgroups.}
+
+\newpage
+
+A subgroup $N\le G$ is normal if and only if it is the kernel of some homomorphism.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Kernels are always conjugation-stable; conversely, the natural projection has kernel exactly $N$ when $N\trianglelefteq G$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1 ($\Rightarrow$).} If $N=\ker\varphi$, then by the fiber–coset description, left and right cosets of $N$ coincide; thus $N\trianglelefteq G$.
+
+\textbf{Step 2 ($\Leftarrow$).} If $N\trianglelefteq G$, define $\pi:G\to G/N$ by $\pi(g)=gN$. The coset product is well-defined, so $\pi$ is a homomorphism and $\ker\pi=\{g\mid gN=N\}=N$.
+\end{proof}
+
+\newpage
+
+% D&F §3.1 — Natural Projection and Complete Preimage
+\noindent\textbf{Definition: Natural Projection and Complete Preimage.}
+
+\newpage
+
+If $N\trianglelefteq G$, the \emph{natural projection} $\pi:G\to G/N$ is given by $\pi(g)=gN$. If $A\le G/N$, its \emph{complete preimage} is $\pi^{-1}(A)\le G$.
+
+\newpage
+
+% D&F §3.2 — Lagrange's Theorem
+\noindent\textbf{Theorem: Lagrange’s Theorem.}
+
+\newpage
+
+If $G$ is a finite group and $H\le G$, then $|H|\mid |G|$, and the number of left cosets of $H$ in $G$ is $\dfrac{|G|}{|H|}$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Left cosets $gH$ tile $G$ in equal-sized blocks, each in bijection with $H$ via $h\mapsto gh$. Counting blocks $\times$ block size gives $|G|=k\,|H|$. 
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} For each $g\in G$, the map $H\to gH$, $h\mapsto gh$ is bijective by left-cancellation, so $|gH|=|H|$. 
+
+\textbf{Step 2.} Distinct left cosets are disjoint and their union is $G$; let there be $k$ cosets. Then $|G|=k\,|H|$, so $|H|\mid |G|$ and $k=\dfrac{|G|}{|H|}$.
+\end{proof}
+
+\newpage
+
+% D&F §3.2 — Index of a Subgroup
+\noindent\textbf{Definition: Index of a Subgroup.}
+
+\newpage
+
+For $H\le G$, the \emph{index} of $H$ in $G$, denoted $|G:H|$, is the number of left cosets of $H$ in $G$. If $G$ is finite, then $|G:H|=\dfrac{|G|}{|H|}$.
+
+\newpage
+
+% D&F §3.2 — Order of an Element Divides |G|
+\noindent\textbf{Corollary: Order of an Element Divides $|G|$.}
+
+\newpage
+
+If $G$ is finite and $x\in G$, then $|x|\mid |G|$. In particular, $x^{|G|}=1$ for all $x\in G$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Apply Lagrange to the cyclic subgroup $\langle x\rangle$; its size is $|x|$ and must divide $|G|$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} By Lagrange with $H=\langle x\rangle$, $|\langle x\rangle|=|x|$ divides $|G|$. 
+
+\textbf{Step 2.} Let $|G|=m|x|$. Then $x^{|G|}=(x^{|x|})^{m}=1^{m}=1$.
+\end{proof}
+
+\newpage
+
+% D&F §3.2 — Groups of Prime Order are Cyclic
+\noindent\textbf{Corollary: Groups of Prime Order are Cyclic.}
+
+\newpage
+
+If $|G|=p$ is prime, then $G$ is cyclic and $G\cong \mathbb{Z}_p$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Any nonidentity element generates a nontrivial subgroup whose order must divide $p$, hence equals $p$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} Pick $1\ne x\in G$. Then $|\langle x\rangle|>1$ and $|\langle x\rangle|\mid p$, so $|\langle x\rangle|=p$.
+
+\textbf{Step 2.} Hence $\langle x\rangle=G$; therefore $G$ is cyclic. A finite cyclic group of order $p$ is isomorphic to $\mathbb{Z}_p$.
+\end{proof}
+
+\newpage
+
+% D&F §3.2 — Subgroup of Index 2 is Normal
+\noindent\textbf{Proposition: A Subgroup of Index $2$ is Normal.}
+
+\newpage
+
+If $H\le G$ with $|G:H|=2$, then $H\trianglelefteq G$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+There are exactly two left cosets: $H$ and $gH$. The right cosets must also be $H$ and one other; by pigeonhole, the “other” equals $gH$, so left/right cosets coincide.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} Since $|G:H|=2$, the left cosets are $\{H,gH\}$ for some $g\notin H$.
+
+\textbf{Step 2.} The right cosets are $\{H,Hg\}$. Both $gH$ and $Hg$ have size $|H|$ and are disjoint from $H$, hence $gH=Hg$.
+
+\textbf{Step 3.} For all $g\in G$, $gH=Hg$; by a standard criterion, this is equivalent to $H\trianglelefteq G$.
+\end{proof}
+
+\newpage
+
+% D&F §3.2 — Product Set HK
+\noindent\textbf{Definition: Product Set $HK$.}
+
+\newpage
+
+For subgroups $H,K\le G$, define $HK=\{hk\mid h\in H,\ k\in K\}$.
+
+\newpage
+
+% D&F §3.2 — Size of HK
+\noindent\textbf{Proposition: $|HK|=\dfrac{|H||K|}{|H\cap K|}$.}
+
+\newpage
+
+If $H$ and $K$ are finite subgroups of $G$, then
+\[
+|HK|=\frac{|H||K|}{|H\cap K|}.
+\]
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+$HK$ is a union of distinct left cosets of $K$, one for each coset of $H\cap K$ inside $H$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} $HK=\bigcup_{h\in H}hK$ is a union of left cosets of $K$.
+
+\textbf{Step 2.} $h_1K=h_2K\iff h_2^{-1}h_1\in K\iff h_1(H\cap K)=h_2(H\cap K)$.
+
+\textbf{Step 3.} Thus the number of distinct cosets $hK$ (with $h\in H$) equals $|H:H\cap K|=\dfrac{|H|}{|H\cap K|}$.
+
+\textbf{Step 4.} Each such coset has $|K|$ elements; multiply to obtain $|HK|=\dfrac{|H|}{|H\cap K|}\cdot |K|$.
+\end{proof}
+
+\newpage
+
+% D&F §3.2 — When is HK a Subgroup?
+\noindent\textbf{Proposition: $HK\le G$ iff $HK=KH$.}
+
+\newpage
+
+For subgroups $H,K\le G$, the set $HK$ is a subgroup of $G$ if and only if $HK=KH$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Closure under taking $ab^{-1}$ for $a,b\in HK$ forces the ability to commute $H$ past $K$ at the coset level.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1 ($\Rightarrow$).} Assume $HK\le G$. Since $H,K\le HK$, we have $KH\subseteq HK$. For $hk\in HK$, write $hk=a^{-1}$ with $a=h_1k_1\in HK$. Then $hk=(h_1k_1)^{-1}=k_1^{-1}h_1^{-1}\in KH$, so $HK\subseteq KH$.
+
+\textbf{Step 2 ($\Leftarrow$).} Assume $HK=KH$. For $a=h_1k_1$, $b=h_2k_2$, we have $ab^{-1}=h_1k_1k_2^{-1}h_2^{-1}$. Using $KH=HK$, write $k_1k_2^{-1}h_2^{-1}=h'k'$ with $h'\in H$, $k'\in K$, hence $ab^{-1}=h_1h'k'\in HK$. Thus $HK$ is a subgroup by the subgroup test.
+\end{proof}
+
+\newpage
+
+% D&F §3.2 — A Sufficient Condition for HK to be a Subgroup
+\noindent\textbf{Corollary: If $H\subseteq N_G(K)$ then $HK\le G$. In particular, if $K\trianglelefteq G$ then $HK\le G$ for all $H\le G$.}
+
+\newpage
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+If $H$ normalizes $K$, then $hK=Kh$ for all $h\in H$, giving $HK=KH$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} If $H\subseteq N_G(K)$, then for each $h\in H$ and $k\in K$, $hkh^{-1}\in K$, so $hK=Kh$.
+
+\textbf{Step 2.} Hence $HK=\bigcup_{h\in H}hK=\bigcup_{h\in H}Kh=KH$. Apply the previous proposition to conclude $HK\le G$.
+
+\textbf{Step 3.} If $K\trianglelefteq G$, then every $g\in G$ normalizes $K$, so the hypothesis holds for any $H\le G$.
+\end{proof}
+
+\newpage
+
+% D&F §3.2 — Normalizes / Centralizes (Terminology)
+\noindent\textbf{Definition: Normalizes / Centralizes.}
+
+\newpage
+
+If $A\subseteq N_G(K)$ (resp. $A\subseteq C_G(K)$), we say that $A$ \emph{normalizes} (resp. \emph{centralizes}) $K$.
+
+\newpage
+
+
+% D&F §3.3 — First Isomorphism Theorem (Front)
+\noindent\textbf{Theorem: First Isomorphism Theorem.}
+
+\newpage
+
+% D&F §3.3 — First Isomorphism Theorem (Back)
+Let $\varphi:G\to H$ be a group homomorphism. Then $\ker\varphi\trianglelefteq G$ and
+\[
+G/\ker\varphi\ \cong\ \varphi(G).
+\]
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Collapse the kernel to a point; cosets become elements of the quotient. The map $g\mapsto \varphi(g)$ depends only on the coset $g\,\ker\varphi$, giving an isomorphism onto the image.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} $\ker\varphi\le G$ and is normal since for $g\in G$, $k\in\ker\varphi$,
+$\varphi(gkg^{-1})=\varphi(g)\varphi(k)\varphi(g)^{-1}=1$, so $gkg^{-1}\in\ker\varphi$.
+
+\textbf{Step 2.} Define $\psi:G/\ker\varphi\to \varphi(G)$ by $\psi(g\ker\varphi)=\varphi(g)$.
+
+\textbf{Step 3.} Well-defined: if $g\ker\varphi=h\ker\varphi$, then $h^{-1}g\in\ker\varphi$, so $\varphi(g)=\varphi(h)$.
+
+\textbf{Step 4.} Homomorphism: $\psi(g\ker\varphi\cdot h\ker\varphi)=\psi(gh\ker\varphi)=\varphi(gh)=\varphi(g)\varphi(h)$.
+
+\textbf{Step 5.} Surjective by definition of $\varphi(G)$; injective since $\psi(g\ker\varphi)=1$ iff $\varphi(g)=1$ iff $g\in\ker\varphi$ iff $g\ker\varphi=\ker\varphi$.
+
+\textbf{Conclusion.} $\psi$ is an isomorphism $G/\ker\varphi\cong\varphi(G)$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.3 — Kernel/Index Corollary (Front)
+\noindent\textbf{Corollary: Kernel/Injectivity and Index–Image Size.}
+
+\newpage
+
+% D&F §3.3 — Kernel/Index Corollary (Back)
+Let $\varphi:G\to H$ be a homomorphism.
+\begin{enumerate}
+  \item $\varphi$ is injective $\iff$ $\ker\varphi=\{1\}$.
+  \item $|G:\ker\varphi|=\ |\varphi(G)|$ (cardinalities; in particular for finite $G$, $|G|=|\ker\varphi|\,|\varphi(G)|$).
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+A trivial kernel means distinct cosets and elements are identified only when equal. The First Isomorphism Theorem gives a bijection between $G/\ker\varphi$ and $\varphi(G)$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} (1) Injective $\iff$ $\varphi(g)=1$ only for $g=1$ $\iff$ $\ker\varphi=\{1\}$.
+
+\textbf{Step 2.} (2) By First Isomorphism, $G/\ker\varphi\cong \varphi(G)$ as sets, hence equal cardinalities. For finite $G$, $|G:\ker\varphi|=\frac{|G|}{|\ker\varphi|}$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.3 — Diamond (Second) Isomorphism Theorem (Front)
+\noindent\textbf{Theorem: Second (Diamond) Isomorphism Theorem.}
+
+\newpage
+
+% D&F §3.3 — Diamond (Second) Isomorphism Theorem (Back)
+Let $G$ be a group, $A,B\le G$, and assume $A\le N_G(B)$. Then:
+\begin{enumerate}
+  \item $AB\le G$ and $B\trianglelefteq AB$.
+  \item $A\cap B\trianglelefteq A$.
+  \item $AB/B\ \cong\ A/(A\cap B)$.
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+If $A$ normalizes $B$, the product $AB$ is a subgroup with $B$ normal inside. Mapping $a\mapsto aB$ identifies $A$ modulo $A\cap B$ with $AB$ modulo $B$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} Since $A\le N_G(B)$, for all $a\in A$ we have $aBa^{-1}=B$. By the sufficient condition, $AB\le G$ and $B\trianglelefteq AB$.
+
+\textbf{Step 2.} $A\cap B\trianglelefteq A$ because $A$ normalizes $B$.
+
+\textbf{Step 3.} Define $\phi:A\to AB/B$ by $\phi(a)=aB$. This is a homomorphism with image $AB/B$ (surjective) and kernel $\{a\in A: aB=B\}=A\cap B$.
+
+\textbf{Step 4.} By the First Isomorphism Theorem, $A/(A\cap B)\cong AB/B$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.3 — Third Isomorphism Theorem (Front)
+\noindent\textbf{Theorem: Third Isomorphism Theorem.}
+
+\newpage
+
+% D&F §3.3 — Third Isomorphism Theorem (Back)
+Let $H,K\trianglelefteq G$ with $H\le K$. Then $K/H\trianglelefteq G/H$ and
+\[
+(G/H)/(K/H)\ \cong\ G/K.
+\]
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Passing to the quotient by $H$ sends $K$ to $K/H$. Modding out by $K/H$ in $G/H$ is the same as modding out by $K$ in $G$ (“invert and cancel”).
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} $K/H\le G/H$ and is normal since for $g\in G$, $(gH)(K/H)(gH)^{-1}=gKg^{-1}/H=K/H$.
+
+\textbf{Step 2.} Define $\pi:G/H\to G/K$ by $\pi(gH)=gK$.
+
+\textbf{Step 3.} Well-defined: if $gH=hH$, then $h^{-1}g\in H\le K$, so $gK=hK$.
+
+\textbf{Step 4.} $\pi$ is a surjective homomorphism with kernel $K/H$.
+
+\textbf{Step 5.} Apply the First Isomorphism Theorem: $(G/H)/(K/H)\cong G/K$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.3 — Fourth (Lattice) Isomorphism Theorem (Front)
+\noindent\textbf{Theorem: Fourth (Lattice) Isomorphism Theorem.}
+
+\newpage
+
+% D&F §3.3 — Fourth (Lattice) Isomorphism Theorem (Back)
+Let $N\trianglelefteq G$. The map
+\[
+\Phi:\ \{A\le G\mid N\le A\}\ \longrightarrow\ \{\,\overline{A}\le G/N\,\},\qquad A\mapsto \overline{A}:=A/N
+\]
+is a bijection with inverse $B\mapsto \pi^{-1}(B)$, where $\pi:G\to G/N$ is the natural projection. Moreover, for $A,B$ with $N\le A,B\le G$:
+\begin{enumerate}
+  \item $A\le B\ \iff\ \overline{A}\le \overline{B}$.
+  \item If $A\le B$, then $|B:A|=|\overline{B}:\overline{A}|$ (indices).
+  \item $\overline{\langle A,B\rangle}=\langle \overline{A},\overline{B}\rangle$ (joins correspond).
+  \item $\overline{A\cap B}=\overline{A}\cap \overline{B}$ (meets correspond).
+  \item $\overline{A}\trianglelefteq G/N\ \iff\ A\trianglelefteq G$.
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Collapsing $N$ identifies subgroups containing $N$ with subgroups downstairs; lattice operations and indices are preserved under this correspondence.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} If $N\le A\le G$, then $A/N\le G/N$. Conversely, for $B\le G/N$, $\pi^{-1}(B)$ is a subgroup of $G$ containing $N$.
+
+\textbf{Step 2.} Show $\pi^{-1}(A/N)=A$ and $\overline{\pi^{-1}(B)}=B$; hence $\Phi$ is a bijection with stated inverse.
+
+\textbf{Step 3.} (1) $A\le B\Rightarrow A/N\le B/N$; conversely, $A/N\le B/N\Rightarrow A\le B$ by applying $\pi^{-1}$.
+
+\textbf{Step 4.} (2) Cosets correspond bijectively: $B/A\ \leftrightarrow\ (B/N)/(A/N)$, so indices agree.
+
+\textbf{Step 5.} (3)–(4) Images of joins and meets follow from properties of $\pi$ and preimages.
+
+\textbf{Step 6.} (5) Normality corresponds since conjugation commutes with the projection: $(gN)(A/N)(gN)^{-1}=(gAg^{-1})/N$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.3 — Factoring Through a Normal Subgroup (Front)
+\noindent\textbf{Proposition: Induced Maps on Quotients (Factor Through).}
+
+\newpage
+
+% D&F §3.3 — Factoring Through a Normal Subgroup (Back)
+Let $\psi:G\to H$ be a homomorphism and let $N\trianglelefteq G$. The assignment
+\[
+\overline{\psi}:G/N\to H,\qquad \overline{\psi}(gN)=\psi(g)
+\]
+is a well-defined homomorphism \emph{iff} $N\subseteq \ker\psi$. In that case, $\psi=\overline{\psi}\circ\pi$ (i.e., $\psi$ factors through $N$).
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+A function on $G$ descends to $G/N$ exactly when it is constant on cosets—equivalently, when it kills $N$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1 ($\Rightarrow$).} If $\overline{\psi}$ is well-defined with $\psi=\overline{\psi}\circ\pi$, then for $n\in N$, $\psi(n)=\overline{\psi}(nN)=\overline{\psi}(N)=1$, so $N\le\ker\psi$.
+
+\textbf{Step 2 ($\Leftarrow$).} If $N\subseteq\ker\psi$ and $gN=hN$, then $h^{-1}g\in N\subseteq\ker\psi$, so $\psi(g)=\psi(h)$; hence $\overline{\psi}$ is well-defined and a homomorphism.
+
+\textbf{Step 3.} By definition, $\psi(g)=\overline{\psi}(gN)$, so $\psi=\overline{\psi}\circ\pi$.
+\end{proof}
+
+\newpage
+
+% D&F §3.4 — Cauchy-Type Existence in Finite Abelian Groups (Front)
+\noindent\textbf{Proposition: In a finite abelian group, primes divide orders of elements.}
+
+\newpage
+
+% D&F §3.4 — Cauchy-Type Existence in Finite Abelian Groups (Back)
+If $G$ is a finite abelian group and $p$ is a prime dividing $|G|$, then $G$ contains an element of order $p$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Induct on $|G|$. Either some element already has order divisible by $p$ (take a $p$-power to drop to order $p$) or else pass to the proper quotient by $\langle x\rangle$ and lift a $p$-torsion element back.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1 (Induction basis).} If $|G|=p$, any $1\ne x\in G$ has order $p$.
+
+\textbf{Step 2 (Inductive hypothesis).} Assume the claim holds for all nontrivial abelian groups of order $<|G|$.
+
+\textbf{Step 3 (Case 1: some $x$ has $p\mid |x|$).} Write $|x|=p^a m$ with $(p,m)=1$ and $a\ge1$. Then $x^{m}$ has order $p^a$; in particular, $(x^{m})^{p^{a-1}}$ has order $p$.
+
+\textbf{Step 4 (Case 2: no element has $p\mid |x|$).} Fix $1\ne x\in G$. Since $G$ is abelian, $N=\langle x\rangle\trianglelefteq G$. Lagrange gives $|G/N|=\frac{|G|}{|N|}$, and $p\mid |G/N|$ because $p\nmid |N|$ by assumption.
+
+\textbf{Step 5 (Apply induction to the quotient).} By the inductive hypothesis, $G/N$ has some $\overline{y}$ of order $p$. Pick $y\in G$ with $yN=\overline{y}$. Then $(yN)^p=N$, so $y^p\in N$ but $y\notin N$; hence the order of $yN$ is $p$.
+
+\textbf{Step 6 (Conclude).} The coset $yN$ has order $p$ in $G/N$, so $y^{p}\in N$ while $y^{k}\notin N$ for $1\le k<p$. Consider $y^{m}$ where $m$ is minimal with $y^{m}\in N$. Using abelianity and minimality, deduce $p\mid m$ and that $y^{m/p}$ has order $p$ in $G$. (Equivalently, step 5 already yields an element of order $p$ by standard cyclic-subgroup arguments.)
+\end{proof}
+
+\newpage
+
+
+% D&F §3.4 — Simple Groups (Front)
+\noindent\textbf{Definition: Simple group.}
+
+\newpage
+
+% D&F §3.4 — Simple Groups (Back)
+A group $G$ is \emph{simple} if $|G|>1$ and its only normal subgroups are $\{1\}$ and $G$.
+
+\newpage
+
+
+% D&F §3.4 — Composition Series and Factors (Front)
+\noindent\textbf{Definition: Composition series and composition factors.}
+
+\newpage
+
+% D&F §3.4 — Composition Series and Factors (Back)
+A chain of subgroups
+\[
+1=N_0\ \trianglelefteq\ N_1\ \trianglelefteq\ \cdots\ \trianglelefteq\ N_{k-1}\ \trianglelefteq\ N_k=G
+\]
+is a \emph{composition series} if each quotient $N_{i+1}/N_i$ is simple. The groups $N_{i+1}/N_i$ are the \emph{composition factors} of $G$.
+
+\newpage
+
+
+% D&F §3.4 — Jordan–Hölder Theorem (Front)
+\noindent\textbf{Theorem: Jordan–Hölder.}
+
+\newpage
+
+% D&F §3.4 — Jordan–Hölder Theorem (Back)
+Let $G$ be a finite nontrivial group.
+\begin{enumerate}
+  \item (\emph{Existence}) $G$ has a composition series.
+  \item (\emph{Uniqueness up to order/isomorphism}) If 
+  \[
+  1=N_0\trianglelefteq\cdots\trianglelefteq N_r=G,\qquad
+  1=M_0\trianglelefteq\cdots\trianglelefteq M_s=G
+  \]
+  are composition series, then $r=s$ and there is a permutation $\sigma$ of $\{1,\dots,r\}$ such that
+  \[
+  N_i/N_{i-1}\ \cong\ M_{\sigma(i)}/M_{\sigma(i)-1}\quad\text{for all }i.
+  \]
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Existence: repeatedly peel off a minimal nontrivial normal subgroup to build a chain. Uniqueness: any two such chains refine to a common refinement whose factors pairwise match via the Second/Third Isomorphism Theorems (Schreier refinement + Zassenhaus lemma).
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1 (Existence by induction).} If $G$ is simple, the series $1\trianglelefteq G$ works. Otherwise choose a nontrivial proper normal subgroup $N\trianglelefteq G$. By induction, $N$ and $G/N$ have composition series. Splice them (lifting the series of $G/N$ via preimages) to obtain a composition series of $G$.
+
+\textbf{Step 2 (Refinement lemma).} Any subnormal series of $G$ can be refined (by inserting intermediate normal subgroups) to a composition series. (Refine each non-simple factor iteratively.)
+
+\textbf{Step 3 (Schreier refinement).} Any two subnormal series of $G$ admit equivalent refinements: there are refinements whose multiset of factors are pairwise isomorphic up to order. (Construct the “matrix” of intersections $N_iM_j$ and apply the Second Isomorphism Theorem to get factor isomorphisms.)
+
+\textbf{Step 4 (Apply to composition series).} If both series are already composition series, their refinements must be themselves (no further proper normal subgroups exist in factors). Hence their factor multisets coincide, which yields $r=s$ and the stated bijection of factors.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.4 — The Hölder Program (Front)
+\noindent\textbf{Definition: The Hölder Program (classification viewpoint).}
+
+\newpage
+
+% D&F §3.4 — The Hölder Program (Back)
+(1) Classify all finite simple groups.\\
+(2) Describe how to assemble (extend) simple groups to obtain all finite groups (the extension problem).
+
+\newpage
+
+
+% D&F §3.4 — Solvable Groups (Front)
+\noindent\textbf{Definition: Solvable group.}
+
+\newpage
+
+% D&F §3.4 — Solvable Groups (Back)
+A group $G$ is \emph{solvable} if there exists a chain 
+\[
+1=G_0\ \trianglelefteq\ G_1\ \trianglelefteq\ \cdots\ \trianglelefteq\ G_s=G
+\]
+such that each quotient $G_{i+1}/G_i$ is abelian.
+
+\newpage
+
+
+% D&F §3.4 — Solvability Lifts Across Extensions (Front)
+\noindent\textbf{Proposition: If $N$ and $G/N$ are solvable, then $G$ is solvable.}
+
+\newpage
+
+% D&F §3.4 — Solvability Lifts Across Extensions (Back)
+Let $N\trianglelefteq G$. If $N$ and $G/N$ are solvable, then $G$ is solvable.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Lift a solvable chain from $G/N$ to $G$ via preimages, and splice it above a solvable chain inside $N$. Abelian factors remain abelian by the Third/Lattice Isomorphism Theorems.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1 (Chains).} Take $1=N_0\trianglelefteq\cdots\trianglelefteq N_r=N$ with abelian $N_{i+1}/N_i$. Take $1=\overline{G}_0\trianglelefteq\cdots\trianglelefteq\overline{G}_t=G/N$ with abelian $\overline{G}_{j+1}/\overline{G}_j$.
+
+\textbf{Step 2 (Lift the quotient chain).} Put $G_j=\pi^{-1}(\overline{G}_j)$, where $\pi:G\to G/N$. Then $N=G_0\trianglelefteq G_1\trianglelefteq\cdots\trianglelefteq G_t=G$, and by the Third Isomorphism Theorem each factor $G_{j+1}/G_j\cong \overline{G}_{j+1}/\overline{G}_j$ is abelian.
+
+\textbf{Step 3 (Splice chains).} Concatenate
+\[
+1=N_0\trianglelefteq\cdots\trianglelefteq N_r=N=G_0\trianglelefteq G_1\trianglelefteq\cdots\trianglelefteq G_t=G.
+\]
+All successive quotients are abelian, so this is a solvable series for $G$.
+\end{proof}
+
+\newpage
+
+% D&F §3.5 — Transposition (Front)
+\noindent\textbf{Definition: Transposition.}
+
+\newpage
+
+% D&F §3.5 — Transposition (Back)
+A \emph{transposition} in $S_n$ is a $2$-cycle $(i\ j)$ that swaps $i$ and $j$ and fixes all other elements.
+
+\newpage
+
+
+% D&F §3.5 — Decomposing Permutations into Transpositions (Front)
+\noindent\textbf{Proposition: Decomposing permutations into transpositions.}
+
+\newpage
+
+% D&F §3.5 — Decomposing Permutations into Transpositions (Back)
+\begin{enumerate}
+  \item Every $\sigma\in S_n$ is a product of transpositions.
+  \item An $r$-cycle $(a_1\ a_2\ \dots\ a_r)$ equals $(a_1\ a_r)\,(a_1\ a_{r-1})\cdots(a_1\ a_2)$, a product of $(r-1)$ transpositions.
+\end{enumerate}
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Write a permutation as a product of disjoint cycles; each $r$-cycle can be “built” by successively moving $a_1$ into place using transpositions.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} Any $\sigma$ is a product of disjoint cycles. If each cycle can be written as a product of transpositions, so can $\sigma$.
+
+\textbf{Step 2.} Check $(a_1\ a_2\ \dots\ a_r)=(a_1\ a_r)\,(a_1\ a_{r-1})\cdots(a_1\ a_2)$ by evaluating both sides on $a_1,\dots,a_r$ (and noting they fix all other points).
+
+\textbf{Step 3.} Thus every cycle, and hence every permutation, is a product of transpositions.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.5 — Parity / Sign of a Permutation (Front)
+\noindent\textbf{Definition: Parity and sign of a permutation.}
+
+\newpage
+
+% D&F §3.5 — Parity / Sign of a Permutation (Back)
+If $\sigma\in S_n$ is written as a product of transpositions in $k$ factors, the \emph{parity} of $\sigma$ is the parity of $k$ (even or odd). The \emph{sign} of $\sigma$ is
+\[
+\operatorname{sgn}(\sigma)=(-1)^k.
+\]
+
+\newpage
+
+
+% D&F §3.5 — Parity is Well-Defined (Front)
+\noindent\textbf{Theorem: Parity is well-defined.}
+
+\newpage
+
+% D&F §3.5 — Parity is Well-Defined (Back)
+If $\sigma\in S_n$ is expressed as a product of transpositions in $k$ ways with lengths $k_1$ and $k_2$, then $k_1\equiv k_2\pmod{2}$. Equivalently, $\operatorname{sgn}:S_n\to\{\pm1\}$ is well-defined.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Each $r$-cycle uses exactly $(r-1)$ transpositions; disjoint cycles multiply lengths additively. Since changing a decomposition by inserting or removing a neutral pair $(i\,j)(i\,j)$ alters the count by $2$, only the parity is invariant.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} From the cycle decomposition, $\sigma=\gamma_1\cdots\gamma_t$ (disjoint), with $\gamma_i$ of length $r_i$. By the previous proposition, $\gamma_i$ is a product of $(r_i-1)$ transpositions.
+
+\textbf{Step 2.} Thus any such canonical construction yields a decomposition of $\sigma$ into $\sum_i(r_i-1)$ transpositions, whose parity is fixed.
+
+\textbf{Step 3.} Any other decomposition differs by inserting/removing pairs $(\tau)(\tau)$ and by commutations of disjoint transpositions; these change the length by multiples of $2$.
+
+\textbf{Step 4.} Hence the parity is independent of the chosen decomposition, and $\operatorname{sgn}(\sigma)$ is well-defined.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.5 — Sign as a Homomorphism (Front)
+\noindent\textbf{Proposition: $\operatorname{sgn}:S_n\to\{\pm1\}$ is a homomorphism; $\ker(\operatorname{sgn})=A_n$.}
+
+\newpage
+
+% D&F §3.5 — Sign as a Homomorphism (Back)
+For $\sigma,\tau\in S_n$, $\operatorname{sgn}(\sigma\tau)=\operatorname{sgn}(\sigma)\operatorname{sgn}(\tau)$. The kernel consists of the even permutations, i.e., the alternating group $A_n$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Composition concatenates transposition factorizations; lengths add, so signs multiply. Even permutations are precisely those with sign $+1$.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} Write $\sigma$ and $\tau$ as products of $k_\sigma$ and $k_\tau$ transpositions; then $\sigma\tau$ is a product of $k_\sigma+k_\tau$ transpositions, so $\operatorname{sgn}(\sigma\tau)=(-1)^{k_\sigma+k_\tau}=(-1)^{k_\sigma}(-1)^{k_\tau}$.
+
+\textbf{Step 2.} The kernel is $\{\pi\in S_n\mid \operatorname{sgn}(\pi)=1\}$, the set of even permutations, by definition. This is $A_n$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.5 — Alternating Group (Front)
+\noindent\textbf{Definition: Alternating group $A_n$.}
+
+\newpage
+
+% D&F §3.5 — Alternating Group (Back)
+The \emph{alternating group} $A_n$ is the subgroup of $S_n$ consisting of all even permutations:
+\[
+A_n=\{\sigma\in S_n\mid \operatorname{sgn}(\sigma)=+1\}.
+\]
+
+\newpage
+
+
+% D&F §3.5 — Basic Properties of $A_n$ (Front)
+\noindent\textbf{Proposition: $A_n\trianglelefteq S_n$ and $|A_n|=\dfrac{n!}{2}$ for $n\ge2$.}
+
+\newpage
+
+% D&F §3.5 — Basic Properties of $A_n$ (Back)
+$A_n$ is a normal subgroup of $S_n$ with index $2$, hence $|A_n|=n!/2$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+$\operatorname{sgn}$ is a surjective homomorphism onto $\{\pm1\}$; its kernel has index $2$. Kernels are normal, and index-$2$ subgroups are always normal.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} By the homomorphism property, $\operatorname{sgn}:S_n\to\{\pm1\}$ is surjective. Then $\ker(\operatorname{sgn})=A_n$.
+
+\textbf{Step 2.} Kernels are normal, so $A_n\trianglelefteq S_n$.
+
+\textbf{Step 3.} The image has size $2$, thus $|S_n:A_n|=2$, and for $n\ge2$, $|A_n|=|S_n|/2=n!/2$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.5 — 3-Cycle Generation (Front)
+\noindent\textbf{Proposition: $A_n$ is generated by 3-cycles (for $n\ge3$).}
+
+\newpage
+
+% D&F §3.5 — 3-Cycle Generation (Back)
+Every even permutation in $S_n$ is a product of $3$-cycles. Hence $A_n=\langle\text{$3$-cycles}\rangle$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+A product of two transpositions is even; when the transpositions share a point, it is itself a $3$-cycle; when disjoint, it is a product of two $3$-cycles.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} Any even permutation is a product of an even number of transpositions, so it suffices to write a product of two transpositions as a product of $3$-cycles.
+
+\textbf{Step 2.} If $(a\ b)(a\ c)=(a\ c\ b)$, which is a $3$-cycle.
+
+\textbf{Step 3.} If $(a\ b)$ and $(c\ d)$ are disjoint, then
+\[
+(a\ b)(c\ d)=(a\ c\ b)(a\ d\ b),
+\]
+a product of two $3$-cycles (verify by action on $a,b,c,d$).
+
+\textbf{Step 4.} Therefore any even permutation is a product of $3$-cycles, and these generate $A_n$.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.5 — Sign of an r-Cycle (Front)
+\noindent\textbf{Proposition: Sign of an $r$-cycle.}
+
+\newpage
+
+% D&F §3.5 — Sign of an r-Cycle (Back)
+If $\gamma$ is a cycle of length $r$, then $\operatorname{sgn}(\gamma)=(-1)^{r-1}$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Use the standard decomposition of an $r$-cycle into $(r-1)$ transpositions.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} From the earlier decomposition, $\gamma=(a_1\ a_r)\cdots(a_1\ a_2)$ uses $(r-1)$ transpositions.
+
+\textbf{Step 2.} Hence $\operatorname{sgn}(\gamma)=(-1)^{r-1}$ by definition of sign.
+\end{proof}
+
+\newpage
+
+
+% D&F §3.5 — Counting Even/Odd Permutations (Front)
+\noindent\textbf{Corollary: Exactly half of $S_n$ is even, half is odd (for $n\ge2$).}
+
+\newpage
+
+% D&F §3.5 — Counting Even/Odd Permutations (Back)
+For $n\ge2$, $|A_n|=|S_n\setminus A_n|=n!/2$.
+
+\dotfill
+
+\noindent\textbf{Intuition.}
+Index-$2$ kernel of the sign map splits $S_n$ into two equal-sized cosets: $A_n$ and any odd coset.
+
+\dotfill
+
+\begin{proof}
+\textbf{Step 1.} Since $\operatorname{sgn}$ is surjective, $S_n/A_n\cong\{\pm1\}$.
+
+\textbf{Step 2.} Thus $|S_n:A_n|=2$ and $|A_n|=n!/2$. The complement is the other coset, also of size $n!/2$.
+\end{proof}
+
+
+\newpage
+
+\dotfill
+\section*{Ch 3: Priority Problems}
+\dotfill
+
+\newpage
+
+\noindent \textbf{Overview.} These are designed to test your memory on a few selected problems on the basics of quotient groups and homomorphisms as presented in Ch3 of Dummit and Foote.\\
+
+\noindent \textbf{List.}
+
+\begin{enumerate}
+    \item 1.1: 1, 2, 7, 18, 34
+    \item 1.2: 4
+    \item 1.3: 2, 3
+    \item External Problems: 1, 2, 3, 4
+    \item 1.6: 1, 2, 3, 4, 7, 18, 20
+    \item 1.7: 15
+\end{enumerate}
+
+\newpage
+
+
+
+
+\end{document}
