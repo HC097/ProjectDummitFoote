@@ -1,0 +1,621 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, geometry, graphicx}
+\usepackage{titlesec}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{calculative}[theorem]{Calculative}
+\newtheorem{exercise}[theorem]{Exercise}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Inn}{\mathrm{Inn}}
+\newcommand{\Syl}{\mathrm{Syl}}
+\newcommand{\Z}{\mathrm{Z}}
+\newcommand{\Cl}{\mathrm{Cl}}
+
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0pt}{}[.]
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{Ch4 Flashcards} \\
+\large Harley Caham Combest \\
+\large Fa2025 2025-10-24 MATH5353
+\end{center}
+
+\newpage
+
+\dotfill
+\section*{Chapter 4 | Group Actions}
+\dotfill
+
+\newpage
+
+This chapter develops group actions as a unifying lens: actions induce homomorphisms into symmetric groups, partition sets into orbits with stabilizers governing sizes, and lead to cornerstone results including Cayley’s Theorem, the class equation, automorphism machinery, Sylow’s Theorem, and the simplicity of $A_n$ for $n\ge 5$.
+
+\begin{itemize}
+\item \textbf{Permutation viewpoint.} Every action $G\curvearrowright A$ corresponds to a homomorphism $G\to S_A$; faithfulness is injectivity of this map. Orbits and stabilizers control how $G$ permutes $A$.
+\item \textbf{Conjugation and counting.} The conjugation action encodes centralizers and yields the class equation; it is pivotal for $p$-groups and for understanding $S_n$/$A_n$.
+\item \textbf{Structure via actions.} Left-multiplication gives Cayley’s embedding. Actions on cosets capture normality and kernels; actions on Sylow $p$-subgroups prove existence and control their number.
+\end{itemize}
+
+\newpage
+
+\textbf{4.1 Group Actions and Permutation Representations}
+
+\newpage
+
+\medskip
+\textbf{Setup.} A (left) action is a map $G\times A\to A$, $(g,a)\mapsto g\cdot a$, with $1\cdot a=a$ and $g\cdot(h\cdot a)=(gh)\cdot a$. The associated homomorphism $\varphi:G\to S_A$ is given by $\varphi(g)(a)=g\cdot a$. The action is \emph{faithful} iff $\ker\varphi=\{1\}$.
+
+\medskip
+\textbf{Orbit--stabilizer.} The orbit of $a$ is $Ga=\{g\cdot a\}$; the stabilizer is $G_a=\{g:g\cdot a=a\}$. Then $|Ga|=[G:G_a]$; distinct orbits partition $A$.
+
+\medskip
+\textbf{Examples.}
+\begin{itemize}\itemsep3pt
+\item $S_n$ acts on $\{1,\dots,n\}$ (and on derived sets such as $k$-subsets, ordered $k$-tuples).
+\item Dihedral groups act on vertices, edges, and faces of regular polygons.
+\end{itemize}
+
+\medskip
+\textbf{Cycle decomposition via actions.} For $\sigma\in S_n$, the orbits of $\langle\sigma\rangle$ on $\{1,\dots,n\}$ are exactly the cycles of $\sigma$; this yields uniqueness of cycle decomposition.
+
+\newpage
+
+\textbf{4.2 Left Multiplication; Cayley’s Theorem}
+
+\newpage
+
+\medskip
+\textbf{Left regular action.} $G$ acts on itself by $g\cdot x=gx$. More generally, $G$ acts on left cosets $G/H$ by $g\cdot (xH)=(gx)H$. The action on $G/H$ is transitive with stabilizer of $H$ equal to $H$ and kernel $\bigcap_{x\in G}xHx^{-1}$.
+
+\medskip
+\textbf{Cayley’s Theorem.} The map $g\mapsto (x\mapsto gx)$ embeds $G$ into the symmetric group on $G$. Hence every group is isomorphic to a subgroup of a symmetric group.
+
+\medskip
+\textbf{Index-$p$ normality (finite case).} If $H\le G$ has index $p$, the least prime dividing $|G|$, then $H\lhd G$.
+
+\newpage
+
+\textbf{4.3 Conjugation and the Class Equation}
+
+\newpage
+
+\medskip
+\textbf{Conjugation action.} $G$ acts on itself by $g\cdot a=gag^{-1}$. Orbits are \emph{conjugacy classes}. The stabilizer of $a$ is the centralizer $C_G(a)=\{g:ga=ag\}$, so the size of the class of $a$ is $[G:C_G(a)]$.
+
+\medskip
+\textbf{Class equation.} Writing representatives $g_1,\dots,g_r$ for noncentral conjugacy classes,
+\[
+|G|=|Z(G)|+\sum_{i=1}^r [G:C_G(g_i)].
+\]
+\textbf{Consequences.}
+\begin{itemize}\itemsep3pt
+\item If $|G|=p^n$, then $Z(G)\neq 1$; in particular, groups of order $p^2$ are abelian.
+\item For $S_n$, two elements are conjugate iff they have the same cycle type; the number of conjugacy classes equals the number of partitions of $n$.
+\end{itemize}
+
+\medskip
+\textbf{Simplicity of $A_5$ (via class sizes).} Class-size divisibility constraints rule out nontrivial normal subgroups.
+
+\newpage
+
+\textbf{4.4 Automorphisms}
+
+\newpage
+
+\medskip
+\textbf{Inner automorphisms.} Conjugation by $g\in G$ defines an automorphism $\iota_g(x)=gxg^{-1}$. The inner automorphism group is $\Inn(G)\cong G/Z(G)$.
+
+\medskip
+\textbf{Conjugation on subgroups.} If $H\lhd G$, the map $G\to\Aut(H)$ given by $g\mapsto (h\mapsto ghg^{-1})$ is a homomorphism with kernel $C_G(H)$.
+
+\medskip
+\textbf{Characteristic subgroups.} A subgroup fixed by all automorphisms of $G$ is \emph{characteristic}; characteristic in a normal subgroup implies normal in $G$.
+
+\medskip
+\textbf{Computations.} $\Aut(\mathbb{Z}_n)\cong (\mathbb{Z}/n\mathbb{Z})^\times$; for $V\cong \mathbb{F}_p^n$, $\Aut(V)\cong GL_n(\mathbb{F}_p)$.
+
+\newpage
+
+\textbf{4.5 Sylow’s Theorem}
+
+\newpage
+
+\medskip
+\textbf{Statement.} For $|G|=p^a m$ with $p\nmid m$:
+\begin{enumerate}\itemsep3pt
+\item There exists a subgroup of order $p^a$ (a Sylow $p$-subgroup).
+\item Any $p$-subgroup is contained in a conjugate of a Sylow $p$-subgroup; all Sylow $p$-subgroups are conjugate.
+\item $n_p=|G:N_G(P)|$ divides $m$ and $n_p\equiv 1\pmod p$.
+\end{enumerate}
+
+\medskip
+\textbf{Method.} Consider the action by conjugation on the set of $p$-subgroups (or on the set of Sylow $p$-subgroups) and apply orbit--stabilizer and counting congruences.
+
+\medskip
+\textbf{Quick applications.}
+\begin{itemize}\itemsep3pt
+\item Uniqueness of a Sylow $p$-subgroup $\Longleftrightarrow$ normality.
+\item Constraints on group structure for orders $pq$, $12$, $p^2q$, $30$, $60$, etc.
+\end{itemize}
+
+\newpage
+
+\textbf{4.6 The Simplicity of $A_n$}
+
+\medskip
+For $n\ge 5$, $A_n$ is simple. Sketch: a nontrivial normal subgroup must be a union of conjugacy classes; analysis of possible cycle types and their conjugates in $A_n$, together with transitivity considerations and generation by $3$-cycles, forces the subgroup to be all of $A_n$.
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.1: Exercise 4.} Let $S_3$ act on the set $\Omega$ of ordered pairs $\{(i,j)\mid 1\le i,j\le 3\}$ by $\sigma\!\cdot\!(i,j)=(\sigma(i),\sigma(j))$. Find the orbits of $S_3$ on $\Omega$. For each $\sigma\in S_3$ find the cycle decomposition of $\sigma$ under this action (i.e., its cycle decomposition when considered as an element of $S_9$—first fix a labelling of these nine ordered pairs). For each orbit $\mathcal O$ of $S_3$ acting on these nine points pick some $a\in\mathcal O$ and find the stabilizer of $a$ in $S_3$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: Under the action $\sigma\!\cdot\!(i,j)=(\sigma(i),\sigma(j))$ on $\Omega=\{(i,j):1\le i,j\le 3\}$, there are exactly two orbits: the diagonal $\Delta=\{(1,1),(2,2),(3,3)\}$ and the off-diagonal $\Omega\setminus\Delta$. With the lexicographic labelling $1:(1,1),\,2:(1,2),\,3:(1,3),\,4:(2,1),\,5:(2,2),\,6:(2,3),\,7:(3,1),\,8:(3,2),\,9:(3,3)$, the elements of $S_3=\{e,(12),(13),(23),(123),(132)\}$ have the indicated cycle decompositions in $S_9$ below. A sample stabilizer is $S_3{}_{(1,1)}=\{e,(23)\}$ on $\Delta$ and $S_3{}_{(1,2)}=\{e\}$ on $\Omega\setminus\Delta$.\\
+
+\noindent \textbf{As Conditional Proposition}: Let $S_3$ act on $\Omega$ as above. Then (i) the orbits are $\Delta$ and $\Omega\setminus\Delta$; (ii) with the fixed labelling $1,\dots,9$ (as above) the cycle decompositions in $S_9$ are
+\[
+\begin{aligned}
+e&=(1)(2)(3)(4)(5)(6)(7)(8)(9),\\
+(12)&=(1\,5)(2\,4)(3\,6)(7\,8)(9),\\
+(13)&=(1\,9)(2\,8)(3\,7)(4\,6)(5),\\
+(23)&=(1)(2\,3)(4\,7)(5\,9)(6\,8),\\
+(123)&=(1\,5\,9)(2\,6\,7)(3\,4\,8),\\
+(132)&=(1\,9\,5)(2\,7\,6)(3\,8\,4);
+\end{aligned}
+\]
+(iii) for $a=(1,1)\in\Delta$, $\mathrm{Stab}_{S_3}(a)=\{e,(23)\}$, and for $a=(1,2)\in\Omega\setminus\Delta$, $\mathrm{Stab}_{S_3}(a)=\{e\}$.\\
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} The action permutes both coordinates simultaneously. Equal coordinates stay equal, so the diagonal triples among themselves; unequal coordinates remain unequal, so the six off-diagonal pairs move among themselves. Orbit–stabilizer then predicts sizes $|\Delta|=3$ with a stabilizer of size $2$, and $|\Omega\setminus\Delta|=6$ with trivial stabilizers for generic points. The cycle forms in $S_9$ follow by applying each $\sigma$ to the fixed $1\!:\!(1,1),\dots,9\!:\!(3,3)$ labelling.\\
+
+\dotfill
+
+\emph{Solution.}\\
+\textbf{Step 1 (Set and action).} Let $\Omega=\{(i,j)\mid 1\le i,j\le 3\}$, $|\Omega|=9$, with $S_3$ acting by $\sigma\!\cdot\!(i,j)=(\sigma(i),\sigma(j))$.\\
+\textbf{Step 2 (Orbit split: diagonal vs.\ off-diagonal).} If $i=j$, then $\sigma(i)=\sigma(j)$ for all $\sigma$, hence the diagonal $\Delta=\{(1,1),(2,2),(3,3)\}$ is invariant. If $i\ne j$, then $\sigma(i)\ne \sigma(j)$, so $\Omega\setminus\Delta$ is invariant.\\
+\textbf{Step 3 (Transitivity on each part).} Given $(i,i),(k,k)\in\Delta$, pick $\sigma$ with $\sigma(i)=k$; then $\sigma\!\cdot\!(i,i)=(k,k)$. Given distinct $(i,j)$ and $(k,\ell)$ with $i\ne j$ and $k\ne \ell$, pick $\sigma$ with $\sigma(i)=k,\ \sigma(j)=\ell$; then $\sigma\!\cdot\!(i,j)=(k,\ell)$. Hence the orbits are exactly $\Delta$ and $\Omega\setminus\Delta$.\\
+\textbf{Step 4 (Fix a labelling for $S_9$).} Use the lexicographic order: $1:(1,1)$, $2:(1,2)$, $3:(1,3)$, $4:(2,1)$, $5:(2,2)$, $6:(2,3)$, $7:(3,1)$, $8:(3,2)$, $9:(3,3)$.\\
+\textbf{Step 5 (Compute cycle decompositions).} Apply each $\sigma\in S_3$ to the nine labels via their pairs, chaining images until return:
+\[
+\begin{aligned}
+e&=(1)(2)(3)(4)(5)(6)(7)(8)(9),\\
+(12)&:(1\!\to\!5\!\to\!1)(2\!\to\!4\!\to\!2)(3\!\to\!6\!\to\!3)(7\!\to\!8\!\to\!7)(9),\\
+(13)&:(1\!\leftrightarrow\!9)(2\!\leftrightarrow\!8)(3\!\leftrightarrow\!7)(4\!\leftrightarrow\!6)(5),\\
+(23)&:(1)(2\!\leftrightarrow\!3)(4\!\leftrightarrow\!7)(5\!\leftrightarrow\!9)(6\!\leftrightarrow\!8),\\
+(123)&:(1\!\to\!5\!\to\!9\!\to\!1)(2\!\to\!6\!\to\!7\!\to\!2)(3\!\to\!4\!\to\!8\!\to\!3),\\
+(132)&:(1\!\to\!9\!\to\!5\!\to\!1)(2\!\to\!7\!\to\!6\!\to\!2)(3\!\to\!8\!\to\!4\!\to\!3).
+\end{aligned}
+\]
+These are the stated $S_9$ cycles.\\
+\textbf{Step 6 (Stabilizers via orbit–stabilizer).} For $a=(1,1)\in\Delta$, $\sigma\!\cdot\!a=a$ iff $\sigma(1)=1$, so $\mathrm{Stab}_{S_3}(a)=\{e,(23)\}$, of order $2$, and $|\Delta|=\frac{6}{2}=3$. For $a=(1,2)\in\Omega\setminus\Delta$, $\sigma\!\cdot\!a=a$ forces $\sigma(1)=1$ and $\sigma(2)=2$, hence $\mathrm{Stab}_{S_3}(a)=\{e\}$, of order $1$, and $|\Omega\setminus\Delta|=\frac{6}{1}=6$.\\
+\textbf{Step 7 (Conclusion).} The two orbits are $\Delta$ and $\Omega\setminus\Delta$; the six cycle decompositions in $S_9$ are as listed; sample stabilizers are $\{e,(23)\}$ for $(1,1)$ and $\{e\}$ for $(1,2)$.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.1: Exercise 5a.} For each of parts (a) and (b) repeat the preceding exercise but with $S_3$ acting on the specified set:\\
+
+\begin{quote}
+(a) the set of $27$ triples $\Omega=\{(i,j,k)\mid 1\le i,j,k\le 3\}$;
+\end{quote}
+
+\begin{quote}
+(b) the set $\mathcal P(\{1,2,3\})\setminus\{\emptyset\}$ of all $7$ nonempty subsets of $\{1,2,3\}$.
+\end{quote} %verbatim
+
+\begin{quote} 
+
+(Previous Exercise) Let $S_3$ act on the set $\Omega$ of ordered pairs $\{(i,j)\mid 1\le i,j\le 3\}$ by $\sigma\!\cdot\!(i,j)=(\sigma(i),\sigma(j))$. Find the orbits of $S_3$ on $\Omega$. For each $\sigma\in S_3$ find the cycle decomposition of $\sigma$ under this action (i.e., its cycle decomposition when considered as an element of $S_9$—first fix a labelling of these nine ordered pairs). For each orbit $\mathcal O$ of $S_3$ acting on these nine points pick some $a\in\mathcal O$ and find the stabilizer of $a$ in $S_3$.\\ %verbatim
+
+\end{quote}
+
+\noindent\textbf{As General Proposition}: Under the natural component-wise action of $S_3$ on (a) triples and (b) nonempty subsets, list the orbits; for each $\sigma\in S_3$ give its cycle decomposition on the underlying set; and, for a representative $a$ from each orbit, determine $\mathrm{Stab}_{S_3}(a)$.\\
+
+\noindent\textbf{As Conditional Proposition}: Let $S_3=\langle (12),(123)\rangle$. In (a) let $\sigma\cdot(i,j,k)=(\sigma(i),\sigma(j),\sigma(k))$. In (b) let $\sigma\cdot X=\{\sigma(x):x\in X\}$. Then the orbits, cycle decompositions (viewed in $S_{27}$ and $S_7$ respectively), and stabilizers are as stated below.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} The action permutes labels $1,2,3$ simultaneously in each coordinate (triples) or element of a subset (set action). Hence orbit types are determined by equality patterns among coordinates (all equal; exactly two equal—three patterns; all distinct) for triples, and by subset sizes (singletons, doubletons, whole set) for subsets. Orbit–stabilizer predicts stabilizer orders from orbit sizes and vice versa.\\
+
+\dotfill
+
+\emph{Solution (a): action on triples).}\\
+\textbf{Step 1 (Set, action, and labelling).} Let $\Omega=\{(i,j,k)\mid 1\le i,j,k\le 3\}$ and define $\sigma\cdot(i,j,k)=(\sigma(i),\sigma(j),\sigma(k))$. To view elements as a permutation in $S_{27}$, fix the lexicographic labelling $L:\Omega\to\{1,\dots,27\}$ with
+\[
+L(i,j,k)=9(i-1)+3(j-1)+k.
+\] \\ 
+\textbf{Step 2 (Orbit classification by equality pattern).} There are five orbits:
+\begin{align*}
+\mathcal O_1&=\{(1,1,1),(2,2,2),(3,3,3)\}\quad (|\mathcal O_1|=3),\\
+\mathcal O_2&=\{(1,1,2),(1,1,3),(2,2,1),(2,2,3),(3,3,1),(3,3,2)\}\quad (|\mathcal O_2|=6),\\
+\mathcal O_3&=\{(1,2,1),(1,3,1),(2,1,2),(2,3,2),(3,1,3),(3,2,3)\}\quad (|\mathcal O_3|=6),\\
+\mathcal O_4&=\{(1,2,2),(1,3,3),(2,1,1),(2,3,3),(3,1,1),(3,2,2)\}\quad (|\mathcal O_4|=6),\\
+\mathcal O_5&=\{(1,2,3),(1,3,2),(2,1,3),(2,3,1),(3,1,2),(3,2,1)\}\quad (|\mathcal O_5|=6).
+\end{align*}
+(These are, respectively: all equal; $i=j\ne k$; $i=k\ne j$; $j=k\ne i$; and all distinct.)\\
+\textbf{Step 3 (Cycle decompositions for generators on each orbit).} Concatenate cycles across the five orbits to obtain the element of $S_{27}$. In triple notation:
+\[
+\begin{aligned}
+(12):\;&((1,1,1)\ (2,2,2))\ ((3,3,3))\ \cdot\ 
+((1,1,2)\ (2,2,1))\ ((1,1,3)\ (2,2,3))\ ((3,3,1)\ (3,3,2))\\
+&\cdot\ ((1,2,1)\ (2,1,2))\ ((1,3,1)\ (2,3,2))\ ((3,1,3)\ (3,2,3))\\
+&\cdot\ ((1,2,2)\ (2,1,1))\ ((1,3,3)\ (2,3,3))\ ((3,1,1)\ (3,2,2))\\
+&\cdot\ ((1,2,3)\ (2,1,3))\ ((1,3,2)\ (2,3,1))\ ((3,1,2)\ (3,2,1));\\[2mm]
+(123):\;&((1,1,1)\ (2,2,2)\ (3,3,3))\\
+&\cdot\ ((1,1,2)\ (2,2,3)\ (3,3,1))\ ((1,1,3)\ (2,2,1)\ (3,3,2))\\
+&\cdot\ ((1,2,1)\ (2,3,2)\ (3,1,3))\ ((1,3,1)\ (2,1,2)\ (3,2,3))\\
+&\cdot\ ((1,2,2)\ (2,3,3)\ (3,1,1))\ ((1,3,3)\ (2,1,1)\ (3,2,2))\\
+&\cdot\ ((1,2,3)\ (2,3,1)\ (3,1,2))\ ((1,3,2)\ (2,1,3)\ (3,2,1)).
+\end{aligned}
+\]
+(The remaining elements’ cycles follow by inversion or conjugation: $(13)=(12)(123)$, $(23)=(123)(12)$, and $(132)=(123)^{-1}$.)\\
+\textbf{Step 4 (Sample stabilizers).} Pick $a_1=(1,1,1)\in\mathcal O_1$. Then $\sigma\cdot a_1=a_1\iff\sigma(1)=1$, so $\mathrm{Stab}(a_1)=\{e,(23)\}$ (order $2$), consistent with $|\mathcal O_1|=6/2=3$. For $a_2=(1,1,2)\in\mathcal O_2$ (and similarly for representatives of $\mathcal O_3,\mathcal O_4,\mathcal O_5$), $\sigma\cdot a_2=a_2$ forces $\sigma(1)=1$ and $\sigma(2)=2$, hence $\mathrm{Stab}(a_2)=\{e\}$ and $|\mathcal O_2|=6/1=6$.\\
+\textbf{Step 5 (Conclusion for (a)).} The five orbits are as listed; the cycle forms above (per orbit, then concatenated) give each $\sigma\in S_3$ as an element of $S_{27}$; stabilizers are $\{e,(23)\}$ for $\mathcal O_1$ and trivial for the other orbits.\\
+
+\newpage
+
+\noindent \textbf{4.1: Exercise 5b.} For each of parts (a) and (b) repeat the preceding exercise but with $S_3$ acting on the specified set:\\
+
+\begin{quote}
+(a) the set of $27$ triples $\Omega=\{(i,j,k)\mid 1\le i,j,k\le 3\}$;
+\end{quote}
+
+\begin{quote}
+(b) the set $\mathcal P(\{1,2,3\})\setminus\{\emptyset\}$ of all $7$ nonempty subsets of $\{1,2,3\}$.
+\end{quote} %verbatim
+
+\begin{quote} 
+
+(Previous Exercise) Let $S_3$ act on the set $\Omega$ of ordered pairs $\{(i,j)\mid 1\le i,j\le 3\}$ by $\sigma\!\cdot\!(i,j)=(\sigma(i),\sigma(j))$. Find the orbits of $S_3$ on $\Omega$. For each $\sigma\in S_3$ find the cycle decomposition of $\sigma$ under this action (i.e., its cycle decomposition when considered as an element of $S_9$—first fix a labelling of these nine ordered pairs). For each orbit $\mathcal O$ of $S_3$ acting on these nine points pick some $a\in\mathcal O$ and find the stabilizer of $a$ in $S_3$.\\ %verbatim
+
+\end{quote}
+
+\noindent\textbf{As General Proposition}: Under the natural component-wise action of $S_3$ on (a) triples and (b) nonempty subsets, list the orbits; for each $\sigma\in S_3$ give its cycle decomposition on the underlying set; and, for a representative $a$ from each orbit, determine $\mathrm{Stab}_{S_3}(a)$.\\
+
+\noindent\textbf{As Conditional Proposition}: Let $S_3=\langle (12),(123)\rangle$. In (a) let $\sigma\cdot(i,j,k)=(\sigma(i),\sigma(j),\sigma(k))$. In (b) let $\sigma\cdot X=\{\sigma(x):x\in X\}$. Then the orbits, cycle decompositions (viewed in $S_{27}$ and $S_7$ respectively), and stabilizers are as stated below.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} The action permutes labels $1,2,3$ simultaneously in each coordinate (triples) or element of a subset (set action). Hence orbit types are determined by equality patterns among coordinates (all equal; exactly two equal—three patterns; all distinct) for triples, and by subset sizes (singletons, doubletons, whole set) for subsets. Orbit–stabilizer predicts stabilizer orders from orbit sizes and vice versa.\\
+
+\dotfill
+
+\emph{Solution (b): action on nonempty subsets).}\\
+\textbf{Step 1 (Set, action, and labelling).} Let $\mathcal U=\mathcal P(\{1,2,3\})\setminus\{\emptyset\}$, $|\mathcal U|=7$. Define $\sigma\cdot X=\{\sigma(x):x\in X\}$. For $S_7$-notation, label
+\[
+1\!\leftrightarrow\!\{1\},\ 2\!\leftrightarrow\!\{2\},\ 3\!\leftrightarrow\!\{3\},\ 
+4\!\leftrightarrow\!\{1,2\},\ 5\!\leftrightarrow\!\{1,3\},\ 6\!\leftrightarrow\!\{2,3\},\ 
+7\!\leftrightarrow\!\{1,2,3\}.
+\] \\
+\textbf{Step 2 (Orbits by size).} There are three orbits:
+\begin{align*}
+\mathcal O'_1=\big\{\{1\},\{2\},\{3\}\big\}\ (|\mathcal O'_1|=3),\\
+\mathcal O'_2=\big\{\{1,2\},\{1,3\},\{2,3\}\big\}\ (|\mathcal O'_2|=3),\\
+\mathcal O'_3=\big\{\{1,2,3\}\big\}\ (|\mathcal O'_3|=1).
+\end{align*} \\
+\textbf{Step 3 (Cycle decompositions in $S_7$).} With the above labels,
+\[
+\begin{aligned}
+e&=(1)(2)(3)(4)(5)(6)(7),\\
+(12)&=(1\,2)(5\,6)\ (3)(4)(7),\\
+(13)&=(1\,3)(4\,6)\ (2)(5)(7),\\
+(23)&=(2\,3)(4\,5)\ (1)(6)(7),\\
+(123)&=(1\,2\,3)(4\,5\,6)\ (7),\\
+(132)&=(1\,3\,2)(4\,6\,5)\ (7).
+\end{aligned}
+\] \\
+\textbf{Step 4 (Stabilizers).} For $a'=\{1\}\in\mathcal O'_1$, $\mathrm{Stab}(a')=\{e,(23)\}$ (order $2$). For $b'=\{1,2\}\in\mathcal O'_2$, $\mathrm{Stab}(b')=\{e,(12)\}$ (order $2$). For $c'=\{1,2,3\}\in\mathcal O'_3$, $\mathrm{Stab}(c')=S_3$ (order $6$). Orbit sizes match $6/2=3$, $6/2=3$, and $6/6=1$.\\
+\textbf{Step 5 (Conclusion for (b)).} Orbits are partitioned by subset size; the above cycles and stabilizers complete the description.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.1: Exercise 9(a).} Assume $G$ acts transitively on the finite set $A$ and let $H\lhd G$. Let $\mathcal O_1,\mathcal O_2,\dots,\mathcal O_r$ be the distinct $H$-orbits on $A$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: $G$ permutes the $H$-orbits $\mathcal O_1,\dots,\mathcal O_r$ (i.e., $g\mathcal O_i=\mathcal O_j$ for some $j$), and $G$ acts transitively on the set $\{\mathcal O_1,\dots,\mathcal O_r\}$. Consequently, all $H$-orbits on $A$ have the same cardinality.\\
+
+\noindent\textbf{As Conditional Proposition}: Let $G\curvearrowright A$ be transitive and $H\lhd G$. For each $g\in G$ and each $i$, there exists $j$ with $g\mathcal O_i=\mathcal O_j$, so the induced action of $G$ on $\{\mathcal O_1,\dots,\mathcal O_r\}$ is transitive; hence $|\mathcal O_1|=\cdots=|\mathcal O_r|$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Normality $H\lhd G$ lets us “push” $H$ through $g$: $g(H\cdot a)= (gHg^{-1})\cdot (g\cdot a)=H\cdot(g\cdot a)$. Thus $g$ takes an $H$-orbit to another $H$-orbit (blocks are preserved). Transitivity of $G$ on $A$ gives a $g$ sending any $a$ to any $b$; the same $g$ then bijects their $H$-orbits, forcing all $H$-orbits to have equal size.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Notation).} Let the distinct $H$-orbits on $A$ be $\mathcal O_1,\dots,\mathcal O_r$, where $\mathcal O_i=H\cdot a_i$ for some $a_i\in A$.\\
+\textbf{Step 2 (Blocks under $G$).} Fix $g\in G$ and $i$. For any $x\in\mathcal O_i$ we have $x=h\cdot a_i$ for some $h\in H$. Then $g\cdot x=g\cdot(h\cdot a_i)=(ghg^{-1})\cdot(g\cdot a_i)$. Since $H\lhd G$, $ghg^{-1}\in H$, so $g\cdot x\in H\cdot(g\cdot a_i)$. Hence $g\mathcal O_i\subseteq H\cdot(g\cdot a_i)$.\\
+\textbf{Step 3 (Equality of images).} The reverse inclusion is the same argument with $g^{-1}$ in place of $g$, yielding $H\cdot(g\cdot a_i)\subseteq g\mathcal O_i$. Therefore $g\mathcal O_i=H\cdot(g\cdot a_i)$. In particular, $g$ permutes the family $\{\mathcal O_1,\dots,\mathcal O_r\}$.\\
+\textbf{Step 4 (Transitivity on the orbit set).} Let $\mathcal O_i=H\cdot a$ and $\mathcal O_j=H\cdot b$. Because $G$ acts transitively on $A$, there exists $g\in G$ with $g\cdot a=b$. By Step~3, $g\mathcal O_i=H\cdot(g\cdot a)=H\cdot b=\mathcal O_j$. Thus $G$ acts transitively on $\{\mathcal O_1,\dots,\mathcal O_r\}$.\\
+\textbf{Step 5 (Equal sizes of $H$-orbits).} With $g$ as in Step~4, the map $\phi_g:\mathcal O_i\to\mathcal O_j$ given by $\phi_g(x)=g\cdot x$ is well-defined and bijective: if $x=h\cdot a$, then $\phi_g(x)=(ghg^{-1})\cdot(g\cdot a)\in H\cdot b=\mathcal O_j$, and $\phi_{g^{-1}}$ is its inverse. Hence $|\mathcal O_i|=|\mathcal O_j|$. Since $i,j$ were arbitrary, all $H$-orbits have the same cardinality.\\
+\textbf{Step 6 (Conclusion).} $G$ permutes the $H$-orbits, the induced action on $\{\mathcal O_1,\dots,\mathcal O_r\}$ is transitive, and $|\mathcal O_1|=\cdots=|\mathcal O_r|$.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.2: Exercise 7.} Let $Q_8$ be the quaternion group of order $8$.\\ %verbatim
+\textbf{(a)} Prove that $Q_8$ is isomorphic to a subgroup of $S_8$.\\
+\textbf{(b)} Prove that $Q_8$ is not isomorphic to a subgroup of $S_n$ for any $n\le 7$. \emph{[Hint: If $Q_8$ acts on any set $A$ of order $\le 7$, show that the stabilizer of any point $a\in A$ must contain the subgroup $\langle -1\rangle$.]}\\
+
+\noindent\textbf{As General Proposition}: (a) Every finite group of order $m$ embeds in $S_m$; in particular $Q_8\hookrightarrow S_8$. (b) Any action of $Q_8$ on a set of size $\le 7$ is nonfaithful (its kernel contains $-1$), hence $Q_8$ cannot embed in $S_n$ for $n\le 7$.\\
+
+\noindent\textbf{As Conditional Proposition}: (a) The left-regular action of $Q_8$ on its $8$ elements yields an injective homomorphism $Q_8\to S_8$. (b) For any action of $Q_8$ on $A$ with $|A|\le 7$, each stabilizer has order $\ge 2$ and so contains the unique element of order $2$, namely $-1$; thus $-1$ lies in the kernel, preventing faithfulness.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Cayley’s Theorem realizes a group by permuting its own elements—faithfully—so (a) is immediate with $|Q_8|=8$. For (b), orbits in a size-$\le 7$ action have sizes $1,2,$ or $4$ (dividing $8$ and $\le 7$). Orbit–stabilizer then forces stabilizers of size $8,4,$ or $2$, each containing an element of order $2$. In $Q_8$ the only element of order $2$ is $-1$, so $-1$ fixes every point and sits in the kernel; hence no faithful action on $\le 7$ points and no embedding in $S_n$ for $n\le 7$.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Cayley for part (a)).} Let $Q_8$ act on the set $Q_8$ by left multiplication: $g\cdot x=gx$.\\
+\textbf{Step 2 (Permutation representation).} This action defines a homomorphism $\lambda:Q_8\to S_{Q_8}\cong S_8$ via $\lambda(g)(x)=gx$.\\
+\textbf{Step 3 (Injectivity).} If $\lambda(g)=\mathrm{id}$, then $gx=x$ for all $x\in Q_8$, so $g=1$. Hence $\ker\lambda=\{1\}$ and $\lambda$ is injective.\\
+\textbf{Step 4 (Conclusion for (a)).} Therefore $Q_8\cong \lambda(Q_8)\le S_8$.\\[4pt]
+
+\textbf{Step 5 (Setup for part (b)).} Let $Q_8$ act on a set $A$ with $|A|\le 7$. Fix $a\in A$ and write the orbit as $\mathcal O(a)$ and the stabilizer as $(Q_8)_a=\{g\in Q_8: g\cdot a=a\}$.\\
+\textbf{Step 6 (Orbit sizes).} By Orbit–Stabilizer, $|\mathcal O(a)|=[Q_8:(Q_8)_a]$ and $|\mathcal O(a)|\mid |Q_8|=8$. Since $|\mathcal O(a)|\le |A|\le 7$, the only possibilities are $|\mathcal O(a)|\in\{1,2,4\}$.\\
+\textbf{Step 7 (Stabilizer orders).} Accordingly, $|(Q_8)_a|=8/|\mathcal O(a)|\in\{8,4,2\}$. In all cases $|(Q_8)_a|\ge 2$.\\
+\textbf{Step 8 (Unique element of order $2$).} In $Q_8=\{\pm1,\pm i,\pm j,\pm k\}$ the only element of order $2$ is $-1$. Any subgroup of order $2$ is therefore $\langle -1\rangle=\{1,-1\}$.\\
+\textbf{Step 9 ($-1$ fixes every point).} Since $(Q_8)_a$ has order $\ge 2$, it contains an element of order $2$, hence $-1\in (Q_8)_a$ for every $a\in A$. Equivalently, $-1$ fixes all points of $A$.\\
+\textbf{Step 10 (Kernel nontrivial).} The kernel of the action is $\bigcap_{a\in A}(Q_8)_a$. From Step~9, $-1$ lies in every stabilizer, so $-1$ belongs to the kernel. Thus the action is not faithful.\\
+\textbf{Step 11 (Conclusion for (b)).} No faithful action of $Q_8$ exists on a set of size $\le 7$, so there is no embedding $Q_8\hookrightarrow S_n$ for any $n\le 7$.\\
+
+\newpage
+
+\noindent \textbf{4.2: Exercise 8.} Prove that if $H$ has finite index $n$ in $G$ then there is a normal subgroup $K$ of $G$ with $K\le H$ and $|G:K|\le n!$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: If $[G:H]=n<\infty$, then the \emph{core} $K=\bigcap_{g\in G} gHg^{-1}\lhd G$ satisfies $K\le H$ and $[G:K]\le n!$.\\
+
+\noindent\textbf{As Conditional Proposition}: Let $G$ act on the set $G/H$ of left cosets by left multiplication. The associated permutation representation $\varphi:G\to S_{G/H}\cong S_n$ has kernel $K=\bigcap_{g\in G} gHg^{-1}\le H$, and $[G:K]=|\mathrm{im}\,\varphi|\le |S_n|=n!$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Acting on $G/H$ turns elements of $G$ into permutations of $n$ points. The only elements that act trivially on \emph{every} coset are those lying in every conjugate of $H$—the core $K$. Since the image of $G$ sits inside $S_n$, its size is at most $n!$; by the First Isomorphism Theorem this image size is exactly $[G:K]$.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Action on cosets).} Consider the action $G\curvearrowright G/H$ given by $g\cdot (xH)=(gx)H$. This induces a homomorphism
+\[
+\varphi:G\longrightarrow S_{G/H}\cong S_n,\qquad \varphi(g)(xH)=(gx)H.\\
+\]
+\textbf{Step 2 (Identify the kernel).} By definition of $\ker\varphi$, we have
+\[
+\ker\varphi=\{g\in G:\, g\cdot (xH)=(xH)\ \forall\,x\in G\}.
+\]
+Fix $x\in G$. The condition $g\cdot(xH)=xH$ is equivalent to $x^{-1}gx\in H$, i.e., $g\in xHx^{-1}$. Since this must hold for all $x$, we obtain
+\[
+K:=\ker\varphi=\bigcap_{x\in G} xHx^{-1}.
+\]
+In particular, $K\le H$ (take $x=1$) and $K\lhd G$ (being an intersection of conjugates).\\
+\textbf{Step 3 (Index bound via image size).} By the First Isomorphism Theorem,
+\[
+G/K\ \cong\ \mathrm{im}\,\varphi\ \le\ S_{G/H}\ \cong\ S_n,
+\]
+hence
+\[
+|G:K|=|G/K|=|\mathrm{im}\,\varphi|\ \le\ |S_n|=n!.
+\]
+\textbf{Step 4 (Conclusion).} The subgroup $K=\mathrm{core}_G(H)$ is normal in $G$, contained in $H$, and satisfies $|G:K|\le n!$, as required.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.3: Exercise 5.} If the center $Z(G)$ of $G$ has index $n$, prove that every conjugacy class has at most $n$ elements.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: If $[G:Z(G)]=n$, then for every $g\in G$ the conjugacy class $\Cl(g)=\{xgx^{-1}\mid x\in G\}$ satisfies $|\Cl(g)|\le n$.\\
+
+\noindent\textbf{As Conditional Proposition}: Let $G$ act on itself by conjugation. For each $g\in G$, $\ |\Cl(g)|=[G:C_G(g)]\le [G:Z(G)]=n$, where $C_G(g)=\{x\in G: xg=gx\}$ is the centralizer of $g$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Conjugation’s orbits are conjugacy classes; their sizes are controlled by stabilizers, which are centralizers. Since the center commutes with everything, it sits inside every centralizer. Indices shrink when subgroups grow, so each class size (an index) is bounded by the index of the center.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Conjugation action and orbit–stabilizer).} Let $G$ act on $G$ by $x\cdot g=xgx^{-1}$. Then the orbit of $g$ is $\Cl(g)$ and the stabilizer of $g$ is $C_G(g)$. Hence $|\Cl(g)|=[G:C_G(g)]$.\\
+\textbf{Step 2 (Center lies in every centralizer).} By definition, $Z(G)=\{z\in G: zg=gz\ \forall g\in G\}$. In particular, for fixed $g$ we have $Z(G)\subseteq C_G(g)$.\\
+\textbf{Step 3 (Index monotonicity).} If $H\le K\le G$, then $[G:K]\le [G:H]$. Applying this to $H=Z(G)$ and $K=C_G(g)$ gives
+\[
+[G:C_G(g)]\ \le\ [G:Z(G)].
+\]
+\textbf{Step 4 (Bound by $n$).} Since $[G:Z(G)]=n$ by hypothesis, we obtain
+\[
+|\Cl(g)|=[G:C_G(g)]\ \le\ [G:Z(G)]=n.
+\]
+\textbf{Step 5 (Conclusion).} Every conjugacy class in $G$ has size at most $n$.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.3: Exercise 30.} If $G$ is a group of odd order, prove that for any nonidentity element $x\in G$, the elements $x$ and $x^{-1}$ are not conjugate in $G$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: In any finite group $G$ of odd order, no nonidentity element is conjugate to its inverse.\\
+
+\noindent\textbf{As Conditional Proposition}: Let $|G|$ be odd and let $x\in G\setminus\{1\}$. Then $x$ and $x^{-1}$ lie in distinct conjugacy classes of $G$.\\
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Conjugacy classes are orbits under conjugation and have size $[G:C_G(x)]$, which divides $|G|$. If a class were closed under inversion, the map $y\mapsto y^{-1}$ would pair up distinct elements with no fixed points—forcing the class size to be even. But in an odd-order group, every such orbit size must be odd, a contradiction.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Conjugacy class and inversion map).} Fix $x\neq 1$ and let $\Cl(x)=\{gxg^{-1}\mid g\in G\}$ be its conjugacy class. Define $\iota:\Cl(x)\to\Cl(x)$ by $\iota(y)=y^{-1}$.\\
+\textbf{Step 2 (Why $\iota$ maps $\Cl(x)$ to itself).} If $y=gxg^{-1}\in\Cl(x)$, then $y^{-1}=(gxg^{-1})^{-1}=gx^{-1}g^{-1}$; hence $y^{-1}\in\Cl(x^{-1})$. If $x$ and $x^{-1}$ were conjugate, then $\Cl(x^{-1})=\Cl(x)$ and thus $\iota$ is a bijection $\Cl(x)\to\Cl(x)$.\\
+\textbf{Step 3 (No fixed points of $\iota$).} If $\iota(y)=y$, then $y=y^{-1}$, so $y^2=1$. In a group of odd order, the only element with $y^2=1$ is $y=1$. But $1\notin\Cl(x)$ since $x\ne 1$. Hence $\iota$ has no fixed points on $\Cl(x)$.\\
+\textbf{Step 4 (Even cardinality consequence).} A fixed-point-free involution pairs elements $\{y,y^{-1}\}$, so $|\Cl(x)|$ must be even.\\
+\textbf{Step 5 (Contradiction via orbit size).} The class size satisfies $|\Cl(x)|=[G:C_G(x)]$, which divides $|G|$ (odd). Therefore $|\Cl(x)|$ is odd—contradicting Step~4.\\
+\textbf{Step 6 (Conclusion).} Our assumption that $x$ and $x^{-1}$ are conjugate is false. Thus, for $|G|$ odd and $x\ne 1$, the elements $x$ and $x^{-1}$ are not conjugate.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.4: Exercise 18 (a,c,d).} Fix an integer $n\ge 2$ with $n\ne 6$.\\ %verbatim
+\textbf{(a)} Prove that the automorphism group of a group $G$ permutes the conjugacy classes of $G$, i.e., for each $\sigma\in\Aut(G)$ and each conjugacy class $K$ of $G$ the set $\sigma(K)$ is also a conjugacy class of $G$.\\
+\textbf{(c)} Let $\mathcal{K}$ be the conjugacy class of transpositions in $S_n$. Prove that for each $\sigma\in\Aut(S_n)$ there exist distinct integers $a,b_2,\ldots,b_n\in\{1,\ldots,n\}$ such that
+\[
+\sigma:(12)\mapsto (a\,b_2),\quad \sigma:(13)\mapsto (a\,b_3),\ \ldots,\ \sigma:(1n)\mapsto (a\,b_n).
+\]
+\textbf{(d)} Show that $(12),(13),\ldots,(1n)$ generate $S_n$, and deduce that any automorphism of $S_n$ is uniquely determined by its action on these elements. Use (c) to show that $S_n$ has at most $n!$ automorphisms and conclude that $\Aut(S_n)=\Inn(S_n)$ for $n\ne 6$.\\
+
+\noindent\textbf{As General Proposition}: (a) Any $\sigma\in\Aut(G)$ maps a conjugacy class $K$ to the conjugacy class of $\sigma(k)$ (for any $k\in K$), so $\Aut(G)$ permutes conjugacy classes. (c) In $S_n$, every automorphism sends transpositions to transpositions and must carry the star set $\{(1i)\}_{i=2}^n$ to a star $\{(a\,b_i)\}_{i=2}^n$ sharing a common vertex $a$. (d) Since $S_n$ is generated by $(1i)$, an automorphism is determined by images of these; counting choices gives $|\Aut(S_n)|\le n!$, while $|\Inn(S_n)|=|S_n|=n!$ (for $n\ge 3$ and also equality holds for $n=2$), hence $\Aut(S_n)=\Inn(S_n)$ for $n\ne 6$.\\
+
+\noindent\textbf{As Conditional Proposition}: (a) For $K=\{gkg^{-1}\mid g\in G\}$ and $\sigma\in\Aut(G)$, $\sigma(K)=\{\,\sigma(g)\sigma(k)\sigma(g)^{-1}\mid g\in G\,\}$ is the conjugacy class of $\sigma(k)$. (c) Using that automorphisms preserve cycle type among elements of order $2$, $\sigma$ maps $(1i)$ to transpositions that must all share a common point $a$; distinctness follows from injectivity. (d) Every $r$-cycle is a product of transpositions of the form $(1i)$, hence $\{(1i)\}$ generates $S_n$; parameterizing images as in (c) yields at most $n!$ possibilities and forces $\Aut(S_n)=\Inn(S_n)$ for $n\ne 6$.\\
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Conjugation is “change of coordinates” inside $G$; applying an automorphism before/after conjugation just changes the conjugator, so conjugacy classes are preserved. In $S_n$, transpositions are the atomic order-$2$ moves and an automorphism must send the $n-1$ transpositions touching $1$ to $n-1$ transpositions all touching a common point—otherwise products like $(1i)(1j)=(ij)$ would land in the wrong order or cycle type. Since $S_n$ is generated by these “spokes,” an automorphism is pinned down by where it sends them; counting such choices matches $|\Inn(S_n)|$, giving $\Aut(S_n)=\Inn(S_n)$ (excluding the exceptional $n=6$ case).\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Part (a): image of a conjugacy class is a conjugacy class).} Let $K=\{gkg^{-1}\mid g\in G\}$ for some $k\in G$ and fix $\sigma\in\Aut(G)$. For $x=gkg^{-1}\in K$ we have
+\[
+\sigma(x)=\sigma(g)\,\sigma(k)\,\sigma(g)^{-1},
+\]
+so $\sigma(K)\subseteq \Cl(\sigma(k))$. Conversely, if $y=\sigma(g)\sigma(k)\sigma(g)^{-1}$, then $y=\sigma(gkg^{-1})=\sigma(x)$ for $x\in K$, proving $\sigma(K)=\Cl(\sigma(k))$.\\
+\textbf{Step 2 (Conclusion of (a)).} Thus $\Aut(G)$ permutes the conjugacy classes of $G$.\\
+
+\textbf{Step 3 (Part (c): transpositions go to a common-vertex star).} Work in $S_n$ ($n\ne 6$). By (b) (and preservation of element order), $\sigma$ sends transpositions to transpositions. Set $\tau_i=(1i)$ for $2\le i\le n$ and put $\sigma(\tau_i)=(a_i\,b_i)$. Note that
+\[
+\tau_i\,\tau_j\,\tau_i=(ij)\quad (i\ne j).
+\]
+Applying $\sigma$ gives
+\[
+\sigma(\tau_i)\,\sigma(\tau_j)\,\sigma(\tau_i)=\sigma\big((ij)\big),
+\]
+an element of order $2$ disjoint from $\sigma(\tau_i)$ (because $(ij)$ is disjoint from $(1i)$). If $(a_i\,b_i)$ and $(a_j\,b_j)$ were disjoint, the left-hand product would have order $3$ (product of disjoint transpositions yields a $3$-cycle under the $\alpha\beta\alpha$ pattern), contradiction. Hence every $\sigma(\tau_j)$ must share exactly one point with $\sigma(\tau_i)$. By varying $i$, this forces a unique common point $a$ so that $\sigma(\tau_i)=(a\,b_i)$ for distinct $b_i$.\\
+\textbf{Step 4 (Distinctness of the $b_i$).} If $b_i=b_j$ for some $i\ne j$, then $\sigma(\tau_i)=\sigma(\tau_j)$ contradicting injectivity of $\sigma$. Thus $b_2,\dots,b_n$ are pairwise distinct. This establishes (c).\\
+
+\textbf{Step 5 (Part (d): generators).} Any cycle $(c_1\,c_2\,\dots\,c_r)$ equals $(1\,c_r)\cdots(1\,c_3)(1\,c_2)$ after relabeling to place $1$ among its symbols (conjugate if needed). Hence $S_n$ is generated by the set $\{\,(1i)\mid 2\le i\le n\,\}$.\\
+\textbf{Step 6 (Uniqueness from action on the generators).} A homomorphism is determined by images of a generating set; therefore each $\sigma\in\Aut(S_n)$ is determined by $\{\sigma(1i)\}_{i=2}^n$. By Step~3, these images must be exactly $\{(a\,b_i)\}_{i=2}^n$ for some fixed $a$ and distinct $b_i$.\\
+\textbf{Step 7 (Counting automorphisms).} Choose $a$ in $n$ ways, and then $(b_2,\dots,b_n)$ as a permutation of the remaining $n-1$ symbols in $(n-1)!$ ways. Hence there are at most $n\cdot (n-1)!=n!$ possibilities for $\{\sigma(1i)\}$, giving $|\Aut(S_n)|\le n!$.\\
+\textbf{Step 8 (Identify with inner automorphisms).} For $n\ge 3$ the center $Z(S_n)$ is trivial, so $|\Inn(S_n)|=|S_n/Z(S_n)|=|S_n|=n!$; for $n=2$, both $\Aut(S_2)$ and $\Inn(S_2)$ are trivial. Since $\Inn(S_n)\le \Aut(S_n)$ and $|\Aut(S_n)|\le n!=|\Inn(S_n)|$ (for $n\ne 6$), we conclude $\Aut(S_n)=\Inn(S_n)$.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.5: Exercise 3.} Use Sylow’s Theorem to prove Cauchy’s Theorem. \emph{(We only used Cauchy’s Theorem for abelian groups earlier, so this is not circular.)}\\ %verbatim
+
+\noindent\textbf{As General Proposition}: If a prime $p$ divides $|G|$, then $G$ has an element of order $p$.\\
+
+\noindent\textbf{As Conditional Proposition}: Let $G$ be finite with $p\mid |G|$. Then by Sylow’s Theorem $G$ has a Sylow $p$-subgroup $P$ of order $|P|=p^a$; since $P$ is a $p$-group, its center $Z(P)$ is nontrivial and (being abelian) contains an element of order $p$, which is also an element of order $p$ in $G$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Sylow guarantees a large $p$-power subgroup. Every $p$-group has nontrivial center; inside that abelian subgroup we may apply the abelian form of Cauchy to extract an element of order $p$. That element already lies in $G$, so we are done.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Sylow existence).} Suppose $p\mid |G|$. By Sylow’s Theorem there exists a Sylow $p$-subgroup $P\le G$ with $|P|=p^a$ for some $a\ge 1$.\\
+\textbf{Step 2 (Nontrivial center in a $p$-group).} Since $P$ is a finite $p$-group, its center $Z(P)$ is nontrivial. Hence $|Z(P)|=p^b$ for some $b\ge 1$.\\
+\textbf{Step 3 (Use abelian Cauchy inside the center).} The group $Z(P)$ is abelian of order $p^b$. By Cauchy’s Theorem for abelian groups, there exists $z\in Z(P)$ of order $p$.\\
+\textbf{Step 4 (Lift back to $G$).} Because $Z(P)\le P\le G$, the same element $z$ has order $p$ when considered in $G$.\\
+\textbf{Step 5 (Conclusion).} Thus, whenever $p\mid |G|$, $G$ contains an element of order $p$. This proves Cauchy’s Theorem.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.5: Exercise 13.} Prove that a group of order $56$ has a normal Sylow $p$-subgroup for some prime $p$ dividing its order.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: In a group of order $56=2^3\cdot 7$, at least one Sylow $p$-subgroup is unique and hence normal.\\
+
+\noindent \textbf{As Conditional Proposition}: Let $G$ be a finite group with $|G|=56$. Then $G$ has a normal Sylow $2$-subgroup or a normal Sylow $7$-subgroup.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Sylow counts force $n_7\in\{1,8\}$ and $n_2\in\{1,7\}$. If both were non-unique, eight Sylow-$7$’s already contribute $48$ elements of order $7$, leaving only $8$ places for all $2$-power elements; but any \emph{single} Sylow-$2$ has $8$ elements, so there cannot be two distinct ones. Thus some Sylow subgroup must be unique (hence normal).\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Sylow arithmetic).} Write $|G|=56=2^3\cdot 7$. By Sylow’s Theorems, $n_7\equiv 1\pmod 7$ with $n_7\mid 8$, hence $n_7\in\{1,8\}$; and $n_2\equiv 1\pmod 2$ with $n_2\mid 7$, hence $n_2\in\{1,7\}$.\\
+\textbf{Step 2 (If $n_7=1$ we are done).} A unique Sylow-$7$ subgroup is normal, so assume $n_7=8$ to force a contradiction elsewhere.\\
+\textbf{Step 3 (Count $7$-elements).} Distinct Sylow-$7$ subgroups intersect trivially (order a prime), so the $8$ subgroups contribute $8(7-1)=48$ distinct elements of order $7$.\\
+\textbf{Step 4 (Only $8$ non-$7$ elements remain).} Hence $G$ has exactly $56-48=8$ elements that are \emph{not} of order $7$; these include all elements lying in Sylow-$2$ subgroups (together with the identity).\\
+\textbf{Step 5 (Uniqueness of the Sylow-$2$ subgroup).} Any Sylow-$2$ subgroup has $8$ elements. If there were two distinct Sylow-$2$ subgroups $H\neq K$, then $H\cup K$ would contain strictly more than $8$ elements (since $K$ has at least one element outside $H$), contradicting Step~4. Therefore $n_2=1$.\\
+\textbf{Step 6 (Conclusion).} Either $n_7=1$ or $n_2=1$. In both cases the unique Sylow subgroup is normal in $G$, proving the claim.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{4.5: Exercise 26.} Let $G$ be a group of order $105$. Prove that if a Sylow $3$-subgroup of $G$ is normal then $G$ is abelian.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: If $|G|=105=3\cdot 5\cdot 7$ and the Sylow $3$-subgroup $P$ is normal in $G$, then $G$ is abelian (indeed, cyclic of order $105$).\\
+
+\noindent\textbf{As Conditional Proposition}: Let $P\in \Syl_3(G)$ with $P\lhd G$. Then at least one of the Sylow $5$- or $7$-subgroups is normal; say $H\in \Syl_5(G)$ or $K\in \Syl_7(G)$ is normal. In either case, the product with $P$ is a normal cyclic subgroup ($PH\cong C_{15}$ or $PK\cong C_{21}$). The remaining Sylow subgroup acts by conjugation on that cyclic normal subgroup through a homomorphism into a group of automorphisms of order $8$ or $6$, so the action is trivial. Consequently all Sylow subgroups centralize each other and $G\cong C_{105}$, hence abelian.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} With $P\lhd G$, Sylow counting forces a second Sylow subgroup to be unique (hence normal). The product of two coprime cyclic normals is cyclic. The last Sylow subgroup tries to act by automorphisms on that cyclic normal—yet its order ($5$ or $7$) does not divide the automorphism group size ($\varphi(21)=12$ or $\varphi(15)=8$), so the action is trivial. Trivial action means commuting, so $G$ is a direct product of cyclic groups of coprime orders, hence cyclic and abelian.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Sylow arithmetic to get a second normal).} Since $|G|=3\cdot 5\cdot 7$, Sylow numbers satisfy
+\[
+n_5\equiv 1\pmod 5,\ n_5\mid 21\ \Rightarrow\ n_5\in\{1,21\},\qquad
+n_7\equiv 1\pmod 7,\ n_7\mid 15\ \Rightarrow\ n_7\in\{1,15\}.\\
+\]
+If $n_5=21$ and $n_7=15$, then distinct Sylow-$5$’s contribute $21\cdot(5-1)=84$ elements of order $5$, and distinct Sylow-$7$’s contribute $15\cdot(7-1)=90$ elements of order $7$, exceeding $|G|-1=104$—impossible. Hence $n_5=1$ or $n_7=1$, so $G$ has a normal Sylow $5$- or $7$-subgroup.\\
+\textbf{Step 2 (Name the normal factors).} Let $P\in\Syl_3(G)$ be normal by hypothesis. Without loss of generality assume $H\in\Syl_5(G)$ is normal (the $7$-case is symmetric; see Step~6). Then $P$ and $H$ are cyclic of coprime orders and normal, so $L:=PH\lhd G$ with $|L|=15$ and $L\cong C_3\times C_5\cong C_{15}$.\\
+\textbf{Step 3 (Conjugation action of the remaining Sylow).} Let $K\in\Syl_7(G)$. Conjugation induces a homomorphism
+\[
+\theta:K\longrightarrow \Aut(L).
+\]
+Since $L\cong C_{15}$, we have $|\Aut(L)|=\varphi(15)=8$.\\
+\textbf{Step 4 (Action must be trivial).} Because $|K|=7$ and $7\nmid 8$, the only homomorphism $K\to \Aut(L)$ is trivial. Thus each $k\in K$ centralizes every $\ell\in L$, i.e., $K\subseteq C_G(L)$.\\
+\textbf{Step 5 (Assemble $G$ and conclude abelian).} Now $|L|=15$, $|K|=7$, and $L\cap K=1$ (coprime orders). Hence $|LK|=105=|G|$, so $G=LK$ and $G\cong L\times K\cong C_{15}\times C_7\cong C_{105}$. Therefore $G$ is abelian (indeed cyclic).\\
+\textbf{Step 6 (Symmetric case).} If instead $n_7=1$ so $K\lhd G$, then $M:=PK\lhd G$ with $|M|=21$ and $M\cong C_{21}$; the Sylow-$5$ subgroup acts by conjugation via a map into $\Aut(C_{21})$ of order $\varphi(21)=12$, and since $5\nmid 12$ this action is trivial. The same argument yields $G\cong C_{21}\times C_5\cong C_{105}$.\\
+\textbf{Step 7 (Conclusion).} In all cases, with $P\lhd G$ the group $G$ is cyclic of order $105$, hence abelian.\\
+
+\newpage
+
+
+\end{document}
