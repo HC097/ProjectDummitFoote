@@ -23,934 +23,733 @@
 \begin{document}
 
 \begin{center}
-\Large\textbf{Ch1 Flashcards} \\
+\Large\textbf{Ch2 Flashcards} \\
 \large Harley Caham Combest \\
 \large Fa2025 2025-10-24 MATH5353
 \end{center}
 
 \newpage
 
-\newpage
-
 \dotfill
-\section*{Chapter 1 | Introduction to Groups}
+\section*{Chapter 2 | Subgroups}
 \dotfill
 
 \newpage
 
-This chapter introduces the group axioms through basic examples, then develops several cornerstone families (dihedral and symmetric groups, matrix and quaternion groups), and the fundamental morphism notions (homomorphisms/isomorphisms) culminating with group actions as a unifying lens. Key tools include uniqueness of identity/inverses, cancellation, orders of elements, generators/relations, and permutation representations.
+This chapter develops the language and core tools for working with \emph{subgroups}: quick tests to recognize them, large natural families (centralizers, normalizers, stabilizers, kernels), a full treatment of cyclic groups and their subgroups, how arbitrary subsets generate subgroups, and how to visualize inclusion relations via the lattice of subgroups.
 
-\begin{itemize}\itemsep4pt
-\item \textbf{Binary operations \& closure.} A binary operation $*\!:G\times G\to G$ may be associative/commutative; subsets closed under $*$ inherit these properties.
-\item \textbf{Group axioms.} $(G,*)$ with associativity, identity $e$, and inverses $a^{-1}$; abelian if $ab=ba$. Notation simplifies products ($ab$, $x^n$, $x^{-n}$, $x^0=1$).
-\item \textbf{Canonical examples.} $(\mathbb{Z},+)$; $(\mathbb{Q}^\times,\mathbb{R}^\times,\mathbb{C}^\times,\cdot)$; additive groups $\mathbb{Z}/n\mathbb{Z}$; multiplicative units $(\mathbb{Z}/n\mathbb{Z})^\times$; direct products $A\times B$.
-\item \textbf{Basic consequences.} Identity and inverses are unique; $(ab)^{-1}=b^{-1}a^{-1}$; generalized associativity; unique solutions to $ax=b$ and $ya=b$; cancellation laws. \emph{Order} $|x|$ is the least $n>0$ with $x^n=1$ (or $\infty$).
+\begin{itemize}
+\item \textbf{Recognizing subgroups fast.} The \emph{Subgroup Criterion} replaces “check all axioms” with a two-line test: $H\neq\varnothing$ and $xy^{-1}\in H$ for all $x,y\in H$ (and for finite $H$, nonempty $+$ closure under multiplication suffices).
+\item \textbf{Natural subgroups from actions.} Centralizers $C_G(A)$, normalizers $N_G(A)$, the center $Z(G)$, stabilizers $G_s$, and kernels of actions are all subgroups; they organize commutation and symmetry-by-conjugation.
+\item \textbf{Cyclic structure in full.} A cyclic group $\langle x\rangle$ has $|\langle x\rangle|=|x|$. Any two cyclic groups of the same order are isomorphic; orders of powers and the precise list of generators are determined by $\gcd$ relations.
+\item \textbf{Generating by subsets.} For $A\subseteq G$, the subgroup $\langle A\rangle$ is the \emph{intersection of all subgroups} containing $A$, equivalently the set of all finite words in $A^{\pm1}$.
+\item \textbf{Lattice viewpoint.} The subgroup lattice encodes joins ($\langle H,K\rangle$) and intersections graphically; partial lattices focus on just the relationships of interest.
 \end{itemize}
 
 \newpage
 
-\textbf{1.1 Basic Axioms and Examples}
+\textbf{2.1 Definition and Examples}
 
 \newpage
 
-\textbf{Intuition.} Formalize “composition with undoing” and study its structural consequences across familiar number systems and constructed sets.
+\medskip
+\textbf{Definition.} A subset $H\subseteq G$ is a \emph{subgroup} (written $H\le G$) if $H\neq\varnothing$ and $H$ is closed under taking inverses and products (equivalently, $x,y\in H\Rightarrow xy^{-1}\in H$).
 
-\textbf{Core facts.}
+\medskip
+\textbf{Subgroup Criterion.} $H\le G$ iff $H\neq\varnothing$ and $xy^{-1}\in H$ for all $x,y\in H$. If $H$ is finite, it suffices to check $H\neq\varnothing$ and closure under multiplication.
+
+\medskip
+\textbf{Basic consequences.}
 \begin{itemize}\itemsep3pt
-\item \emph{Uniqueness.} Identity and inverses are unique; $(x^{-1})^{-1}=x$; $(ab)^{-1}=b^{-1}a^{-1}$.
-\item \emph{Cancellation/solving.} $au=av\Rightarrow u=v$, $ub=vb\Rightarrow u=v$; solutions $x=a^{-1}b$, $y=ba^{-1}$.
-\item \emph{Order of an element.} Examples: in $(\mathbb{R}^\times,\cdot)$, $-1$ has order $2$; in $\mathbb{Z}/9\mathbb{Z}$, $[6]$ has order $3$; in $(\mathbb{Z}/7\mathbb{Z})^\times$, $[2]$ has order $3$.
+\item The identity of $H$ equals the identity of $G$; inverses coincide as elements of $G$.
+\item Transitivity: if $K\le H\le G$, then $K\le G$.
+\item Many yes/no examples illustrate pitfalls: wrong operation, missing identity, not inverse-closed.
 \end{itemize}
 
 \newpage
 
-\textbf{1.2 Dihedral Groups}
+\textbf{2.2 Centralizers and Normalizers, Stabilizers and Kernels}
 
 \newpage
 
-\textbf{Intuition.} Symmetries of a regular $n$-gon (rotations and reflections) form a prototypical nonabelian group of order $2n$.
+\medskip
+\textbf{Centralizer/Center.} $C_G(A)=\{g\in G\mid ga=ag\ \forall a\in A\}$ and $Z(G)=\{g\in G\mid gx=xg\ \forall x\in G\}$ are subgroups. Always $Z(G)=C_G(G)$.
 
-\textbf{Structure.}
+\medskip
+\textbf{Normalizer.} $N_G(A)=\{g\in G\mid gAg^{-1}=A\}$ is a subgroup and contains $C_G(A)$. Conjugation on subsets explains both as stabilizer/kernel of an action.
+
+\medskip
+\textbf{Actions $\Rightarrow$ subgroups.} For a $G$-action on $S$, the stabilizer $G_s=\{g\mid g\cdot s=s\}$ and the kernel $\{g\mid g\cdot t=t\ \forall t\in S\}$ are subgroups. Many concrete computations (e.g., in $D_8,S_3$) follow quickly from these definitions.
+
+\newpage
+
+\textbf{2.3 Cyclic Groups and Cyclic Subgroups}
+
+\newpage
+
+\medskip
+\textbf{Cyclic.} $\langle x\rangle=\{x^n\mid n\in\mathbb Z\}$ is abelian. If $|\langle x\rangle|=n<\infty$, then the distinct elements are $1,x,\dots,x^{n-1}$; if $|\langle x\rangle|=\infty$, all powers are distinct.
+
+\medskip
+\textbf{Divisibility of orders.} If $x^m=1$ and $x^n=1$, then $x^{\gcd(m,n)}=1$; in particular $|x|\mid m$ whenever $x^m=1$.
+
+\medskip
+\textbf{All cyclics look alike.} Any two cyclic groups of the same order are isomorphic; infinite cyclic $\cong\mathbb Z$, finite cyclic of order $n$ $\cong \mathbb Z/n\mathbb Z$.
+
+\medskip
+\textbf{Orders of powers.} If $|x|=\infty$, then $|x^a|=\infty$ for $a\ne 0$. If $|x|=n<\infty$, then $|x^a|=\dfrac{n}{\gcd(n,a)}$.
+
+\medskip
+\textbf{Generators.} In $\langle x\rangle$ with $|x|=n$, the element $x^a$ generates the whole group iff $\gcd(a,n)=1$; hence the number of generators is $\varphi(n)$.
+
+\medskip
+\textbf{Subgroups of cyclic groups (complete classification).}
 \begin{itemize}\itemsep3pt
-\item $D_{2n}$ has $n$ rotations and $n$ reflections; $|D_{2n}|=2n$. With generators $r$ (rotation by $2\pi/n$) and $s$ (a reflection), every element is $r^i$ or $sr^i$, $0\le i<n$. Relations:
+\item Every subgroup of a cyclic group is cyclic.
+\item If $|\langle x\rangle|=\infty$, its nontrivial subgroups are exactly $\langle x^m\rangle$ for $m\in\mathbb Z_{>0}$, all distinct.
+\item If $|\langle x\rangle|=n$, then for each $a\mid n$ there is a unique subgroup of order $a$, namely $\langle x^{n/a}\rangle$.
+\end{itemize}
+
+\newpage
+
+\textbf{2.4 Subgroups Generated by Subsets of a Group}
+
+\newpage
+
+\medskip
+\textbf{Definition.} For $A\subseteq G$, the subgroup \emph{generated by $A$} is
 \[
-r^n=1,\quad s^2=1,\quad rs=sr^{-1}. 
+\langle A\rangle=\bigcap\{H\le G\mid A\subseteq H\},
 \]
-Hence the presentation $D_{2n}=\langle r,s\mid r^n=s^2=1,\ rs=sr^{-1}\rangle$.
-\item Consequences: $|r|=n$, $|s|=2$, $D_{2n}$ is nonabelian ($rs\ne sr$). Computations reduce via $r^n=1$, $s^2=1$, and $r^is=sr^{-i}$.
-\end{itemize}
+the unique smallest subgroup containing $A$.
 
-\newpage
-
-\textbf{1.3 Symmetric Groups}
-
-\newpage
-
-\textbf{Intuition.} All permutations of a set form a group under composition; on $\{1,\dots,n\}$ this is $S_n$ with $|S_n|=n!$. Cycle notation captures structure efficiently.
-
-\textbf{Key points.}
-\begin{itemize}\itemsep3pt
-\item \emph{Cycle decomposition.} Any $\sigma\in S_n$ factors uniquely (up to order of disjoint cycles and cyclic rotation inside each cycle) into disjoint cycles; disjoint cycles commute; $\sigma^{-1}$ is obtained by reversing each cycle.
-\item \emph{Orders.} $\mathrm{ord}(\sigma)=\mathrm{lcm}$ of the lengths of the cycles in its decomposition. $S_n$ is nonabelian for $n\ge 3$.
-\end{itemize}
-
-\newpage
-
-\textbf{1.4 Matrix Groups}
-
-\newpage
-
-\textbf{Intuition.} Invertible $n\times n$ matrices over a field $F$ form the general linear group $GL_n(F)$ under matrix multiplication.
-
-\textbf{Highlights.}
-\begin{itemize}\itemsep3pt
-\item $GL_n(F)=\{A\in M_n(F)\mid \det A\ne 0\}$ is a group; inverses exist iff $\det A\ne0$; $\det(AB)=\det A\cdot\det B$.
-\item If $|F|=q<\infty$, then 
+\medskip
+\textbf{Word description.} Equivalently,
 \[
-|GL_n(F)|=(q^n-1)(q^n-q)\cdots(q^n-q^{\,n-1}).
+\langle A\rangle=\{a_1^{\varepsilon_1}\cdots a_n^{\varepsilon_n}\mid n\ge 0,\ a_i\in A,\ \varepsilon_i\in\{\pm1\}\},
 \]
-Examples: $|GL_2(\mathbb{F}_2)|=6$ and it is nonabelian.
-\end{itemize}
+i.e., all finite products of elements of $A$ and their inverses. In abelian $G$ with $A=\{a_1,\dots,a_k\}$,
+\[
+\langle A\rangle=\{a_1^{m_1}\cdots a_k^{m_k}\mid m_i\in\mathbb Z\}.
+\]
+
+\medskip
+\textbf{Intersections are subgroups.} Arbitrary intersections of (nonempty families of) subgroups are subgroups; this underpins the “smallest subgroup containing $A$.”
 
 \newpage
 
-\textbf{1.5 The Quaternion Group}
+\textbf{2.5 The Lattice of Subgroups of a Group}
 
 \newpage
 
-\textbf{Intuition.} $Q_8=\{1,-1,\pm i,\pm j,\pm k\}$ is a minimal nonabelian group of order $8$ with $i^2=j^2=k^2=-1$ and $ij=k$, $jk=i$, $ki=j$, with reversed products picking up a minus sign.
-
-\textbf{Notes.} Associativity holds (nontrivially), $-1$ is central, and each noncentral element has order $4$.
-
-\newpage
-
-\textbf{1.6 Homomorphisms and Isomorphisms}
-
-\newpage
-
-\textbf{Intuition.} A homomorphism $\varphi:G\to H$ preserves products; an isomorphism is a bijective homomorphism—“same group up to relabeling.”
-
-\textbf{Principles.}
+\medskip
+\textbf{Lattice picture.} Plot all subgroups from $1$ (bottom) to $G$ (top), connecting $H$ upward to $K$ when $H<K$ with no subgroup strictly between. The diagram reveals:
 \begin{itemize}\itemsep3pt
-\item Homomorphism preserves powers: $\varphi(x^n)=\varphi(x)^n$ ($n\in\mathbb{Z}$). Isomorphisms preserve element orders and abelian/nonabelian type.
-\item Presentations: mapping generators to elements satisfying the same defining relations extends uniquely to a homomorphism. E.g., $D_6\cong S_3$ via $r\mapsto(123)$, $s\mapsto(12)$.
-\end{itemize}
-
-\newpage
-
-\textbf{1.7 Group Actions}
-
-\newpage
-
-\textbf{Intuition.} An action $G\curvearrowright A$ is a rule $g\cdot a$ compatible with the group law; equivalently, a homomorphism $G\to S_A$. Actions turn algebra into motion (permutations), enabling counting and structure theorems.
-
-\textbf{Toolkit.}
-\begin{itemize}\itemsep3pt
-\item Each $g$ acts as a permutation of $A$; the associated map $G\to S_A$ is a homomorphism. Trivial vs.\ faithful actions; kernels and stabilizers are subgroups.
-\item Examples: the natural action of $S_n$ on $\{1,\dots,n\}$ and derived sets; $D_{2n}$ on polygon vertices; left regular action $G$ on itself by $x\mapsto gx$. Cayley’s viewpoint follows from faithfulness of the left regular action.
+\item \emph{Join} $\langle H,K\rangle$ by tracing upward until a first common subgroup is reached.
+\item \emph{Meet} $H\cap K$ by tracing downward to the largest subgroup contained in both.
 \end{itemize}
 
 \medskip
-\noindent\textbf{Why this chapter matters.} It lays the language (axioms, orders, presentations), the archetypes ($D_{2n}$, $S_n$, $GL_n(F)$, $Q_8$), the morphisms (homomorphisms/isomorphisms), and the lens of actions that powers later results (class equations, Sylow theory, and classifications).
+\textbf{Usage.} Even partial lattices (for finite or infinite groups) help read off joins, intersections, and often simplify centralizer/normalizer computations (e.g., in $D_{2n},Q_8,S_3$).
 
 \newpage
 
-\noindent \textbf{1.1.1 Exercise 1 (a).} Determine whether the operation $\star$ on $\mathbb{Z}$ defined by $a\star b=a-b$ is associative.\\ %verbatim
+\noindent \textbf{2.1: Exercise 1(c).} For fixed $n\in\mathbb Z_{>0}$, prove that the set of rational numbers whose denominators divide $n$ (under addition) is a subgroup of $(\mathbb Q,+)$.\\ %verbatim
 
-\noindent\textbf{As General Proposition}: Integer subtraction is not associative.\\
-
-\noindent \textbf{As Conditional Proposition}: The binary operation $\star$ on $\mathbb{Z}$ given by $a\star b=a-b$ is not associative; i.e., there exist $x,y,z\in\mathbb{Z}$ with $(x\star y)\star z\neq x\star (y\star z)$.
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} Subtraction depends on order; rebracketing changes the order in which a minus sign applies, so outcomes can differ.\\
-
-\dotfill
-
-\emph{Proof (counterexample).}\\
-\textbf{Step 1 (Compute left-bracketed value).} $(1\star 2)\star 3=(1-2)-3=-1-3=-4$.\\
-\textbf{Step 2 (Compute right-bracketed value).} $1\star(2\star 3)=1-(2-3)=1-(-1)=2$.\\
-\textbf{Step 3 (Conclude nonassociativity).} Since $-4\neq 2$, the operation is not associative.\\
-
-
-\newpage
-
-\noindent \textbf{1.1.1 Exercise 1 (b).} Determine whether the operation $\star$ on $\mathbb{R}$ defined by $a\star b=a+b+ab$ is associative.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: The real binary operation $a\star b=a+b+ab$ is associative.\\
-
-\noindent \textbf{As Conditional Proposition}: For all $a,b,c\in\mathbb{R}$, $(a\star b)\star c=a\star(b\star c)$
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} Note $a\star b=(1+a)(1+b)-1$, so $\star$ inherits associativity from real multiplication. We can also verify by direct expansion.\\
-
-\dotfill
-
-\emph{Proof (direct computation).}\\
-\textbf{Step 1 (Expand left side).} $(a\star b)\star c=(a+b+ab)\star c=(a+b+ab)+c+(a+b+ab)c$.\\
-\textbf{Step 2 (Distribute and collect).} $=a+b+c+ab+ac+bc+abc$.\\
-\textbf{Step 3 (Expand right side).} $a\star(b\star c)=a\star(b+c+bc)=a+(b+c+bc)+a(b+c+bc)$.\\
-\textbf{Step 4 (Distribute and collect).} $=a+b+c+bc+ab+ac+abc$.\\
-\textbf{Step 5 (Compare).} Both sides equal $a+b+c+ab+ac+bc+abc$; hence $(a\star b)\star c=a\star(b\star c)$.\\
-\textbf{Step 6 (Conclude).} $\star$ is associative on $\mathbb{R}$.\\
-
-
-\newpage
-
-\noindent \textbf{1.1.1 Exercise 1 (c).} Determine whether the operation $\star$ on $\mathbb{Q}$ defined by $a\star b=\dfrac{a+b}{5}$ is associative.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: The averaging-type operation $a\star b=(a+b)/5$ is not associative.\\
-
-\noindent \textbf{As Conditional Proposition}: There exist $x,y,z\in\mathbb{Q}$ with $(x\star y)\star z\neq x\star (y\star z)$.
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} Linear averaging with a fixed scale factor generally fails associativity unless the factor is $1$; rebracketing inserts the factor twice in different positions.\\
-
-\dotfill
-
-\emph{Proof (counterexample).}\\
-\textbf{Step 1 (Compute left-bracketed value).} $(5\star 20)\star 15=\big(\tfrac{5+20}{5}\big)\star 15=5\star 15=\tfrac{5+15}{5}=\tfrac{20}{5}=4$.\\
-\textbf{Step 2 (Compute right-bracketed value).} $5\star(20\star 15)=5\star\big(\tfrac{20+15}{5}\big)=5\star 7=\tfrac{5+7}{5}=\tfrac{12}{5}$.\\
-\textbf{Step 3 (Conclude nonassociativity).} Since $4\neq \tfrac{12}{5}$, the operation is not associative.\\
-
-\newpage
-
-\noindent \textbf{1.1.2 Exercise 2 (a).} Decide whether $\star$ on $\mathbb{Z}$ defined by $a\star b=a-b$ is commutative.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: Integer subtraction is not commutative.\\
-
-\noindent \textbf{As Conditional Proposition}: The binary operation $\star$ on $\mathbb{Z}$ given by $a\star b=a-b$ is not commutative; i.e., there exist $x,y\in\mathbb{Z}$ with $x\star y\neq y\star x$.
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} Swapping the operands reverses which term is being subtracted, typically changing the sign of the result.\\
-
-\dotfill
-
-\emph{Proof (counterexample).}\\
-\textbf{Step 1 (Compute $1\star2$).} $1\star 2=1-2=-1$.\\
-\textbf{Step 2 (Compute $2\star1$).} $2\star 1=2-1=1$.\\
-\textbf{Step 3 (Conclude noncommutativity).} Since $-1\neq 1$, we have $1\star2\neq 2\star1$; thus $\star$ is not commutative on $\mathbb{Z}$.\\
-
-
-\newpage
-
-\noindent \textbf{1.1.2 Exercise 2 (b).} Decide whether $\star$ on $\mathbb{R}$ defined by $a\star b=a+b+ab$ is commutative.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: The operation $a\star b=a+b+ab$ on $\mathbb{R}$ is commutative.\\
-
-\noindent \textbf{As Conditional Proposition}: For all $a,b\in\mathbb{R}$, $a\star b=b\star a$.
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} The expression is symmetric in $a$ and $b$ because real addition and multiplication each commute; also $a\star b=(1+a)(1+b)-1$, which is visibly symmetric.\\
-
-\dotfill
-
-\emph{Proof (direct calculation).}\\
-\textbf{Step 1 (Write both orders).} $a\star b=a+b+ab$ and $b\star a=b+a+ba$.\\
-\textbf{Step 2 (Use commutativity of $+$ and $\cdot$).} $b+a=a+b$ and $ba=ab$.\\
-\textbf{Step 3 (Identify equality).} Hence $b\star a=b+a+ba=a+b+ab=a\star b$.\\
-\textbf{Step 4 (Conclude).} Therefore $\star$ is commutative on $\mathbb{R}$.\\
-
-
-\newpage
-
-\noindent \textbf{1.1.2 Exercise 2 (c).} Decide whether $\star$ on $\mathbb{Q}$ defined by $a\star b=\dfrac{a+b}{5}$ is commutative.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: The averaging-type operation $a\star b=(a+b)/5$ on $\mathbb{Q}$ is commutative.\\
-
-\noindent \textbf{As Conditional Proposition}: For all $a,b\in\mathbb{Q}$, $a\star b=b\star a$.
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} Swapping $a$ and $b$ leaves $a+b$ unchanged; dividing by a fixed constant preserves equality.\\
-
-\dotfill
-
-\emph{Proof (direct calculation).}\\
-\textbf{Step 1 (Write both orders).} $a\star b=\dfrac{a+b}{5}$ and $b\star a=\dfrac{b+a}{5}$.\\
-\textbf{Step 2 (Use commutativity of addition).} $a+b=b+a$.\\
-\textbf{Step 3 (Identify equality).} Thus $\dfrac{a+b}{5}=\dfrac{b+a}{5}$, so $a\star b=b\star a$.\\
-\textbf{Step 4 (Conclude).} Therefore $\star$ is commutative on $\mathbb{Q}$.\\
-
-\newpage
-
-\noindent \textbf{1.1.7 Exercise 7.} Let $G=\{x\in\mathbb{R}\mid 0\le x<1\}$ and for $x,y\in G$ let $x\star y$ be the fractional part of $x+y$:
+\noindent\textbf{As General Proposition}: For any $n\in\mathbb Z_{>0}$, the subset
 \[
-x\star y \;=\; \{x+y\}\;=\;x+y-\lfloor x+y\rfloor ,
+H_n=\Bigl\{\tfrac{a}{b}\in\mathbb Q \ \Bigm|\ a\in\mathbb Z,\ b\in\mathbb Z_{>0},\ \gcd(a,b)=1,\ b\mid n\Bigr\}
 \]
-where $\lfloor\cdot\rfloor$ is the greatest integer $\le$ the argument. Prove that $\star$ is a well-defined binary operation on $G$ and that $(G,\star)$ is an abelian group (the “real numbers mod $1$”).\\ %verbatim
+is a subgroup of $(\mathbb Q,+)$.\\
 
-\noindent\textbf{As General Proposition}: The set $G=[0,1)$ forms an abelian group under $x\star y=\{x+y\}$.\\
-
-\noindent \textbf{As Conditional Proposition}: With $G=[0,1)$ and $x\star y=x+y-\lfloor x+y\rfloor$, the operation $\star$ is a well-defined binary operation on $G$, associative and commutative, with identity $0$ and inverse $x^{-1}=0$ if $x=0$ and $x^{-1}=1-x$ if $0<x<1$.\\
+\noindent \textbf{As Conditional Proposition}: Fix $n\in\mathbb Z_{>0}$. Then $H_n\le (\mathbb Q,+)$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} The rule $x\star y=\{x+y\}$ is simply “add and wrap back into $[0,1)$.” Because adding or subtracting an integer does not change fractional parts, rebracketing sums only changes them by integers; hence associativity and commutativity descend from ordinary addition. The identity is $0$, and the inverse of $x$ is the amount needed to reach the next integer, namely $1-x$ (or $0$ if $x=0$).\\
+\emph{Intuition.} Use the subgroup criterion for additive groups: a nonempty subset $H$ is a subgroup iff it is closed under subtraction. If two rationals have denominators dividing the same $n$, then after putting them over the common denominator $n$, their difference again has (reduced) denominator dividing $n$.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Well-definedness/closure).} For $x,y\in[0,1)$ we have $0\le x+y<2$, so $n:=\lfloor x+y\rfloor\in\{0,1\}$. Then
+\textbf{Step 1 (Define the candidate set).} Let $H\colon =H_n=\{\frac{a}{b}\in\mathbb Q \mid \gcd(a,b)=1,\ b\mid n\}$.\\
+\textbf{Step 2 (Nonemptiness).} $0=\frac{0}{1}\in H$ since $1\mid n$; hence $H\neq\varnothing$.\\
+\textbf{Step 3 (Closure under subtraction).} Take $\frac{a}{b},\frac{c}{d}\in H$ in lowest terms, so $b\mid n$ and $d\mid n$. Write $n=bx=dy$ for some $x,y\in\mathbb Z_{>0}$. Then
 \[
-x\star y=x+y-n\in[0,1),
+\frac{a}{b}-\frac{c}{d}=\frac{ad-bc}{bd}=\frac{a x - c y}{n}.
 \]
-hence $\star$ maps $G\times G$ into $G$.\\
-\textbf{Step 2 (Commutativity).} Since $x+y=y+x$ and $\lfloor x+y\rfloor=\lfloor y+x\rfloor$,
-\[
-x\star y=x+y-\lfloor x+y\rfloor
-           =y+x-\lfloor y+x\rfloor
-           =y\star x.
-\]\\
-\textbf{Step 3 (Identity element).} For any $x\in G$, $\lfloor x\rfloor=0$, hence
-\[
-x\star 0=x+0-\lfloor x\rfloor=x,\qquad
-0\star x=0+x-\lfloor x\rfloor=x.
-\]
-Thus $0$ is a two-sided identity.\\
-\textbf{Step 4 (Inverses).} If $x=0$, then $0$ is its own inverse. If $0<x<1$, set $y=1-x\in(0,1)$. Then
-\[
-x\star y=x+(1-x)-\lfloor 1\rfloor=1-1=0,
-\quad
-y\star x=(1-x)+x-\lfloor 1\rfloor=0,
-\]
-so $y$ is a two-sided inverse of $x$.\\
-\textbf{Step 5 (Associativity via fractional-part algebra).} For any real $t$ and integer $k$, $\{t-k\}=\{t\}$ because
-\[
-\{t-k\}=(t-k)-\lfloor t-k\rfloor=(t-k)-(\lfloor t\rfloor-k)=t-\lfloor t\rfloor=\{t\}.
-\]
-Let $x,y,z\in G$ and put $u=x+y$. Then
-\[
-(x\star y)\star z
-=\{\{x+y\}+z\}
-=\{(x+y-\lfloor x+y\rfloor)+z\}
-=\{u+z-\lfloor u\rfloor\}
-=\{u+z\}
-=\{x+y+z\}.
-\]
-Similarly,
-\[
-x\star (y\star z)
-=\{x+\{y+z\}\}
-=\{x+(y+z-\lfloor y+z\rfloor)\}
-=\{x+y+z-\lfloor y+z\rfloor\}
-=\{x+y+z\}.
-\]
-Therefore $(x\star y)\star z=x\star(y\star z)$ for all $x,y,z\in G$.\\
-\textbf{Step 6 (Conclusion).} The operation $\star$ is closed on $G$, associative and commutative; $0$ is the identity; and every $x\in G$ has an inverse in $G$ (namely $0$ if $x=0$, else $1-x$). Hence $(G,\star)$ is an abelian group.
+Reduce $\frac{a x - c y}{n}$ to lowest terms: say $\frac{a x - c y}{n}=\frac{p}{q}$ with $\gcd(p,q)=1$. Since $q$ is a (positive) divisor of $n$, we have $q\mid n$, hence $\frac{p}{q}\in H$. Thus $H$ is closed under subtraction.\\
+\textbf{Step 4 (Conclude by subgroup criterion).} By Steps 2–3 and the subgroup criterion ($H\neq\varnothing$ and closed under subtraction $\Rightarrow H\le\mathbb Q$), we conclude $H\le(\mathbb Q,+)$.\\
 
 \newpage
 
-\noindent \textbf{1.1.18 Exercise 18.} Let $x,y$ be elements of a group $G$. Prove that
-\[
-xy=yx \quad \Longleftrightarrow \quad y^{-1}xy=x \quad \Longleftrightarrow \quad x^{-1}y^{-1}xy=1.
-\] %verbatim
+\newpage
 
-\noindent\textbf{As General Proposition}: An element $x$ commutes with $y$ iff $x$ is fixed by conjugation by $y$ iff the commutator $x^{-1}y^{-1}xy$ equals the identity.\\
+\noindent \textbf{2.1: Exercise 3(a).} In the dihedral group $D_8=\langle r,s\mid r^4=1,\ s^2=1,\ srs=r^{-1}\rangle$, show that $\{1,r^2,s,sr^2\}$ is a subgroup.\\ %verbatim
 
-\noindent \textbf{As Conditional Proposition}: For any $x,y\in G$, the following are equivalent:
-\begin{enumerate}\itemsep2pt
-\item[(1)] $xy=yx$.
-\item[(2)] $y^{-1}xy=x$.
-\item[(3)] $x^{-1}y^{-1}xy=1$.
-\end{enumerate}
+\noindent\textbf{As General Proposition}: In $D_8$, the set $H:=\{1,r^2,s,sr^2\}$ is a subgroup (indeed, a Klein $4$-group).\\
+
+\noindent \textbf{As Conditional Proposition}: Let $D_8=\langle r,s\mid r^4=1,\ s^2=1,\ srs=r^{-1}\rangle$. Then $H=\{1,r^2,s,sr^2\}\le D_8$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Conjugation measures “failure to commute”: if $x$ and $y$ commute, then conjugating $x$ by $y$ leaves it unchanged. The commutator $[x,y]=x^{-1}y^{-1}xy$ is exactly the element that becomes $1$ precisely when $x$ and $y$ commute.\\
+\emph{Intuition.} Because $D_8$ is finite, it suffices to check closure under the group operation. Use the relations $r^4=1$, $s^2=1$, and $r^k s=s r^{-k}$ (equivalently $s r^k=r^{-k}s$) to multiply any two listed elements and verify the product lands back in $H$.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Show $(1)\Rightarrow(2)$).} Assume $xy=yx$. Left-multiply by $y^{-1}$ to get $y^{-1}xy=y^{-1}yx=x$.\\
-\textbf{Step 2 (Show $(2)\Rightarrow(1)$).} Assume $y^{-1}xy=x$. Left-multiply by $y$ to obtain $xy=yx$.\\
-\textbf{Step 3 (Conclude $(1)\Leftrightarrow(2)$).} Steps 1–2 give equivalence of (1) and (2).\\
-\textbf{Step 4 (Show $(2)\Rightarrow(3)$).} From $y^{-1}xy=x$, left-multiply by $x^{-1}$ to get $x^{-1}y^{-1}xy=x^{-1}x=1$, establishing (3).\\
-\textbf{Step 5 (Show $(3)\Rightarrow(2)$).} If $x^{-1}y^{-1}xy=1$, then right-multiply by $y^{-1}$ to get $x^{-1}y^{-1}x= y^{-1}$. Now left-multiply by $x$ to deduce $y^{-1}x=xy^{-1}$. Right-multiply by $y$ to obtain $x= y^{-1}xy$, which is (2).\\
-\textbf{Step 6 (Transitive equivalence).} By Steps 3–5, (1), (2), and (3) are all equivalent.
+\textbf{Step 1 (Nonempty).} $1\in H$, so $H\neq\varnothing$.\\
+\textbf{Step 2 (Useful identities).} From $srs=r^{-1}$ we have $r^k s=s r^{-k}$ and $s r^k=r^{-k}s$ for all $k\in\mathbb Z$; also $r^4=1$ and $s^2=1$.\\
+\textbf{Step 3 (Squares).} $r^2\cdot r^2=1\in H$, $s\cdot s=1\in H$, and $(sr^2)\cdot(sr^2)=s r^2 s r^2=(s r^2 s) r^2=r^{-2}r^2=1\in H$.\\
+\textbf{Step 4 (Mixed products with $r^2$).} $r^2\cdot s=r^2 s=s r^{-2}=s r^2\in H$ and $r^2\cdot (s r^2)=r^2 s r^2=(s r^2) r^2=s r^4=s\in H$.\\
+\textbf{Step 5 (Mixed products with $s$).} $s\cdot r^2=s r^2\in H$ and $s\cdot (s r^2)=(s s) r^2=r^2\in H$.\\
+\textbf{Step 6 (Mixed products with $sr^2$).} $(s r^2)\cdot r^2=s r^2 r^2=s r^4=s\in H$ and $(s r^2)\cdot s=s r^2 s=r^{-2}=r^2\in H$.\\
+\textbf{Step 7 (Closure and subgroup).} All products of elements of $H$ remain in $H$; since $D_8$ is finite, closure implies inverses exist in $H$; hence $H\le D_8$.\\
 
 \newpage
 
-\noindent \textbf{1.1.34 Exercise 34.} If $x$ is an element of infinite order in a group $G$, prove that the elements $x^n$ ($n\in\mathbb{Z}$) are all distinct.\\ %verbatim
+\noindent \textbf{2.1: Exercise 3(b).} In the dihedral group $D_8$, show that $\{1,r^2,sr,sr^3\}$ is a subgroup.\\ %verbatim
 
-\noindent\textbf{As General Proposition}: If $\langle x\rangle$ is infinite, then the map $\mathbb{Z}\to G$, $n\mapsto x^n$, is injective, so the powers $\{x^n:n\in\mathbb{Z}\}$ are pairwise distinct.\\
+\noindent\textbf{As General Proposition}: In $D_8$, the set $K:=\{1,r^2,sr,sr^3\}$ is a subgroup (also a Klein $4$-group).\\
 
-\noindent \textbf{As Conditional Proposition}: Let $G$ be a group and $x\in G$ have infinite order. Then for all $m,n\in\mathbb{Z}$, $x^m=x^n$ implies $m=n$; equivalently, all $x^n$ are distinct.\\
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} “Infinite order” means no nonzero power of $x$ equals the identity. If two powers matched, say $x^m=x^n$, then moving one to the other side would yield a nontrivial power $x^{m-n}=1$, contradicting infinitude.\\
-
-\dotfill
-
-\emph{Proof.}\\
-\textbf{Step 1 (Assume two equal powers).} Take any $m,n\in\mathbb{Z}$ and suppose $x^m=x^n$.\\
-\textbf{Step 2 (Reduce to a single power).} Multiply on the right by $x^{-n}$ to get $x^{m-n}=1$.\\
-\textbf{Step 3 (Use infinite order).} Since $x$ has infinite order, the only integer $k$ with $x^{k}=1$ is $k=0$. Thus $m-n=0$.\\
-\textbf{Step 4 (Conclude injectivity).} From $m-n=0$ we obtain $m=n$. Hence distinct integers yield distinct powers: if $m\neq n$ then $x^m\neq x^n$.\\
-\textbf{Step 5 (Finish).} Therefore the set $\{x^n:n\in\mathbb{Z}\}$ consists of pairwise distinct elements.
-
-\newpage
-
-\noindent \textbf{1.2.4 Exercise 4.} If $n=2k$ is even and $n\ge 4$, show that $z=r^k$ is an element of order $2$ which commutes with all elements of $D_{2n}$. Show also that $z$ is the only nonidentity element of $D_{2n}$ which commutes with all elements of $D_{2n}$.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: In the dihedral group $D_{2n}=\langle r,s\mid r^n=1,\ s^2=1,\ srs=r^{-1}\rangle$ with $n=2k\ge4$, the center is $Z(D_{2n})=\{1,r^k\}$; in particular $r^k$ has order $2$ and is central.\\
-
-\noindent \textbf{As Conditional Proposition}: Let $G=D_{2n}$ with $n=2k\ge4$. Then $z:=r^k$ satisfies $z^2=1$ and $zg=gz$ for all $g\in G$, and if $w\in G\setminus\{1\}$ commutes with every element of $G$ then $w=r^k$.\\
+\noindent \textbf{As Conditional Proposition}: With $D_8=\langle r,s\mid r^4=1,\ s^2=1,\ srs=r^{-1}\rangle$, we have $K=\{1,r^2,sr,sr^3\}\le D_8$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Half a full rotation flips the polygon to the opposite configuration; doing it twice restores the original—hence order $2$. Conjugating by a reflection inverts rotations; but $r^k=r^{-k}$ when $n=2k$, so $r^k$ is fixed by conjugation and thus commutes with reflections as well as rotations. Any other rotation fails to commute with a reflection, and no reflection commutes with a rotation when $n\ge4$.\\
+\emph{Intuition.} Again use finiteness and the relations to enumerate products. The reflections $sr$ and $sr^3$ both square to $1$, and multiplying by $r^2$ toggles them, keeping us inside $K$.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Order of $r^k$).} Since $n=2k$, we have $(r^k)^2=r^{2k}=r^n=1$ and $r^k\ne1$ (because $k<n$). Thus $r^k$ has order $2$.\\
-\textbf{Step 2 (Commutation with rotations).} For any $i$, $r^k r^i=r^{k+i}=r^{i+k}=r^i r^k$, so $r^k$ commutes with every rotation.\\
-\textbf{Step 3 (Commutation with reflections).} Using $sr=r^{-1}s$,
-\[
-sr^k=r^{-k}s.
-\]
-Because $n=2k$, we have $r^{-k}=r^{n-k}=r^k$, hence $sr^k=r^{k}s$. Therefore $r^k$ commutes with every reflection $sr^i$:
-\[
-r^k(sr^i)=(r^k s)r^i=(s r^k)r^i=s r^{k+i}=s r^{i+k}=(sr^i) r^k.
-\]
-Thus $r^k$ commutes with all elements of $D_{2n}$.\\
-\textbf{Step 4 (No other rotation is central).} Let $r^t$ commute with $s$. Then
-\[
-r^t s= s r^t = r^{-t} s \quad\Rightarrow\quad r^t=r^{-t}\quad\Rightarrow\quad r^{2t}=1.
-\]
-Since $|r|=n=2k$, we must have $2t\equiv0\pmod{2k}$, so $t\equiv0$ or $t\equiv k$. Hence among rotations, only $1$ and $r^k$ commute with $s$.\\
-\textbf{Step 5 (No reflection is central).} Suppose $w=sr^t$ commutes with $r$. Then
-\[
-(sr^t)r = sr^{t+1},\qquad r(sr^t)=(rs)r^t=(sr^{-1})r^t=sr^{t-1}.
-\]
-Commuting would force $sr^{t+1}=sr^{t-1}$, hence $r^{t+1}=r^{t-1}$ and $r^2=1$, contradicting $n\ge4$. Thus no reflection commutes with $r$, so no reflection is central.\\
-\textbf{Step 6 (Conclusion).} By Steps 4–5, the only elements commuting with both generators $r$ and $s$ are $1$ and $r^k$. Therefore $Z(D_{2n})=\{1,r^k\}$; in particular, $z=r^k$ is the unique nonidentity element commuting with all of $D_{2n}$.\\
+\textbf{Step 1 (Nonempty).} $1\in K$, so $K\neq\varnothing$.\\
+\textbf{Step 2 (Squares).} $r^2\cdot r^2=1$; $(sr)\cdot(sr)=s r s r=(s r s) r=r^{-1} r=1$; $(sr^3)\cdot(sr^3)=s r^3 s r^3=(s r^3 s) r^3=r^{-3} r^3=1$.\\
+\textbf{Step 3 (Products with $r^2$).} $r^2\cdot(sr)= (r^2 s) r=(s r^2) r=s r^3\in K$ and $r^2\cdot(sr^3)=(r^2 s) r^3=(s r^2) r^3=s r^5=s r\in K$.\\
+\textbf{Step 4 (Reverse products with $r^2$).} $(sr)\cdot r^2=s r^2\cdot r=(s r^2) r=s r^3\in K$ and $(sr^3)\cdot r^2=s r^3 r^2=s r^5=s r\in K$.\\
+\textbf{Step 5 (Cross products of reflections).} $(sr)\cdot(sr^3)=s r s r^3=(s r s) r^3=r^{-1} r^3=r^2\in K$ and $(sr^3)\cdot(sr)=s r^3 s r=(s r^3 s) r=r^{-3} r=r^2\in K$.\\
+\textbf{Step 6 (Closure and subgroup).} Every product of elements of $K$ lies in $K$; by finiteness, inverses lie in $K$ as well; thus $K\le D_8$.\\
 
 \newpage
 
-\noindent \textbf{1.3.2 Exercise 2.} Let $\sigma,\tau\in S_{15}$ be given by the two-line descriptions shown. Find the cycle decompositions of $\sigma,\ \tau,\ \sigma^2,\ \sigma\tau,\ \tau\sigma,\ \tau^2\sigma$.\\ %verbatim
+\newpage
 
-\noindent\textbf{As General Proposition}: A permutation’s cycle form is obtained by iterating images until returning to the start, omitting fixed points. Products are composed \emph{right-to-left}: $(\alpha\beta)(i)=\alpha(\beta(i))$.\\
+\noindent \textbf{2.2: Exercise 2.} Prove that $C_G\!\big(Z(G)\big)=G$ and deduce that $N_G\!\big(Z(G)\big)=G$.\\ %verbatim
 
-\noindent \textbf{As Conditional Proposition}: With the displayed $\sigma,\tau$, the required cycle decompositions are
+\noindent\textbf{As General Proposition}: For any group $G$, its center $Z(G)$ satisfies
 \[
-\begin{aligned}
-\sigma&=(1\,13\,5\,10)(3\,15\,8)(4\,14\,11\,7\,12\,9),\\
-\tau&=(1\,14)(2\,9\,15\,13\,4)(3\,10)(5\,12\,7)(8\,11),\\
-\sigma^{2}&=(1\,5)(3\,8\,15)(4\,11\,12)(7\,9\,14)(10\,13),\\
-\sigma\tau&=(1\,11\,3)(2\,4)(5\,9\,8\,7\,10\,15)(13\,14),\\
-\tau\sigma&=(1\,4)(2\,9)(3\,13\,12\,15\,11\,5)(8\,10\,14),\\
-\tau^{2}\sigma&=(1\,2\,15\,8\,3\,4\,14\,11\,12\,13\,7\,5\,10).
-\end{aligned}
+C_G\!\big(Z(G)\big)=G \qquad\text{and}\qquad N_G\!\big(Z(G)\big)=G .
 \]
+
+\noindent \textbf{As Conditional Proposition}: Let $G$ be a group. Then every $g\in G$ centralizes and normalizes $Z(G)$; hence $C_G(Z(G))=N_G(Z(G))=G$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} To pass from two-line notation to cycles, start at the smallest unused symbol, repeatedly apply the permutation, and stop when you return; repeat on the next unused symbol. For products, apply the rightmost map first at each step—this is the only place errors usually creep in.\\
-
-\dotfill
-
-\emph{Proof (by explicit tracing).}\\
-\textbf{Step 1 (Cycle form of $\sigma$).} Track $1\mapsto13\mapsto5\mapsto10\mapsto1$ giving $(1\,13\,5\,10)$. Next $3\mapsto15\mapsto8\mapsto3$ gives $(3\,15\,8)$. Starting at $4$: $4\mapsto14\mapsto11\mapsto7\mapsto12\mapsto9\mapsto4$ gives $(4\,14\,11\,7\,12\,9)$. All remaining points (e.g.\ $2,6$) are fixed and omitted.\\
-\textbf{Step 2 (Cycle form of $\tau$).} Trace $1\mapsto14\mapsto1$ giving $(1\,14)$. Next $2\mapsto9\mapsto15\mapsto13\mapsto4\mapsto2$ gives $(2\,9\,15\,13\,4)$. Then $(3\,10)$, $(5\,12\,7)$, and $(8\,11)$ follow similarly.\\
-\textbf{Step 3 ($\sigma^2$).} Square each cycle of $\sigma$ independently: for a $k$-cycle $(a_1\,\dots\,a_k)$, $\sigma^2$ advances two steps. This yields
-$(1\,5)$ from $(1\,13\,5\,10)$; $(3\,8\,15)$ from $(3\,15\,8)$; $(4\,11\,12)$ and $(7\,9\,14)$ from the $6$-cycle; and $(10\,13)$.\\
-\textbf{Step 4 ($\sigma\tau$ with right-to-left convention).} For each $i$, compute $i\stackrel{\tau}{\longmapsto}\tau(i)$ then apply $\sigma$. Tracing orbits gives
-$(1\,11\,3)$, $(2\,4)$, $(5\,9\,8\,7\,10\,15)$, $(13\,14)$.\\
-\textbf{Step 5 ($\tau\sigma$).} Now apply $\sigma$ first, then $\tau$. Tracing produces
-$(1\,4)$, $(2\,9)$, $(3\,13\,12\,15\,11\,5)$, $(8\,10\,14)$.\\
-\textbf{Step 6 ($\tau^{2}\sigma$).} First compute $\tau^2$ by squaring each cycle of $\tau$, then compose with $\sigma$ (right-to-left). Tracing one long orbit yields
-\[
-\tau^{2}\sigma=(1\,2\,15\,8\,3\,4\,14\,11\,12\,13\,7\,5\,10).
-\]
-\textbf{Step 7 (Conclude).} All cycle decompositions match the orbits obtained by repeated application under the stated composition convention, completing the computation.
-
-\newpage
-
-\noindent \textbf{1.3.3 Exercise 3.} For each of the permutations whose cycle decompositions were computed in the preceding two exercises, compute its order.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: The order of a permutation equals the least common multiple of the lengths of the cycles in its disjoint cycle decomposition.\\
-
-\noindent \textbf{As Conditional Proposition}: For the permutations from Exercise 1.3.2,
-\[
-|\sigma|=12,\qquad |\tau|=30,\qquad |\sigma^{2}|=6,\qquad |\sigma\tau|=6,\qquad |\tau\sigma|=6,\qquad |\tau^{2}\sigma|=13.
-\]
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} Disjoint cycles act independently; a point returns to itself when each cycle containing it has completed an integer number of turns. Thus the whole permutation repeats exactly after the least common multiple of all cycle lengths.\\
-
-\dotfill
-
-\emph{Proof (cycle lengths $\Rightarrow$ lcm).}\\
-\textbf{Step 1 (Recall cycle forms).} From Exercise 1.3.2:
-\[
-\begin{aligned}
-\sigma&=(1\,13\,5\,10)(3\,15\,8)(4\,14\,11\,7\,12\,9),\\
-\tau&=(1\,14)(2\,9\,15\,13\,4)(3\,10)(5\,12\,7)(8\,11),\\
-\sigma^{2}&=(1\,5)(3\,8\,15)(4\,11\,12)(7\,9\,14)(10\,13),\\
-\sigma\tau&=(1\,11\,3)(2\,4)(5\,9\,8\,7\,10\,15)(13\,14),\\
-\tau\sigma&=(1\,4)(2\,9)(3\,13\,12\,15\,11\,5)(8\,10\,14),\\
-\tau^{2}\sigma&=(1\,2\,15\,8\,3\,4\,14\,11\,12\,13\,7\,5\,10).
-\end{aligned}
-\]\\
-\textbf{Step 2 (Compute $|\sigma|$).} Cycle lengths: $4,3,6$; hence $|\sigma|=\operatorname{lcm}(4,3,6)=12$.\\
-\textbf{Step 3 (Compute $|\tau|$).} Cycle lengths: $2,5,2,3,2$; hence $|\tau|=\operatorname{lcm}(2,5,3)=30$.\\
-\textbf{Step 4 (Compute $|\sigma^{2}|$).} Cycle lengths: $2,3,3,3,2$; hence $|\sigma^{2}|=\operatorname{lcm}(2,3)=6$.\\
-\textbf{Step 5 (Compute $|\sigma\tau|$).} Cycle lengths: $3,2,6,2$; hence $|\sigma\tau|=\operatorname{lcm}(3,2,6,2)=6$.\\
-\textbf{Step 6 (Compute $|\tau\sigma|$).} Cycle lengths: $2,2,6,3$; hence $|\tau\sigma|=\operatorname{lcm}(2,2,6,3)=6$.\\
-\textbf{Step 7 (Compute $|\tau^{2}\sigma|$).} Single cycle of length $13$; hence $|\tau^{2}\sigma|=13$.\\
-\textbf{Step 8 (Conclusion).} By the lcm principle for disjoint cycles, the stated orders follow.
-
-\newpage
-
-\noindent \textbf{1.?. Additional Exercise 1.} 
-(1) Show that if $a$ and $b$ are commuting elements of a group $G$ (i.e.\ $ab=ba$), then $(ab)^n=a^n b^n$ for all $n\in\mathbb{Z}$. 
-Then, find a group $G$ with noncommuting elements $a,b$ where $(ab)^n\ne a^n b^n$ for some positive integer $n$.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: If $a,b\in G$ commute, then for every integer $n$, $(ab)^n=a^n b^n$. Moreover, if $a,b$ do not commute, the identity $(ab)^n=a^n b^n$ can fail.\\
-
-\noindent \textbf{As Conditional Proposition}: Let $G$ be any group. If $ab=ba$, then $(ab)^n=a^n b^n$ holds for all $n\in\mathbb{Z}$. As a counterexample in a nonabelian group, in $S_3$ with $a=(12)$ and $b=(23)$ we have $(ab)^2\ne a^2 b^2$.\\
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} When $a$ and $b$ commute, you may “bubble” $a$’s past $b$’s without changing the product; induction shows $(ab)^n$ reorders to $a^n b^n$. For negative powers, invert and reuse the positive case. In a nonabelian group those swaps are illegal; a classic choice is $S_3$ where transpositions don’t commute, and the formula fails immediately.\\
+\emph{Intuition.} Elements of $Z(G)$ commute with \emph{everything}. So conjugating any $z\in Z(G)$ by any $g\in G$ leaves $z$ unchanged. That means every $g$ centralizes the whole center, and in particular stabilizes it under conjugation, so both the centralizer and normalizer are all of $G$.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Base case $n=0$).} $(ab)^0=1=a^0 b^0$.\\
-\textbf{Step 2 (Induction step for $n\ge 0$).} Assume $(ab)^n=a^n b^n$ for some $n\ge 0$. Then, using $ab=ba$,
+\textbf{Step 1 (Center definition).} $Z(G)=\{z\in G\mid \forall x\in G,\ zx=xz\}$.\\
+\textbf{Step 2 ($G\subseteq C_G(Z(G))$).} Fix arbitrary $g\in G$ and $z\in Z(G)$. Since $z$ commutes with every element of $G$, in particular with $g$, we have $gz=zg$, hence $gzg^{-1}=z$. Thus $g$ commutes with every element of $Z(G)$, i.e.\ $g\in C_G(Z(G))$. Because $g$ was arbitrary, $G\subseteq C_G(Z(G))$.\\
+\textbf{Step 3 (Equality).} Trivially $C_G(Z(G))\subseteq G$, so $C_G(Z(G))=G$.\\
+\textbf{Step 4 (Normalizer).} For any subset $A\subseteq G$, $C_G(A)\le N_G(A)$. Applying this with $A=Z(G)$ gives
 \[
-(ab)^{n+1}=(ab)^n(ab)=a^n b^n ab=a^n a\, b^n b=a^{n+1} b^{n+1}.
+G=C_G(Z(G))\le N_G(Z(G))\le G,
 \]
-Thus, by induction, $(ab)^n=a^n b^n$ for all $n\in\mathbb{Z}_{\ge 0}$.\\
-\textbf{Step 3 (Commutation persists under inverses).} From $ab=ba$ we get $a^{-1}b=b a^{-1}$ (multiply $ab=ba$ on the left by $a^{-1}$ and on the right by $b^{-1}$), hence $a^{-1}$ and $b^{-1}$ also commute.\\
-\textbf{Step 4 (Negative exponents).} For $m>0$,
-\[
-(ab)^{-m}=\big((ab)^{-1}\big)^m=(b^{-1}a^{-1})^m
-= b^{-m} a^{-m} = a^{-m} b^{-m},
-\]
-where the third equality is Step 2 applied to the commuting pair $(b^{-1},a^{-1})$, and the fourth uses commutativity of $a^{-m}$ and $b^{-m}$. Hence $(ab)^n=a^n b^n$ for all $n\in\mathbb{Z}$.\\
-\textbf{Step 5 (Counterexample when $ab\ne ba$).} Take $G=S_3$, $a=(12)$, $b=(23)$. Then $a^2=b^2=1$, so $a^2 b^2=1$. But $ab=(12)(23)=(123)$ has order $3$, hence
-\[
-(ab)^2=(123)^2=(132)\ne 1=a^2 b^2.
-\]
-Therefore $(ab)^2\ne a^2 b^2$ in this noncommuting case.\\
-\textbf{Step 6 (Conclusion).} The identity $(ab)^n=a^n b^n$ holds for all integers $n$ precisely under the commuting hypothesis; absent commutativity it can fail, as exhibited in $S_3$.
+so $N_G(Z(G))=G$. \qed
 
 \newpage
 
-\noindent \textbf{1.?. Additional Exercise 2.}
-(2) Prove that disjoint cycles commute. I.e., if $\sigma\in S_k$ has cycle representation $(a_1\,a_2\,\dots\,a_\ell)$ and $\tau\in S_k$ has cycle representation $(b_1\,b_2\,\dots\,b_m)$ and the sets $\{a_i\}_{i=1}^\ell$ and $\{b_j\}_{j=1}^m$ are disjoint, then $\sigma\circ\tau=\tau\circ\sigma$.\\ %verbatim
+\newpage
 
-\noindent\textbf{As General Proposition}: Permutations with disjoint supports commute: if $\operatorname{supp}(\sigma)\cap\operatorname{supp}(\tau)=\varnothing$, then $\sigma\tau=\tau\sigma$.\\
+\noindent \textbf{2.2: Exercise 5(a).} Let $G=S_3$ and $A=\{1,(123),(132)\}$. Show that $C_G(A)=A$ and $N_G(A)=G$.\\ %verbatim
 
-\noindent \textbf{As Conditional Proposition}: Let $\sigma=(a_1\,a_2\,\dots\,a_\ell)$ and $\tau=(b_1\,b_2\,\dots\,b_m)$ be cycles on $\{1,\dots,k\}$ with $\{a_1,\dots,a_\ell\}\cap\{b_1,\dots,b_m\}=\varnothing$. Then for every $x$ in $\{1,\dots,k\}$ we have $(\sigma\tau)(x)=(\tau\sigma)(x)$; hence $\sigma\tau=\tau\sigma$.\\
+\noindent\textbf{As General Proposition}: In $S_3$, the $3$-cycle subgroup $A=\langle (123)\rangle$ satisfies $C_{S_3}(A)=A$ and $N_{S_3}(A)=S_3$.\\
+
+\noindent \textbf{As Conditional Proposition}: With $G=S_3$ and $A=\{1,(123),(132)\}$, one has $C_G(A)=A$ and $N_G(A)=G$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Each cycle “moves” only the elements in its own support and fixes all others. If the two supports are disjoint, then while one cycle acts, the other does nothing on those elements (it fixes them). Thus the actions are independent and can be performed in either order with the same result.\\
-
-\dotfill
-
-\emph{Proof (pointwise equality on three cases).}\\
-\textbf{Step 1 (Notation and convention).} Composition is right-to-left: $(\alpha\beta)(x)=\alpha(\beta(x))$. The supports are disjoint: $\{a_1,\dots,a_\ell\}\cap\{b_1,\dots,b_m\}=\varnothing$.\\
-\textbf{Step 2 (Case $x\in\{a_1,\dots,a_\ell\}$).} Then $\tau(x)=x$ because $\tau$ fixes every $a_i$. Hence
-\[
-(\sigma\tau)(x)=\sigma(\tau(x))=\sigma(x).
-\]
-Also $\sigma(x)\in\{a_1,\dots,a_\ell\}$, so $\tau(\sigma(x))=\sigma(x)$; thus
-\[
-(\tau\sigma)(x)=\tau(\sigma(x))=\sigma(x)=(\sigma\tau)(x).
-\]\\
-\textbf{Step 3 (Case $x\in\{b_1,\dots,b_m\}$).} Symmetrically, $\sigma(x)=x$, so
-\[
-(\sigma\tau)(x)=\sigma(\tau(x))=\tau(x)=(\tau\sigma)(x),
-\]
-since $\sigma$ fixes $\tau(x)\in\{b_1,\dots,b_m\}$.\\
-\textbf{Step 4 (Case $x$ outside both supports).} If $x\notin\{a_i\}\cup\{b_j\}$, then $\sigma(x)=x=\tau(x)$; hence
-\[
-(\sigma\tau)(x)=\sigma(\tau(x))=\sigma(x)=x=(\tau\sigma)(x).
-\]\\
-\textbf{Step 5 (Conclude equality of permutations).} In all cases, $(\sigma\tau)(x)=(\tau\sigma)(x)$ for every $x$; therefore $\sigma\tau=\tau\sigma$.\\
-
-\newpage
-
-\noindent \textbf{1.?. Additional Exercise 3.}
-(3) Prove that the order of a permutation $\sigma\in S_n$ is the least common multiple of the lengths of the cycles in its cycle decomposition.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: If $\sigma$ decomposes as a product of disjoint cycles
-\[
-\sigma=C_1C_2\cdots C_r,\qquad C_i\text{ a }k_i\text{-cycle},
-\]
-then $|\sigma|=\operatorname{lcm}(k_1,\dots,k_r)$.\\
-
-\noindent \textbf{As Conditional Proposition}: Let $\sigma\in S_n$ have disjoint-cycle form $C_1\cdots C_r$ with lengths $k_1,\dots,k_r$. Then $\sigma^m=1$ iff $k_i\mid m$ for all $i$, hence $|\sigma|=\min\{m\ge1:\ \sigma^m=1\}=\operatorname{lcm}(k_1,\dots,k_r)$.\\
-
-\newpage
-
-\dotfill
-
-\emph{Intuition.} Disjoint cycles act independently on disjoint supports. A $k$-cycle returns every element in its support to its starting point exactly after $k$ applications. For the whole permutation to reset, \emph{every} cycle must have completed an integer number of revolutions—precisely when the exponent is a common multiple of all cycle lengths. The first time this can happen is the least common multiple.\\
+\emph{Intuition.} The only elements of $S_3$ that commute with a $3$-cycle are its own powers. Since $|A|=3$ has index $2$ in $S_3$, $A$ is normal, so the whole group normalizes $A$.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Disjointness $\Rightarrow$ commutation).} Since the cycles $C_1,\dots,C_r$ have disjoint supports, they commute and fix each other’s supports. Thus, for every $m\ge 1$,
-\[
-\sigma^m=(C_1\cdots C_r)^m=C_1^m\cdots C_r^m.\\
-\]
-\textbf{Step 2 (When a single cycle resets).} If $C$ is a $k$-cycle, then $C^m=1$ iff $k\mid m$. Indeed, $C$ advances each element by one position per application, returning to the start after exactly $k$ steps.\\
-\textbf{Step 3 (Characterize $\sigma^m=1$).} Using Step 1 and Step 2,
-\[
-\sigma^m=1 \quad\Longleftrightarrow\quad C_i^m=1\ \text{for all }i
-\quad\Longleftrightarrow\quad k_i\mid m\ \text{for all }i.\\
-\]
-\textbf{Step 4 (Minimal such exponent).} The set of positive integers $m$ with $k_i\mid m$ for all $i$ is exactly the set of positive multiples of $\operatorname{lcm}(k_1,\dots,k_r)$. Hence the least $m$ with $\sigma^m=1$ is $m=\operatorname{lcm}(k_1,\dots,k_r)$.\\
-\textbf{Step 5 (Conclusion).} By definition of order, $|\sigma|=\min\{m\ge1:\sigma^m=1\}=\operatorname{lcm}(k_1,\dots,k_r)$.\\
+\textbf{Step 1 (Containment).} Trivially $A\le C_G(A)$ and $A\le N_G(A)$.\\
+\textbf{Step 2 (Size constraint for $C_G(A)$).} By Lagrange, $|C_G(A)|$ divides $|G|=6$ and is a multiple of $|A|=3$, so $|C_G(A)|\in\{3,6\}$.\\
+\textbf{Step 3 (Not everyone centralizes).} A transposition, e.g.\ $(12)$, does not commute with $(123)$ (compute $(12)(123)=(23)\neq(123)(12)=(13)$). Hence $C_G(A)\neq G$.\\
+\textbf{Step 4 (Centralizer equals $A$).} From Steps 2–3, $|C_G(A)|=3$, so $C_G(A)=A$.\\
+\textbf{Step 5 (Normalizer is $G$).} Since $|G:A|=2$, $A\lhd G$; equivalently $N_G(A)=G$.\\
 
 \newpage
 
-\noindent \textbf{1.?. Additional Exercise 4.}
-(4) Show that for all $\sigma\in S_n$,
-\[
-\sigma\,(1\ 2\ \cdots\ k)\,\sigma^{-1} \;=\; \big(\sigma(1)\ \sigma(2)\ \cdots\ \sigma(k)\big).
-\]
-What more general statement should be true? (No need to prove the more general statement.)\\ %verbatim
 
-\noindent\textbf{As General Proposition}: Conjugation in $S_n$ relabels a cycle by applying the outer permutation to each entry:
-\[
-\sigma\,(a_1\,a_2\,\dots\,a_k)\,\sigma^{-1} \;=\; \big(\sigma(a_1)\,\sigma(a_2)\,\dots\,\sigma(a_k)\big).
-\]
 
-\noindent \textbf{As Conditional Proposition}: For $c=(1\,2\,\dots\,k)$ and any $\sigma\in S_n$,
-\[
-\sigma c \sigma^{-1}=\big(\sigma(1)\ \sigma(2)\ \cdots\ \sigma(k)\big).
-\]
+\noindent \textbf{2.2: Exercise 5(b).} Let $G=D_8=\langle r,s\mid r^4=1,\ s^2=1,\ srs=r^{-1}\rangle$ and $A=\{1,r,r^2,r^3\}=\langle r\rangle$. Show that $C_G(A)=A$ and $N_G(A)=G$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: In $D_8$, the rotation subgroup $A=\langle r\rangle$ satisfies $C_{D_8}(A)=A$ and $N_{D_8}(A)=D_8$.\\
+
+\noindent \textbf{As Conditional Proposition}: With $G=D_8$ and $A=\langle r\rangle$, one has $C_G(A)=A$ and $N_G(A)=G$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Conjugation by $\sigma$ is “relabeling by $\sigma$”: first move a label back by $\sigma^{-1}$, apply $c$, then move forward by $\sigma$. Thus each $j$ in the cycle is sent to the image of its successor, and points outside the cycle remain fixed—exactly the behavior of the cycle with all entries relabeled by $\sigma$.\\
+\emph{Intuition.} Rotations commute with rotations, but reflections flip $r$ to $r^{-1}$, so they do not centralize $A$; nevertheless they \emph{normalize} $A$ because conjugation by a reflection permutes the elements of $A$.\\
 
 \dotfill
 
-\emph{Proof (pointwise verification).}\\
-\textbf{Step 1 (Convention).} Composition is right-to-left: $(\alpha\beta)(x)=\alpha(\beta(x))$. Let $c=(1\,2\,\dots\,k)$.\\
-\textbf{Step 2 (Action on the moved points).} For $1\le j<k$,
-\[
-(\sigma c \sigma^{-1})\big(\sigma(j)\big)=\sigma\!\left(c(j)\right)=\sigma(j+1).
-\]
-For $j=k$,
-\[
-(\sigma c \sigma^{-1})\big(\sigma(k)\big)=\sigma\!\left(c(k)\right)=\sigma(1).
-\]
-Hence $\sigma c \sigma^{-1}$ cyclically permutes the set $\{\sigma(1),\dots,\sigma(k)\}$ by
-\[
-\sigma(1)\mapsto \sigma(2)\mapsto \cdots \mapsto \sigma(k)\mapsto \sigma(1).
-\]\\
-\textbf{Step 3 (Action on the fixed points).} If $x\notin\{\sigma(1),\dots,\sigma(k)\}$, then $\sigma^{-1}(x)\notin\{1,\dots,k\}$, so $c$ fixes $\sigma^{-1}(x)$. Therefore
-\[
-(\sigma c \sigma^{-1})(x)=\sigma\!\left(\sigma^{-1}(x)\right)=x.
-\]
-Thus $\sigma c \sigma^{-1}$ fixes every point outside $\{\sigma(1),\dots,\sigma(k)\}$.\\
-\textbf{Step 4 (Identify the cycle).} Steps 2–3 show that $\sigma c \sigma^{-1}$ is exactly the cycle
-\[
-\big(\sigma(1)\ \sigma(2)\ \cdots\ \sigma(k)\big).
-\]
-This proves the claim.\\
-
-\medskip
-\noindent\emph{More general statement (no proof required).} For any $\tau\in S_n$ with disjoint-cycle decomposition
-\[
-\tau=(a_{11}\,a_{12}\,\dots)\,(a_{21}\,a_{22}\,\dots)\cdots,
-\]
-and any $\sigma\in S_n$,
-\[
-\sigma\,\tau\,\sigma^{-1}
-=
-\big(\sigma(a_{11})\,\sigma(a_{12})\,\dots\big)\,
-\big(\sigma(a_{21})\,\sigma(a_{22})\,\dots\big)\cdots;
-\]
-in particular, conjugation preserves cycle type (length multiset) and hence preserves order.
+\emph{Proof.}\\
+\textbf{Step 1 (Containment).} Clearly $A\le C_G(A)\le N_G(A)\le G$.\\
+\textbf{Step 2 (Size constraint for $C_G(A)$).} $|A|=4$ divides $|C_G(A)|$ and $|C_G(A)|\mid |G|=8$, so $|C_G(A)|\in\{4,8\}$.\\
+\textbf{Step 3 (Reflections do not centralize).} Using $srs=r^{-1}$, we have $sr\neq rs$; hence any $sr^k$ fails to commute with $r$. Thus $C_G(A)\neq G$.\\
+\textbf{Step 4 (Centralizer equals $A$).} From Steps 2–3, $|C_G(A)|=4$, so $C_G(A)=A$.\\
+\textbf{Step 5 (Reflections normalize $A$).} Conjugation $s r^m s=r^{-m}$ permutes $A$, so $s\in N_G(A)$. Since $A\le N_G(A)$ and $s\in N_G(A)$, we get $\langle A,s\rangle=D_8\le N_G(A)$. Hence $N_G(A)=G$.\\
 
 \newpage
 
-\noindent \textbf{1.6.1 Exercise 1 (a).} Let $\varphi:G\to H$ be a homomorphism. Prove that $\varphi(x^n)=\varphi(x)^n$ for all $n\in\mathbb{Z}^+$.\\ %verbatim
 
-\noindent\textbf{As General Proposition}: Homomorphisms preserve positive powers: for every group homomorphism $\varphi$ and $n\ge1$, $\varphi(x^n)=\varphi(x)^n$.\\
 
-\noindent \textbf{As Conditional Proposition}: If $\varphi:G\to H$ satisfies $\varphi(ab)=\varphi(a)\varphi(b)$ for all $a,b\in G$, then for each $x\in G$ and $n\in\mathbb{Z}^+$, $\varphi(x^n)=\big(\varphi(x)\big)^n$.
+\noindent \textbf{2.2: Exercise 5(c).} Let $G=D_{10}=\langle r,s\mid r^5=1,\ s^2=1,\ srs=r^{-1}\rangle$ and $A=\{1,r,r^2,r^3,r^4\}=\langle r\rangle$. Show that $C_G(A)=A$ and $N_G(A)=G$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: In $D_{10}$, the rotation subgroup $A=\langle r\rangle$ satisfies $C_{D_{10}}(A)=A$ and $N_{D_{10}}(A)=D_{10}$.\\
+
+\noindent \textbf{As Conditional Proposition}: With $G=D_{10}$ and $A=\langle r\rangle$, one has $C_G(A)=A$ and $N_G(A)=G$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Expand $x^n$ as $x\cdots x$ ($n$ factors). A homomorphism turns a product into the product of the images, so we obtain $n$ copies of $\varphi(x)$—that is, $\varphi(x)^n$.\\
+\emph{Intuition.} As before, reflections fail to commute with $r$ but conjugate $r$ to $r^{-1}$, keeping $A$ invariant. Since $|A|=5$ has index $2$, $A$ is normal.\\
 
 \dotfill
 
-\emph{Proof (induction on $n$).}\\
-\textbf{Step 1 (Base case $n=1$).} $\varphi(x^1)=\varphi(x)=\varphi(x)^1$.\\
-\textbf{Step 2 (Inductive hypothesis).} Assume $\varphi(x^n)=\varphi(x)^n$ for some fixed $n\ge1$.\\
-\textbf{Step 3 (Inductive step).} Using the homomorphism property,
-\[
-\varphi(x^{n+1})=\varphi(x^n x)=\varphi(x^n)\varphi(x)=\varphi(x)^n\,\varphi(x)=\varphi(x)^{n+1}.
-\]
+\emph{Proof.}\\
+\textbf{Step 1 (Containment).} $A\le C_G(A)\le N_G(A)\le G$.\\
+\textbf{Step 2 (Size constraint for $C_G(A)$).} $|A|=5$ divides $|C_G(A)|$ and $|C_G(A)|\mid |G|=10$, so $|C_G(A)|\in\{5,10\}$.\\
+\textbf{Step 3 (Not everyone centralizes).} Using $srs=r^{-1}\neq r$ (in $D_{10}$), reflections do not commute with $r$, so $C_G(A)\neq G$.\\
+\textbf{Step 4 (Centralizer equals $A$).} Hence $|C_G(A)|=5$ and $C_G(A)=A$.\\
+\textbf{Step 5 (Normalizer is $G$).} Since $|G:A|=2$, $A\lhd G$, so $N_G(A)=G$.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{2.2: Exercise 10.} Let $H$ be a subgroup of order $2$ in $G$. Show that $N_G(H)=C_G(H)$. Deduce that if $N_G(H)=G$ then $H\le Z(G)$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: If $|H|=2$ with $H\le G$, then $N_G(H)=C_G(H)$. Consequently, if $N_G(H)=G$ then $H\le Z(G)$.\\
+
+\noindent \textbf{As Conditional Proposition}: Let $G$ be a group and $H\le G$ with $|H|=2$. Then $N_G(H)=C_G(H)$; in particular, if $N_G(H)=G$ then $H\subseteq Z(G)$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} A subgroup of order $2$ is $H=\{1,a\}$ with $a^2=1$ and $a=a^{-1}$. Conjugation preserves order, so any conjugate of $a$ also has order $2$. If an element $g$ normalizes $H$, the conjugate $gag^{-1}$ must lie in $H$, hence can only be $a$ (not $1$), which means $g$ actually \emph{commutes} with $a$. Thus “normalizer” collapses to “centralizer” for such $H$.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Normalizers land conjugates inside $H$).} Write $H=\{1,a\}$ with $a^2=1$. If $g\in N_G(H)$ then $gHg^{-1}=H$, so $gag^{-1}\in H$.\\
+\textbf{Step 2 (Conjugation preserves order, ruling out $1$).} The element $gag^{-1}$ has the same order as $a$, namely $2$. Hence $gag^{-1}\neq 1$ and thus $gag^{-1}=a$.\\
+\textbf{Step 3 (From normalizer to centralizer).} From $gag^{-1}=a$ we get $ga=ag$, i.e.\ $g\in C_G(H)$. Therefore $N_G(H)\subseteq C_G(H)$.\\
+\textbf{Step 4 (From centralizer to normalizer).} Conversely, if $g\in C_G(H)$ then $ga=ag$, so $gHg^{-1}=\{1,gag^{-1}\}=\{1,a\}=H$, hence $g\in N_G(H)$. Therefore $C_G(H)\subseteq N_G(H)$.\\
+\textbf{Step 5 (Equality).} By Steps 3–4, $N_G(H)=C_G(H)$.\\
+\textbf{Step 6 (Deduction to the center).} If $N_G(H)=G$, then $C_G(H)=G$ by Step 5, meaning every $g\in G$ commutes with $a$. Hence $a\in Z(G)$ and $H\le Z(G)$.\\
+
+\newpage
+
+\noindent \textbf{2.2: Additional Exercise 1 (i) (Transitivity vs. Normality).} 
+(i) Show that if $K$ is a subgroup of $H$ and $H$ is a subgroup of $G$, then $K$ is a subgroup of $G$. 
+(ii) Exhibit a case where $K\lhd H$ and $H\lhd G$ but $K\ntrianglelefteq G$ by working in the group
+\begin{align*}
+&G=\left\{\begin{pmatrix}
+1 & a & b\\
+0 & 1 & c\\
+0 & 0 & 1
+\end{pmatrix}\ \middle|\ a,b,c\in\mathbb Z\right\},
 \\
-\textbf{Step 4 (Conclusion).} By induction, $\varphi(x^n)=\varphi(x)^n$ holds for all $n\in\mathbb{Z}^+$.\\
+&H=\left\{\begin{pmatrix}
+1 & a & b\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}\right\},
+\\
+&K=\left\{\begin{pmatrix}
+1 & a & b\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}\ \middle|\ b\ \text{even}\right\}.
+\end{align*}%verbatim
 
+\noindent\textbf{As General Proposition}: (i) Subgroups are transitive: $K\le H\le G\Rightarrow K\le G$. 
+(ii) In the upper unitriangular integer group $G$ above, $K\lhd H$ and $H\lhd G$ but $K\ntrianglelefteq G$.\\
 
-\newpage
-
-\noindent \textbf{1.6.1 Exercise 1 (b).} Do part (a) for $n=-1$ and deduce that $\varphi(x^n)=\varphi(x)^n$ for all $n\in\mathbb{Z}$.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: Homomorphisms preserve identity and inverses; hence they preserve all integer powers.\\
-
-\noindent \textbf{As Conditional Proposition}: For any homomorphism $\varphi:G\to H$ and all $x\in G$, we have $\varphi(1_G)=1_H$, $\varphi(x^{-1})=\varphi(x)^{-1}$, and consequently $\varphi(x^n)=\varphi(x)^n$ for every $n\in\mathbb{Z}$.
+\noindent \textbf{As Conditional Proposition}: With $G,H,K$ as displayed, we have $K\le H\le G$, $K\lhd H$, $H\lhd G$, and $K\ntrianglelefteq G$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Apply $\varphi$ to $xx^{-1}=1_G$ to see that $\varphi(x^{-1})$ must be the inverse of $\varphi(x)$. Then write a negative power as a positive power of $x^{-1}$. Include $n=0$ via identities.\\
+\emph{Intuition.} 
+(i) If $K$ already satisfies the subgroup conditions inside $H$, it automatically satisfies them inside $G$ because the operation and inverses are the same.  
+(ii) The group $G$ is the (integer) Heisenberg group. Conjugating 
+\[
+g(a,b,c):=\begin{smallmatrix}1&a&b\\0&1&c\\0&0&1\end{smallmatrix}
+\]
+by $g(x,y,z)$ changes $b$ by the shear $b\mapsto b-az$ while keeping $c$ fixed. Hence the condition $c=0$ (defining $H$) is stable under all conjugations in $G$, so $H\lhd G$. Inside $H$ (where $z=0$), conjugation is trivial, so any parity condition on $b$ stays intact ($K\lhd H$). But allowing $z$ odd in $G$ can flip the parity of $b$ when $a$ is odd, so $K$ is not normal in $G$.\\
+
+\dotfill
+
+\emph{Proof (i): $K\le H\le G\Rightarrow K\le G$.}\\
+\textbf{Step 1 (Nonemptiness).} Since $K\le H$, $1\in K$. As $1\in G$, $K\neq\varnothing$ in $G$.\\
+\textbf{Step 2 (Closure under products).} If $x,y\in K$, then $xy\in K$ (because $K\le H$). Hence $xy\in G$.\\
+\textbf{Step 3 (Closure under inverses).} If $x\in K$, then $x^{-1}\in K$ (since $K\le H$). Hence $x^{-1}\in G$.\\
+\textbf{Step 4 (Conclusion).} By the subgroup criterion inside $G$, $K\le G$.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{2.2: Additional Exercise 1 (ii) (Transitivity vs. Normality).} 
+(i) Show that if $K$ is a subgroup of $H$ and $H$ is a subgroup of $G$, then $K$ is a subgroup of $G$. 
+(ii) Exhibit a case where $K\lhd H$ and $H\lhd G$ but $K\ntrianglelefteq G$ by working in the group
+\begin{align*}
+&G=\left\{\begin{pmatrix}
+1 & a & b\\
+0 & 1 & c\\
+0 & 0 & 1
+\end{pmatrix}\ \middle|\ a,b,c\in\mathbb Z\right\},
+\\
+&H=\left\{\begin{pmatrix}
+1 & a & b\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}\right\},
+\\
+&K=\left\{\begin{pmatrix}
+1 & a & b\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}\ \middle|\ b\ \text{even}\right\}.
+\end{align*}%verbatim
+
+\noindent\textbf{As General Proposition}: (i) Subgroups are transitive: $K\le H\le G\Rightarrow K\le G$. 
+(ii) In the upper unitriangular integer group $G$ above, $K\lhd H$ and $H\lhd G$ but $K\ntrianglelefteq G$.\\
+
+\noindent \textbf{As Conditional Proposition}: With $G,H,K$ as displayed, we have $K\le H\le G$, $K\lhd H$, $H\lhd G$, and $K\ntrianglelefteq G$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Write $g(a,b,c)=\begin{psmallmatrix}1&a&b\\0&1&c\\0&0&1\end{psmallmatrix}$. Multiplying shows a shear in the $(1,3)$-entry: $(a,b,c)\cdot(a',b',c')=(a+a',\,b+b'+ac',\,c+c')$. Inverting solves a small linear system. Conjugating $h=(a,b,0)\in H$ by $g=(x,y,z)$ gives $ghg^{-1}=(a,\,b-az,\,0)$: this preserves $c=0$ (so $H\lhd G$), fixes $b$ when $z=0$ (so $K\lhd H$), but can flip the parity of $b$ if $z$ is odd and $a$ is odd (so $K\ntrianglelefteq G$).\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Identity preserved).} Since $1_G\cdot1_G=1_G$,
+\textbf{Step 1 (Notation).} For integers $a,b,c$, set $g(a,b,c)=\begin{psmallmatrix}1&a&b\\0&1&c\\0&0&1\end{psmallmatrix}$ and identify it with the triple $(a,b,c)$ for bookkeeping.\\
+\textbf{Step 2 (Product—explicit multiplication).} Compute
 \[
-\varphi(1_G)=\varphi(1_G\cdot1_G)=\varphi(1_G)\varphi(1_G),
+\begin{pmatrix}
+1 & a & b\\
+0 & 1 & c\\
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & a' & b'\\
+0 & 1 & c'\\
+0 & 0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & a+a' & b+b'+ac'\\
+0 & 1 & c+c'\\
+0 & 0 & 1
+\end{pmatrix},
 \]
-so by cancellation in $H$, $\varphi(1_G)=1_H$.\\
-\textbf{Step 2 (Inverse preserved).} From $x x^{-1}=1_G$,
+since the $(1,3)$-entry is $1\cdot b'+a\cdot c'+b\cdot 1=b'+ac'+b$ and other entries are immediate; hence $(a,b,c)\cdot(a',b',c')=(a+a',\,b+b'+ac',\,c+c')$.\\
+\textbf{Step 3 (Inverse—solve $g(a,b,c)g(x,y,z)=I$).} Using Step 2,
 \[
-\varphi(x)\,\varphi(x^{-1})=\varphi(xx^{-1})=\varphi(1_G)=1_H,
+(a,b,c)\cdot(x,y,z)=(a+x,\ b+y+az,\ c+z)=(0,0,0)
 \]
-hence $\varphi(x^{-1})=\varphi(x)^{-1}$.\\
-\textbf{Step 3 (Case $n=0$).} $\varphi(x^0)=\varphi(1_G)=1_H=(\varphi(x))^0$.\\
-\textbf{Step 4 (Case $n<0$).} Let $n=-m$ with $m\in\mathbb{Z}^+$. Then
+forces $x=-a$, $z=-c$, and $y=-b+ac$; therefore
 \[
-\varphi(x^n)=\varphi(x^{-m})=\varphi\big((x^{-1})^{m}\big)
-=\big(\varphi(x^{-1})\big)^m
-=\big(\varphi(x)^{-1}\big)^m
-=\varphi(x)^{-m}
-=\varphi(x)^n,
+g(a,b,c)^{-1}=g(-a,\,-b+ac,\,-c)=\begin{pmatrix}1&-a&-b+ac\\0&1&-c\\0&0&1\end{pmatrix}.
+\]\\
+\textbf{Step 4 (Conjugation formula—compute $g(x,y,z)\,g(a,b,0)\,g(x,y,z)^{-1}$).} First multiply $g(x,y,z)g(a,b,0)=g(x+a,\,y+b,\,z)$ by Step 2; then multiply by $g(-x,\,-b+y+xz,\,-z)$ from Step 3 to get
+\[
+g(x+a,\,y+b,\,z)\,g(-x,\,-y+xz,\,-z)=g\big(a,\ b-az,\ 0\big).
 \]
-where the third equality uses part (a) applied to $x^{-1}$.\\
-\textbf{Step 5 (Conclusion).} Combining Steps 3–4 with part (a) (the $n>0$ case) yields $\varphi(x^n)=\varphi(x)^n$ for all $n\in\mathbb{Z}$.
+Thus $g(x,y,z)\,g(a,b,0)\,g(x,y,z)^{-1}=g(a,\,b-az,\,0)$.\\
+\textbf{Step 5 ($H\lhd G$).} For any $h=g(a,b,0)\in H$ and any $g=g(x,y,z)\in G$, Step 4 gives $ghg^{-1}=g(a,b-az,0)\in H$; hence $H$ is normal in $G$.\\
+\textbf{Step 6 ($K\lhd H$).} If $g\in H$, then $z=0$ in Step 4, so $ghg^{-1}=g(a,b,0)$ leaves $b$ unchanged; in particular, “$b$ even” is preserved, so $K$ is normal in $H$.\\
+\textbf{Step 7 ($K\ntrianglelefteq G$).} Take $h=g(1,0,0)\in K$ (here $b=0$ is even) and $g=g(0,0,1)\in G$; Step 4 yields $ghg^{-1}=g(1,-1,0)$, whose $b=-1$ is odd, so $ghg^{-1}\notin K$; hence $K$ is not normal in $G$.\\
+\textbf{Step 8 (Conclusion).} We have shown $K\lhd H$ and $H\lhd G$ but $K\ntrianglelefteq G$, so normality is not transitive in general.\\
 
 \newpage
 
-\noindent \textbf{1.6.2 Exercise 2.} If $\varphi:G\to H$ is an isomorphism, prove that $|\varphi(x)|=|x|$ for all $x\in G$. Deduce that any two isomorphic groups have the same number of elements of order $n$ for each $n\in\mathbb{Z}^+$. Is the result true if $\varphi$ is only assumed to be a homomorphism?\\ %verbatim
+\noindent \textbf{2.4: Exercise 3.} Prove that if $H$ is an abelian subgroup of a group $G$ then $\langle H, Z(G)\rangle$ is abelian. Give an explicit example of an abelian subgroup $H$ of a group $G$ such that $\langle H, C_G(H)\rangle$ is not abelian.\\ %verbatim
 
-\noindent\textbf{As General Proposition}: Isomorphisms preserve element orders (finite or infinite). Consequently, isomorphic groups have the same number of elements of each order. This fails for arbitrary homomorphisms.\\
+\noindent\textbf{As General Proposition}: For any group $G$ and abelian $H\le G$, the subgroup $\langle H, Z(G)\rangle$ is abelian. Nevertheless, there exist $G$ and abelian $H\le G$ with $\langle H, C_G(H)\rangle$ nonabelian.\\
 
-\noindent \textbf{As Conditional Proposition}: Let $\varphi:G\to H$ be an isomorphism. Then for every $x\in G$,
-\[
-|\varphi(x)|=|x|.
-\]
-Hence, for each $n\in\mathbb{Z}^+$, $\varphi$ induces a bijection between the sets $\{x\in G:\ |x|=n\}$ and $\{y\in H:\ |y|=n\}$, so the two sets have the same cardinality. If $\varphi$ is merely a homomorphism, the conclusion may fail (e.g., the trivial homomorphism).\\
+\noindent \textbf{As Conditional Proposition}: Let $G$ be a group and $H\le G$ be abelian. Then $\langle H, Z(G)\rangle$ is abelian. Moreover, in $D_8=\langle r,s\mid r^4=1,\ s^2=1,\ srs=r^{-1}\rangle$, the subgroup $H=\{1,r^2\}$ is abelian but $\langle H, C_G(H)\rangle=D_8$ is not abelian.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Isomorphisms preserve the group law and are bijective. Because powers are built by repeated multiplication, $\varphi(x^m)=\varphi(x)^m$ holds; thus the first (positive) time $x^m$ hits $1$ is exactly the first time $\varphi(x)^m$ hits $1$. If no nonzero power of $x$ is $1$, the same is true of $\varphi(x)$ by bijectivity. Therefore orders match, and bijectivity transports “elements of order $n$” bijectively. A homomorphism without injectivity can collapse orders (e.g., map everything to $1$).\\
+\emph{Intuition.} Members of the center commute with everything, and members of an abelian subgroup commute with one another. So anything built from $H$ and $Z(G)$ will still commute pairwise, forcing the generated subgroup to be abelian. In contrast, $C_G(H)$ can be much larger than $H$; in $D_8$, $r^2$ is central, so $C_G(H)=D_8$, and the subgroup generated with $H$ is the whole (nonabelian) group.\\
+
+\dotfill
+
+\emph{Proof (Abelianness of $\langle H,Z(G)\rangle$).}\\
+\textbf{Step 1 (All generators commute pairwise).} If $h,h'\in H$, then $hh'=h'h$ since $H$ is abelian; if $z,z'\in Z(G)$, then $zz'=z'z$ by centrality; if $h\in H$ and $z\in Z(G)$, then $hz=zh$ since $z$ commutes with all elements of $G$.\\
+\textbf{Step 2 (Words can be rearranged).} Any $g\in\langle H,Z(G)\rangle$ is a finite product of elements from $H\cup Z(G)$. By Step 1, factors may be permuted arbitrarily without changing the product, so any two such words commute.\\
+\textbf{Step 3 (Conclusion).} Therefore every pair of elements of $\langle H,Z(G)\rangle$ commute, i.e.\ $\langle H,Z(G)\rangle$ is abelian.\\
+
+\emph{Example (An abelian $H$ with $\langle H,C_G(H)\rangle$ nonabelian).}\\
+\textbf{Step 1 (Pick $G$ and $H$).} Let $G=D_8=\langle r,s\mid r^4=1,\ s^2=1,\ srs=r^{-1}\rangle$. Take $H=\{1,r^2\}=\langle r^2\rangle$, which is abelian.\\
+\textbf{Step 2 (Compute the centralizer).} Since $r^2\in Z(D_8)$, every $g\in D_8$ commutes with $r^2$, so $C_G(H)=G=D_8$.\\
+\textbf{Step 3 (Generated subgroup).} Then $\langle H, C_G(H)\rangle=\langle \{1,r^2\}, D_8\rangle=D_8$.\\
+\textbf{Step 4 (Nonabelianness).} In $D_8$, $sr\ne rs$ (because $srs=r^{-1}$), hence $D_8$ is nonabelian, so $\langle H, C_G(H)\rangle$ is not abelian.\\
+
+\newpage
+
+\noindent \textbf{2.4: Exercise 14(a).} Prove that every finite group is finitely generated.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: Every finite group $G$ admits a finite generating set (for example, $G$ itself).\\
+
+\noindent \textbf{As Conditional Proposition}: Let $G$ be a finite group. Then $G=\langle S\rangle$ for some finite $S\subseteq G$ (e.g.\ $S=G$).
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} A generator set is any subset whose subgroup equals $G$. For a finite group, taking all elements certainly generates; often a smaller subset works, but existence is immediate.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Powers respected).} Since $\varphi$ is a homomorphism, for all $m\in\mathbb{Z}$ we have $\varphi(x^m)=\varphi(x)^m$.\\
-\textbf{Step 2 (Finite-order case: $|x|=n<\infty$).} Then $x^n=1$ and $n$ is minimal with this property. Applying $\varphi$ gives $\varphi(x)^n=\varphi(1)=1$. Thus $|\varphi(x)|$ divides $n$.\\
-\textbf{Step 3 (Minimality transfers).} Conversely, if $|\varphi(x)|=k$, then $\varphi(x)^k=1$ implies $\varphi(x^k)=1$. Because $\varphi$ is injective, $x^k=1$, so $n$ divides $k$. Hence $k=n$ and $|\varphi(x)|=|x|$ when $|x|<\infty$.\\
-\textbf{Step 4 (Infinite-order case).} Suppose $|x|=\infty$. If $|\varphi(x)|$ were finite, say $\varphi(x)^m=1$ for some $m>0$, then $\varphi(x^m)=1$, and injectivity would give $x^m=1$, a contradiction. Hence $|\varphi(x)|=\infty$.\\
-\textbf{Step 5 (Counting elements of a fixed order).} For fixed $n\in\mathbb{Z}^+$, define
-\[
-A_n=\{x\in G:\ |x|=n\},\qquad B_n=\{y\in H:\ |y|=n\}.
-\]
-By Steps 2–4, $x\in A_n \Leftrightarrow \varphi(x)\in B_n$. Since $\varphi$ is bijective, $\varphi:A_n\to B_n$ is a bijection, so $|A_n|=|B_n|$.\\
-\textbf{Step 6 (Failure for mere homomorphisms).} Let $H=\{1\}$ be the trivial group and $\theta:G\to H$ be the homomorphism $\theta(x)=1$ for all $x\in G$. Then every element of $H$ has order $1$, while $G$ may have elements of other orders. Thus order is not preserved and the counting statement fails for general homomorphisms.\\
-\textbf{Step 7 (Conclusion).} Isomorphisms preserve (finite and infinite) orders and hence the counts of elements of each order; arbitrary homomorphisms need not.\\
+\textbf{Step 1 (Candidate set).} Since $G$ is finite, $S:=G$ is a finite subset.\\
+\textbf{Step 2 (Generation).} By definition, $\langle S\rangle=\langle G\rangle=G$.\\
+\textbf{Step 3 (Conclusion).} Hence $G$ is finitely generated (indeed, by $S$).\\
 
 \newpage
 
-\noindent \textbf{1.6.3 Exercise 3.} If $\varphi:G\to H$ is an isomorphism, prove that $G$ is abelian if and only if $H$ is abelian. If $\varphi:G\to H$ is a homomorphism, what additional conditions on $\varphi$ (if any) are sufficient to ensure that if $G$ is abelian, then so is $H$?\\ %verbatim
 
-\noindent\textbf{As General Proposition}: Isomorphism preserves (and reflects) abelianness: $G\cong H$ $\Longleftrightarrow$ $G$ abelian $\Longleftrightarrow$ $H$ abelian. For a general homomorphism, \emph{surjectivity} is sufficient for abelianness to pass to the codomain: if $\varphi$ is onto and $G$ is abelian, then $H$ is abelian. Without surjectivity the conclusion can fail.\\
 
-\noindent \textbf{As Conditional Proposition}: Let $\varphi:G\to H$ be an isomorphism. Then $G$ is abelian iff $H$ is abelian. More generally, if $\varphi:G\to H$ is a surjective homomorphism and $G$ is abelian, then $H$ is abelian; however, if $\varphi$ is not surjective, $H$ need not be abelian.
+\noindent \textbf{2.4: Exercise 14(b).} Prove that $\mathbb Z$ is finitely generated.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: The additive group $\mathbb Z$ is cyclic, hence generated by a single element.\\
+
+\noindent \textbf{As Conditional Proposition}: $\mathbb Z=\langle 1\rangle$ (also $\mathbb Z=\langle -1\rangle$).
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} An isomorphism is a relabeling that preserves products. If $ab=ba$ in $G$, then applying $\varphi$ gives $\varphi(a)\varphi(b)=\varphi(b)\varphi(a)$ in $H$, and conversely by using $\varphi^{-1}$. For a general homomorphism, the image $\varphi(G)$ inherits abelianness from $G$; we get all of $H$ abelian exactly when the image \emph{is} $H$, i.e., when $\varphi$ is onto.\\
+\emph{Intuition.} Integer addition starts from $1$ and repeats: every $n\in\mathbb Z$ is $1$ added or subtracted finitely many times.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Isomorphism $\Rightarrow$ abelianness transfers $G\to H$).} Assume $\varphi:G\to H$ is an isomorphism and $G$ abelian. For any $x,y\in H$, choose $a,b\in G$ with $\varphi(a)=x$, $\varphi(b)=y$ (possible since $\varphi$ is onto). Then\\
-\quad $xy=\varphi(a)\varphi(b)=\varphi(ab)=\varphi(ba)=\varphi(b)\varphi(a)=yx$ \textbf{ (since $ab=ba$ in $G$).}\\
-Thus $H$ is abelian.\\
-\textbf{Step 2 (Isomorphism $\Rightarrow$ abelianness transfers $H\to G$).} If $H$ is abelian, apply Step 1 to the isomorphism $\varphi^{-1}:H\to G$ to conclude $G$ is abelian. Hence $G$ abelian $\Leftrightarrow H$ abelian under isomorphism.\\
-\textbf{Step 3 (Surjective homomorphism suffices).} Let $\varphi:G\to H$ be a surjective homomorphism and suppose $G$ is abelian. For any $x,y\in H$, pick $a,b\in G$ with $\varphi(a)=x$, $\varphi(b)=y$ (surjectivity). Then\\
-\quad $xy=\varphi(a)\varphi(b)=\varphi(ab)=\varphi(ba)=\varphi(b)\varphi(a)=yx$ \textbf{ (since $ab=ba$).}\\
-Therefore $H$ is abelian.\\
-\textbf{Step 4 (Why surjectivity is necessary).} Without surjectivity, $H$ can be nonabelian even though $G$ is abelian. Example: take $G=\mathbb{Z}$ (abelian), $H=S_3$ (nonabelian), and define a homomorphism $\theta:\mathbb{Z}\to S_3$ by $\theta(n)=\begin{cases}e,& n\ \text{even}\\ (12),& n\ \text{odd.}\end{cases}$ Then $\theta$ is a homomorphism with abelian domain, but its image is the abelian subgroup $\{e,(12)\}\neq H$, and $H$ itself remains nonabelian. Hence abelianness does not transfer to $H$ in general unless $\varphi$ is onto.\\
-\textbf{Step 5 (Conclusion).} Isomorphisms preserve and reflect abelianness. For homomorphisms, surjectivity is a sufficient condition for abelianness of $G$ to imply abelianness of $H$; absent surjectivity, the implication can fail.
+\textbf{Step 1 (Containments).} $\langle 1\rangle=\{k\cdot 1\mid k\in\mathbb Z\}\subseteq\mathbb Z$.\\
+\textbf{Step 2 (Exhaustion).} For each $n\in\mathbb Z$, $n=n\cdot 1\in\langle 1\rangle$.\\
+\textbf{Step 3 (Equality).} Thus $\mathbb Z=\langle 1\rangle$, so $\mathbb Z$ is finitely generated (by one element).\\
 
 \newpage
 
-\noindent \textbf{1.6.4 Exercise 4.} Prove that the multiplicative groups $\mathbb{R}\setminus\{0\}$ and $\mathbb{C}\setminus\{0\}$ are not isomorphic.\\ %verbatim
 
-\noindent\textbf{As General Proposition}: If two groups are isomorphic, they have the same multiset of element orders. In $\mathbb{R}^{\times}$ the only finite orders are $1$ and $2$, whereas $\mathbb{C}^{\times}$ contains elements of order $4$ (e.g.\ $\pm i$). Hence $\mathbb{R}^{\times}\not\cong\mathbb{C}^{\times}$.\\
 
-\noindent \textbf{As Conditional Proposition}: Let $\varphi:\mathbb{R}^{\times}\to\mathbb{C}^{\times}$ be any group isomorphism candidate. Since isomorphisms preserve orders, the absence of order-$4$ elements in $\mathbb{R}^{\times}$ versus their presence in $\mathbb{C}^{\times}$ forbids $\varphi$ from being bijective; therefore no isomorphism exists.\\
+\noindent \textbf{2.4: Exercise 14(c).} Prove that every finitely generated subgroup of $(\mathbb Q,+)$ is cyclic. [If $H$ is a finitely generated subgroup of $\mathbb Q$, show that $H\le \langle \tfrac{1}{k}\rangle$ where $k$ is the product of all denominators appearing in a generating set for $H$.]\\ %verbatim
+
+\noindent\textbf{As General Proposition}: Every finitely generated subgroup $H\le(\mathbb Q,+)$ is cyclic; in fact $H\le \left\langle\frac{1}{k}\right\rangle$ for a suitable $k\in\mathbb Z_{>0}$.\\
+
+\noindent \textbf{As Conditional Proposition}: If $H=\langle q_1,\dots,q_m\rangle\le(\mathbb Q,+)$ with $q_i=\frac{a_i}{b_i}$ in lowest terms, set $k:=\prod_{i=1}^m b_i$. Then $H\le\left\langle\frac{1}{k}\right\rangle\cong\mathbb Z$; hence $H$ is cyclic.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Real nonzero numbers on the unit circle are just $\pm1$, so among reals only $1$ (order $1$) and $-1$ (order $2$) have finite order. The complex unit circle $S^1$ has all roots of unity, including $i$ with $i^4=1$ but $i^2\neq1$. Because isomorphisms preserve element orders, the groups cannot be isomorphic.\\
+\emph{Intuition.} Clearing denominators by one common multiple turns any integer combination of the generators into an integer multiple of a single unit fraction.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Finite orders in $\mathbb{R}^{\times}$).} Let $r\in\mathbb{R}^{\times}$ have finite order $n\ge1$, so $r^n=1$. Then $r$ is a real $n$th root of unity. The only real solutions of $x^n=1$ are $x=1$ (for all $n$) and $x=-1$ (only when $n$ is even). Thus the only possibilities are $r=1$ (order $1$) or $r=-1$ (order $2$).\\
-\textbf{Step 2 (Existence of order-$4$ in $\mathbb{C}^{\times}$).} In $\mathbb{C}^{\times}$, take $z=i$. Then $i^4=1$ while $i^2=-1\neq1$, hence $|i|=4$. Likewise $|-i|=4$.\\
-\textbf{Step 3 (Isomorphisms preserve order).} If $\psi:G\to H$ is an isomorphism and $x\in G$ has order $m$, then $\psi(x)^m=\psi(x^m)=\psi(1)=1$, and minimality of $m$ transfers via bijectivity; hence $|\psi(x)|=|x|$.\\
-\textbf{Step 4 (Derive contradiction).} If $\mathbb{R}^{\times}\cong\mathbb{C}^{\times}$, then by Step 3 the sets of attainable element orders must coincide. But by Step 1, $\mathbb{R}^{\times}$ has no element of order $4$, whereas by Step 2, $\mathbb{C}^{\times}$ does. Contradiction.\\
-\textbf{Step 5 (Conclusion).} Therefore $\mathbb{R}\setminus\{0\}$ and $\mathbb{C}\setminus\{0\}$ are not isomorphic as groups under multiplication.
+\textbf{Step 1 (Normalize generators).} Write each $q_i=\frac{a_i}{b_i}$ with $\gcd(a_i,b_i)=1$ and $b_i>0$.\\
+\textbf{Step 2 (Choose a common denominator).} Let $k=\prod_{i=1}^m b_i\in\mathbb Z_{>0}$.\\
+\textbf{Step 3 (Generic element of $H$).} Any $h\in H$ has the form $h=\sum_{i=1}^m n_i q_i=\sum_{i=1}^m n_i\frac{a_i}{b_i}$ with $n_i\in\mathbb Z$.\\
+\textbf{Step 4 (Clear denominators).} Then
+\[
+h=\sum_{i=1}^m n_i\frac{a_i}{b_i}
+=\sum_{i=1}^m n_i a_i\cdot\frac{k}{k b_i}
+=\left(\sum_{i=1}^m n_i a_i \frac{k}{b_i}\right)\cdot\frac{1}{k}.
+\]
+Each $\frac{k}{b_i}\in\mathbb Z$, so the coefficient $t:=\sum_{i=1}^m n_i a_i \frac{k}{b_i}\in\mathbb Z$.\\
+\textbf{Step 5 (Containment).} Hence $h=t\cdot \frac{1}{k}\in \left\langle\frac{1}{k}\right\rangle$, so $H\le\left\langle\frac{1}{k}\right\rangle$.\\
+\textbf{Step 6 (Cyclicity).} Since $\left\langle\frac{1}{k}\right\rangle=\{\frac{t}{k}\mid t\in\mathbb Z\}\cong\mathbb Z$ is cyclic, its subgroup $H$ is cyclic.\\
 
 \newpage
 
-\noindent \textbf{1.6.7 Exercise 7.} Prove that $D_8$ and $Q_8$ are not isomorphic.\\ %verbatim
 
-\noindent\textbf{As General Proposition}: If two finite groups are isomorphic, they have the same number of elements of each order. In $D_8$ there are five elements of order $2$, while in $Q_8$ there is exactly one; hence $D_8\not\cong Q_8$.\\
 
-\noindent \textbf{As Conditional Proposition}: Let $D_8=\langle r,s\mid r^4=1,\ s^2=1,\ srs=r^{-1}\rangle$ (symmetries of a square) and $Q_8=\{\pm1,\pm i,\pm j,\pm k\}$ with $i^2=j^2=k^2=ijk=-1$. Then $D_8$ and $Q_8$ are not isomorphic because their order-$2$ elements occur in different quantities.\\
+\noindent \textbf{2.4: Exercise 14(d).} Prove that $\mathbb Q$ is not finitely generated (as an additive group).\\ %verbatim
 
-\newpage
+\noindent\textbf{As General Proposition}: $(\mathbb Q,+)$ is not finitely generated.\\
 
-\dotfill
-
-\emph{Intuition.} Isomorphisms preserve orders of elements. Count the involutions (elements of order $2$) in each group: $D_8$ has four reflections and the half-turn $r^2$, while $Q_8$ has only $-1$. Different counts forbid an isomorphism.\\
-
-\dotfill
-
-\emph{Proof.}\\
-\textbf{Step 1 (Orders in $D_8$).} The elements are $1,r,r^2,r^3,s,sr,sr^2,sr^3$. We have $|r|=4$, so $|r^2|=2$. Each reflection $s,sr,sr^2,sr^3$ satisfies $(sr^k)^2=1$, so each has order $2$. Thus $D_8$ has \emph{five} elements of order $2$: $\{r^2,s,sr,sr^2,sr^3\}$.\\
-\textbf{Step 2 (Orders in $Q_8$).} In $Q_8$, $-1$ has order $2$ and the six elements $\pm i,\pm j,\pm k$ each have order $4$. Hence $Q_8$ has \emph{exactly one} element of order $2$.\\
-\textbf{Step 3 (Isomorphisms preserve orders).} If $\varphi:G\to H$ is an isomorphism and $x\in G$ has order $m$, then $\varphi(x)$ has order $m$ as well. Therefore $G$ and $H$ must have the same number of elements of each order.\\
-\textbf{Step 4 (Conclude nonisomorphism).} Since $D_8$ and $Q_8$ have different numbers of elements of order $2$ (five versus one), no isomorphism between them can exist. Hence $D_8\not\cong Q_8$.
-
-\newpage
-
-\noindent \textbf{1.6.18 Exercise 18.} Let $G$ be any group. Prove that the map $\psi:G\to G$ defined by $\psi(g)=g^{2}$ is a homomorphism if and only if $G$ is abelian.\\ %verbatim
-
-\noindent\textbf{As General Proposition}: Squaring defines an endomorphism $\psi(g)=g^2$ precisely on abelian groups.\\
-
-\noindent \textbf{As Conditional Proposition}: For a group $G$, the map $\psi(g)=g^2$ satisfies $\psi(ab)=\psi(a)\psi(b)$ for all $a,b\in G$ iff $ab=ba$ for all $a,b\in G$.
+\noindent \textbf{As Conditional Proposition}: There is no finite subset $S\subset\mathbb Q$ with $\langle S\rangle=\mathbb Q$.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Being a homomorphism means $(ab)^2=a^2b^2$ for all $a,b$. Expanding gives $abab=aabb$; canceling the outer $a$’s and $b$’s forces $ba=ab$. Conversely, if everything commutes, the square of a product is the product of squares.\\
+\emph{Intuition.} If $\mathbb Q$ were finitely generated, part (c) would force it to be cyclic, but a single rational cannot generate reciprocals with arbitrarily many distinct prime denominators.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (If $G$ is abelian, then $\psi$ is a homomorphism).} Assume $ab=ba$ for all $a,b\in G$. Then for any $a,b$,
-\[
-\psi(ab)=(ab)^2=abab=aabb=a^2b^2=\psi(a)\psi(b).
-\]
-Thus $\psi$ is a homomorphism.\\
-\textbf{Step 2 (If $\psi$ is a homomorphism, then $G$ is abelian).} Assume $\psi$ is a homomorphism. Then for any $a,b$,
-\[
-(ab)^2=\psi(ab)=\psi(a)\psi(b)=a^2b^2,
-\]
-i.e.\ $abab=aabb$.\\
-\textbf{Step 3 (Cancel to obtain commutativity).} Left-multiply $abab=aabb$ by $a^{-1}$ and right-multiply by $b^{-1}$ to get
-\[
-bab=abb \quad\Rightarrow\quad ba=ab.
-\]
-Since $a,b$ were arbitrary, $G$ is abelian.\\
-\textbf{Step 4 (Conclusion).} The squaring map $g\mapsto g^2$ is a group homomorphism exactly when $G$ is abelian.
+\textbf{Step 1 (Assume finite generation).} Suppose $\mathbb Q=\langle S\rangle$ with $S$ finite. By (c), $\langle S\rangle$ is cyclic, so $\mathbb Q=\langle \tfrac{p}{q}\rangle$ for some relatively prime $p,q\in\mathbb Z$, $q\ne0$.\\
+\textbf{Step 2 (Pick a new prime).} Let $r$ be any prime not dividing $q$.\\
+\textbf{Step 3 (Consequence of cyclicity).} If $\mathbb Q=\langle \tfrac{p}{q}\rangle$, then $\frac{1}{r}$ must be an integer multiple of $\frac{p}{q}$: there exists $k\in\mathbb Z$ with $k\frac{p}{q}=\frac{1}{r}$.\\
+\textbf{Step 4 (Clear denominators).} Then $k p=\frac{q}{r}$, forcing $r\mid q$, which contradicts $\gcd(q,r)=1$.\\
+\textbf{Step 5 (Conclusion).} The assumption is impossible; therefore $\mathbb Q$ is not finitely generated.\\
 
 \newpage
 
-\noindent \textbf{1.6.20 Exercise 20.} Let $G$ be a group and let $\mathrm{Aut}(G)$ be the set of all isomorphisms from $G$ onto $G$. Prove that $\mathrm{Aut}(G)$ is a group under function composition (called the \emph{automorphism group} of $G$ and the elements of $\mathrm{Aut}(G)$ are called \emph{automorphisms of $G$}).\\ %verbatim
+\noindent \textbf{2.2: Additional Exercise 2 (i).} 
+Suppose $N\le G$ and $N$ is generated by $T\subseteq N$, while $G$ is generated by $S\subseteq G$.\\
+(i) Prove that if $gTg^{-1}\subseteq N$, then $gNg^{-1}\subseteq N$.\\
+(ii) Prove that if $sNs^{-1}\subseteq N$ for all $s\in S\cup S^{-1}$, then $gNg^{-1}\subseteq N$ for all $g\in G$.\\
+(iii) Deduce that $N\lhd G$ if $sTs^{-1}\subseteq N$ for all $s\in S\cup S^{-1}$.\\ %verbatim
 
-\noindent\textbf{As General Proposition}: The set of all bijective homomorphisms $G\to G$ forms a group under composition.\\
+\noindent\textbf{As General Proposition}: Conjugation respects generation: $g\langle T\rangle g^{-1}=\langle gTg^{-1}\rangle$. Hence (i)–(iii) follow by containment and induction on word length in $S\cup S^{-1}$.\\
 
-\noindent \textbf{As Conditional Proposition}: With operation $(\phi,\psi)\mapsto \phi\circ\psi$, the quadruple $(\mathrm{Aut}(G),\circ,\mathrm{id}_G,~\cdot^{-1})$ satisfies the group axioms: closure, associativity, identity, inverses.\\
+\noindent \textbf{As Conditional Proposition}: With $N=\langle T\rangle$ and $G=\langle S\rangle$, (i)–(iii) hold as stated.
 
 \newpage
 
 \dotfill
 
-\emph{Intuition.} Composing two structure-preserving bijections still preserves structure and remains bijective; the identity map is trivially such; and the inverse of a structure-preserving bijection also preserves structure. Since composition of functions is always associative, the group axioms follow mechanically.\\
+\emph{Intuition.} Conjugation by a fixed $g$ is an automorphism of $G$, so it carries generators to generators and generated subgroups to their conjugates. If every generator $s$ (and its inverse) of $G$ conjugates $N$ into itself, then any product of such generators does too—by induction on word length. Finally, if each $s$ even sends the \emph{generators of $N$} back into $N$, then each $s$ conjugates \emph{$N$ itself} into $N$, and the previous step promotes this to all $g\in G$.\\
+
+\dotfill
+
+\emph{Proof of (i).}\\
+\textbf{Step 1 (Conjugation distributes over products and inverses).} For any $x,y\in G$, $g(xy)g^{-1}=(gxg^{-1})(gyg^{-1})$ and $g(x^{-1})g^{-1}=(gxg^{-1})^{-1}$.\\
+\textbf{Step 2 (Conjugate of a generated subgroup).} Since $N=\langle T\rangle$, every $n\in N$ is a finite word in elements of $T^{\pm1}$. Applying Step 1 to the word gives $gng^{-1}$ as a word in $(gTg^{-1})^{\pm1}$, hence
+\[
+gNg^{-1}=g\langle T\rangle g^{-1}=\langle gTg^{-1}\rangle.
+\] \\
+\textbf{Step 3 (Containment).} If $gTg^{-1}\subseteq N$, then $\langle gTg^{-1}\rangle\subseteq N$, so by Step 2, $gNg^{-1}\subseteq N$.
+
+\newpage
+
+\noindent \textbf{2.2: Additional Exercise 2 (ii).} 
+Suppose $N\le G$ and $N$ is generated by $T\subseteq N$, while $G$ is generated by $S\subseteq G$.\\
+(i) Prove that if $gTg^{-1}\subseteq N$, then $gNg^{-1}\subseteq N$.\\
+(ii) Prove that if $sNs^{-1}\subseteq N$ for all $s\in S\cup S^{-1}$, then $gNg^{-1}\subseteq N$ for all $g\in G$.\\
+(iii) Deduce that $N\lhd G$ if $sTs^{-1}\subseteq N$ for all $s\in S\cup S^{-1}$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: Conjugation respects generation: $g\langle T\rangle g^{-1}=\langle gTg^{-1}\rangle$. Hence (i)–(iii) follow by containment and induction on word length in $S\cup S^{-1}$.\\
+
+\noindent \textbf{As Conditional Proposition}: With $N=\langle T\rangle$ and $G=\langle S\rangle$, (i)–(iii) hold as stated.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Conjugation by a fixed $g$ is an automorphism of $G$, so it carries generators to generators and generated subgroups to their conjugates. If every generator $s$ (and its inverse) of $G$ conjugates $N$ into itself, then any product of such generators does too—by induction on word length. Finally, if each $s$ even sends the \emph{generators of $N$} back into $N$, then each $s$ conjugates \emph{$N$ itself} into $N$, and the previous step promotes this to all $g\in G$.\\
+
+\dotfill
+
+\emph{Proof of (ii).}\\
+\textbf{Step 1 (Goal and strategy).} We show by induction on word length $\ell$ in $S\cup S^{-1}$ that for every word $w=s_1\cdots s_\ell$ we have $wNw^{-1}\subseteq N$.\\
+\textbf{Step 2 (Base $\ell=0,1$).} For $\ell=0$, $w=1$ and $wNw^{-1}=N\subseteq N$. For $\ell=1$, $w=s\in S\cup S^{-1}$, the hypothesis gives $sNs^{-1}\subseteq N$.\\
+\textbf{Step 3 (Induction step).} Write $w=s_1\cdots s_{\ell-1}\,s_\ell=u\,s_\ell$. Then
+\[
+wNw^{-1}=u\,(s_\ell N s_\ell^{-1})\,u^{-1}\subseteq uNu^{-1}
+\]
+by the hypothesis on $s_\ell$. By the induction hypothesis applied to $u$ (length $\ell-1$), $uNu^{-1}\subseteq N$. Hence $wNw^{-1}\subseteq N$.\\
+\textbf{Step 4 (Conclusion).} Every $g\in G=\langle S\rangle$ is such a word $w$, so $gNg^{-1}\subseteq N$ for all $g\in G$.
+
+\newpage
+
+\noindent \textbf{2.2: Additional Exercise 2 (iii).} 
+Suppose $N\le G$ and $N$ is generated by $T\subseteq N$, while $G$ is generated by $S\subseteq G$.\\
+(i) Prove that if $gTg^{-1}\subseteq N$, then $gNg^{-1}\subseteq N$.\\
+(ii) Prove that if $sNs^{-1}\subseteq N$ for all $s\in S\cup S^{-1}$, then $gNg^{-1}\subseteq N$ for all $g\in G$.\\
+(iii) Deduce that $N\lhd G$ if $sTs^{-1}\subseteq N$ for all $s\in S\cup S^{-1}$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: Conjugation respects generation: $g\langle T\rangle g^{-1}=\langle gTg^{-1}\rangle$. Hence (i)–(iii) follow by containment and induction on word length in $S\cup S^{-1}$.\\
+
+\noindent \textbf{As Conditional Proposition}: With $N=\langle T\rangle$ and $G=\langle S\rangle$, (i)–(iii) hold as stated.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Conjugation by a fixed $g$ is an automorphism of $G$, so it carries generators to generators and generated subgroups to their conjugates. If every generator $s$ (and its inverse) of $G$ conjugates $N$ into itself, then any product of such generators does too—by induction on word length. Finally, if each $s$ even sends the \emph{generators of $N$} back into $N$, then each $s$ conjugates \emph{$N$ itself} into $N$, and the previous step promotes this to all $g\in G$.\\
+
+\dotfill
+
+\emph{Proof of (iii).}\\
+\textbf{Step 1 (From $sTs^{-1}\subseteq N$ to $sNs^{-1}\subseteq N$).} Fix $s\in S\cup S^{-1}$. Since $N=\langle T\rangle$, apply part (i) with $g=s$ to get $sNs^{-1}\subseteq N$.\\
+\textbf{Step 2 (Promote to all $g\in G$).} Now apply part (ii): because $sNs^{-1}\subseteq N$ holds for all $s\in S\cup S^{-1}$, we obtain $gNg^{-1}\subseteq N$ for every $g\in G$.\\
+\textbf{Step 3 (Normality).} Thus $gNg^{-1}\subseteq N$ for all $g$, and the same applied to $g^{-1}$ yields $N\subseteq gNg^{-1}$, hence $gNg^{-1}=N$; therefore $N\lhd G$.\\
+
+\newpage
+
+\newpage
+
+\noindent \textbf{2.2: Additional Exercise 3.} 
+Here is an example of a group $G$, a subgroup $N$, and $g\in G$ such that $gNg^{-1}\subseteq N$ but $gNg^{-1}\ne N$. Let $G=\mathrm{Perm}(\mathbb Z)$ be the permutation group of the set $\mathbb Z$. Let $X\subset\mathbb Z$ be the set of nonpositive integers $X=\{n\in\mathbb Z:\ n\le 0\}$. Define 
+\[
+N=\{\sigma\in G\mid \sigma|_X=\mathrm{id}|_X\}.
+\]
+Let $\tau\in G$ be the translation $\tau(n)=n+1$. Show that $\tau N\tau^{-1}\subseteq N$ but $\tau N\tau^{-1}\ne N$.\\ %verbatim
+
+\noindent\textbf{As General Proposition}: In $G=\mathrm{Perm}(\mathbb Z)$ with $X=\{n\le 0\}$ and $N=\{\sigma:\sigma|_X=\mathrm{id}\}$, the conjugate $\tau N\tau^{-1}$ (where $\tau(n)=n+1$) is properly contained in $N$.\\
+
+\noindent \textbf{As Conditional Proposition}: With $G,N,X,\tau$ as displayed, we have $\tau N\tau^{-1}\subseteq N$ and $\tau N\tau^{-1}\neq N$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Conjugating by $\tau$ shifts the “fixed half-line” one step to the right: $\tau^{-1}$ moves an input $x\le 0$ to $x-1\le -1$, which is still in $X$, so any $\sigma\in N$ fixes it; applying $\tau$ brings the point back, proving inclusion. But elements of $\tau N\tau^{-1}$ end up fixing both $0$ and $1$, whereas $N$ contains permutations that move $1$ (only the nonpositives must be fixed). Choosing such a permutation shows the inclusion is strict.\\
 
 \dotfill
 
 \emph{Proof.}\\
-\textbf{Step 1 (Closure).} Let $\phi,\psi\in\mathrm{Aut}(G)$. Then $\phi,\psi$ are bijective homomorphisms $G\to G$. For any $a,b\in G$, 
+\textbf{Step 1 (Check inclusion on $X$).} Let $\sigma\in N$ and $x\in X$ with $x\le 0$. Then $\tau^{-1}(x)=x-1\le -1$, hence $\tau^{-1}(x)\in X$ and $\sigma(\tau^{-1}(x))=\tau^{-1}(x)$. Therefore 
 \[
-(\phi\circ\psi)(ab)=\phi(\psi(ab))=\phi(\psi(a)\psi(b))=\phi(\psi(a))\,\phi(\psi(b))=(\phi\circ\psi)(a)\,(\phi\circ\psi)(b),
+(\tau\sigma\tau^{-1})(x)=\tau(\tau^{-1}(x))=x,
 \]
-so $\phi\circ\psi$ is a homomorphism. As a composition of bijections, it is bijective; hence $\phi\circ\psi\in\mathrm{Aut}(G)$.\\
-\textbf{Step 2 (Associativity).} For all $\alpha,\beta,\gamma\in\mathrm{Aut}(G)$ and all $x\in G$,
+so $\tau\sigma\tau^{-1}$ fixes every $x\in X$. Thus $\tau N\tau^{-1}\subseteq N$.\\
+\textbf{Step 2 (A property of all elements in $\tau N\tau^{-1}$).} For any $\sigma\in N$ we have 
 \[
-((\alpha\circ\beta)\circ\gamma)(x)=\alpha(\beta(\gamma(x)))=(\alpha\circ(\beta\circ\gamma))(x),
+(\tau\sigma\tau^{-1})(0)=\tau\sigma(-1)=\tau(-1)=0,\qquad
+(\tau\sigma\tau^{-1})(1)=\tau\sigma(0)=\tau(0)=1,
 \]
-so composition is associative on $\mathrm{Aut}(G)$.\\
-\textbf{Step 3 (Identity element).} The identity map $\mathrm{id}_G:G\to G$ satisfies $\mathrm{id}_G(ab)=ab=\mathrm{id}_G(a)\mathrm{id}_G(b)$, hence $\mathrm{id}_G\in\mathrm{Aut}(G)$. For any $\phi\in\mathrm{Aut}(G)$ we have $\phi\circ\mathrm{id}_G=\mathrm{id}_G\circ\phi=\phi$; thus $\mathrm{id}_G$ is the identity element.\\
-\textbf{Step 4 (Inverses).} If $\phi\in\mathrm{Aut}(G)$, then $\phi$ is a bijective homomorphism. For any $a,b\in G$, using surjectivity pick $u,v\in G$ with $\phi(u)=a$ and $\phi(v)=b$. Then
+so every element of $\tau N\tau^{-1}$ fixes both $0$ and $1$.\\
+\textbf{Step 3 (Exhibit an $N$-element that moves $1$).} Define $\pi\in G$ by swapping $1$ and $2$ and fixing all other integers:
 \[
-\phi(u v)=\phi(u)\phi(v)=ab.
+\pi(1)=2,\ \pi(2)=1,\ \pi(n)=n \text{ for } n\notin\{1,2\}.
 \]
-Applying $\phi^{-1}$ yields $uv=\phi^{-1}(a)\phi^{-1}(b)$, so $\phi^{-1}$ is a homomorphism. Being the inverse of a bijection, it is bijective; hence $\phi^{-1}\in\mathrm{Aut}(G)$. Moreover, $\phi\circ\phi^{-1}=\phi^{-1}\circ\phi=\mathrm{id}_G$.\\
-\textbf{Step 5 (Conclusion).} Steps 1–4 establish closure, associativity, identity, and inverses for $(\mathrm{Aut}(G),\circ)$. Therefore $\mathrm{Aut}(G)$ is a group under composition.\\
+Since $\pi$ fixes every $x\le 0$, we have $\pi\in N$, but $\pi(1)=2\ne 1$.\\
+\textbf{Step 4 (Strictness).} By Step 2, every element of $\tau N\tau^{-1}$ fixes $1$, whereas $\pi\in N$ does not; hence $\pi\notin \tau N\tau^{-1}$. Therefore $\tau N\tau^{-1}\subsetneq N$.\\
+\textbf{Step 5 (Conclusion).} We have shown $\tau N\tau^{-1}\subseteq N$ and $\tau N\tau^{-1}\ne N$ as required.\\
 
-
+\newpage
 
 
 \end{document}
