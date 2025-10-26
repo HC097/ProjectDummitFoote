@@ -1,0 +1,395 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, geometry, graphicx}
+\usepackage{titlesec}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{calculative}[theorem]{Calculative}
+\newtheorem{exercise}[theorem]{Exercise}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Inn}{\mathrm{Inn}}
+\newcommand{\Syl}{\mathrm{Syl}}
+\newcommand{\Z}{\mathrm{Z}}
+
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0pt}{}[.]
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{Ch5 Flashcards} \\
+\large Harley Caham Combest \\
+\large Fa2025 2025-10-24 MATH5353
+\end{center}
+
+\newpage
+
+\dotfill
+\section*{Chapter 5 | Direct and Semidirect Products, and Abelian Groups}
+\dotfill
+
+\newpage
+
+This chapter develops two complementary themes: (1) assembling groups from known pieces via direct and semidirect products, and (2) classifying and recognizing structure, especially for finitely generated abelian groups and for groups of small order.
+
+\begin{itemize}
+  \item \textbf{Building groups by products.}
+  The chapter begins with (external/internal) \emph{direct products} $G_1\times\cdots\times G_n$, emphasizing axis embeddings, projection maps, behavior of orders and centers, and the commutativity across different factors. This gives a controlled way to construct larger groups from known ones.
+
+  \item \textbf{Classification of finitely generated abelian groups.}
+  The Fundamental Theorem is presented in both \emph{invariant-factor} and \emph{elementary-divisor} forms:
+  \[
+    G \cong \mathbb{Z}^r \times \mathbb{Z}_{n_1}\times\cdots\times \mathbb{Z}_{n_s}
+    \quad\text{with}\quad n_{s}\mid\cdots\mid n_1,
+  \]
+  and equivalently as a product of $p$-primary cyclic components. Practical conversions between the two forms are outlined, enabling complete listings of all abelian groups of a given order.
+
+  \item \textbf{Small-order landscape.}
+  Using the abelian classification together with standard nonabelian families, the text compiles a table of groups of small order (presentations, quick invariants, and examples such as dihedral, quaternionic, and other semidirect constructions).
+
+  \item \textbf{Recognizing internal direct products.}
+  A recognition criterion is proved: if $H,K\trianglelefteq G$, $H\cap K=1$, and $G=HK$, then $G\cong H\times K$; elements of $H$ commute with those of $K$, and each $g\in G$ has a unique decomposition $g=hk$ with $h\in H$, $k\in K$.
+
+  \item \textbf{Semidirect products and controlled nonabelian extensions.}
+  Relaxing normality to one factor yields $H\rtimes_\varphi K$ via an action $\varphi:K\to\Aut(H)$. A matching internal recognition theorem shows that whenever $H\lhd G$, $G=HK$, and $H\cap K=1$, the group is a semidirect product. This framework systematically produces many nonabelian groups and underpins several order-specific classifications by analyzing possible actions into $\Aut(H)$.
+\end{itemize}
+
+\noindent\textbf{Why it matters.} Chapter 5 provides
+\begin{enumerate}\itemsep3pt
+  \item constructive tools (direct/semidirect products) to \emph{manufacture} groups,
+  \item definitive structure theorems to \emph{classify} all finitely generated abelian groups, and
+  \item recognition criteria to \emph{detect} internal splittings.
+\end{enumerate}
+These methods are foundational for later work on extensions, nilpotent/solvable groups, and representation theory.
+
+\newpage
+
+\textbf{5.1 Direct Products}
+
+\newpage
+
+\textbf{Definition.} For groups $G_1,\dots,G_n$, the (external) direct product
+$G = G_1\times\cdots\times G_n$ is the set of $n$-tuples with componentwise
+multiplication. Then $G$ is a group with identity $(1,\dots,1)$ and
+$(g_1,\dots,g_n)^{-1}=(g_1^{-1},\dots,g_n^{-1})$. If all $G_i$ are finite,
+$|G|=\prod_i |G_i|$. Each $G_i$ embeds as the ``$i$-th axis'' subgroup
+$\{(1,\dots,1,g_i,1,\dots,1)\}\le G$, and the coordinate projections
+$\pi_i:G\to G_i$ are surjective homomorphisms with kernels
+$\prod_{j\neq i} G_j$. Elements supported in different factors commute. 
+
+\medskip
+\textbf{Basic consequences.}
+\begin{itemize}\itemsep4pt
+  \item $Z(G_1\times\cdots\times G_n)=Z(G_1)\times\cdots\times Z(G_n)$; hence the product is abelian iff each factor is abelian.
+  \item Reordering factors yields an isomorphic product.
+  \item For $x_i\in G_i$, $\mathrm{ord}(x_1\cdots x_n)=\mathrm{lcm}_i\{\mathrm{ord}(x_i)\}$ when components commute as above.
+\end{itemize}
+
+\newpage
+
+\textbf{5.2 Fundamental Theorems for Finitely Generated Abelian Groups}
+
+\newpage
+
+\textbf{Invariant-factor form.} Every finitely generated abelian group $G$ is
+isomorphic to
+\[
+G \cong \mathbb{Z}^r \times \mathbb{Z}_{n_1}\times \cdots \times \mathbb{Z}_{n_s},
+\qquad r\ge 0,\; 2\le n_s\mid n_{s-1}\mid \cdots \mid n_1,
+\]
+with $r$ the free rank (Betti number) and $(n_1,\dots,n_s)$ the \emph{invariant factors}, unique up to isomorphism. Finite abelian groups are exactly those with $r=0$; their order is $\prod_j n_j$.
+
+\medskip
+\textbf{Primary (elementary-divisor) form.} If $|G|=n=\prod_i p_i^{\alpha_i}$, then
+\[
+G \cong \bigoplus_i A_i, \quad |A_i|=p_i^{\alpha_i}, \quad
+A_i \cong \mathbb{Z}_{p_i^{\beta_{i1}}}\times \cdots \times \mathbb{Z}_{p_i^{\beta_{it_i}}},
+\]
+with $\beta_{i1}\ge \cdots \ge \beta_{it_i}\ge 1$ and $\sum_j \beta_{ij}=\alpha_i$.
+These $p$-power cyclic moduli are the \emph{elementary divisors}. The two forms are equivalent and unique. The number of isomorphism types of abelian groups of order $n=\prod_i p_i^{\alpha_i}$ is $\prod_i \mathsf{p}(\alpha_i)$, where $\mathsf{p}(\cdot)$ is the partition function.
+
+\medskip
+\textbf{Practical conversions.} 
+\begin{itemize}\itemsep4pt
+  \item From invariant factors to elementary divisors: factor each $n_j$ into prime powers and regroup by primes.
+  \item From elementary divisors to invariant factors: for each prime $p$, sort the $p$-powers in nonincreasing order into a column; pad shorter columns with $1$’s, then multiply across rows to get $(n_1,\dots,n_s)$ with divisibility $n_s\mid\cdots\mid n_1$.
+\end{itemize}
+
+\newpage
+
+\textbf{5.3 Table of Groups of Small Order (highlights)}
+
+\newpage
+
+Using the above, one lists all abelian types for small $n$ and cites standard nonabelian families (e.g., dihedral $D_{2n}$, quaternion $Q_{2^m}$, semidirects like $\mathbb{Z}_3\rtimes \mathbb{Z}_4$, Frobenius group of order $20$, etc.) together with presentations.
+
+\newpage
+
+\textbf{5.4 Recognizing Internal Direct Products}
+
+\newpage
+
+\textbf{Commutators.} $[x,y]=x^{-1}y^{-1}xy$; the subgroup $G'$ generated by commutators is characteristic, and $G/G'$ is the largest abelian quotient. 
+
+\medskip
+\textbf{Criterion (Internal Direct Product).}
+If $H,K\trianglelefteq G$ and $H\cap K=1$, then $HK\cong H\times K$; moreover every element of $H$ commutes with every element of $K$, and each $g\in HK$ decomposes uniquely as $hk$ with $h\in H$, $k\in K$.
+
+\newpage
+
+\textbf{5.5 Semidirect Products}
+
+\newpage
+
+\textbf{Construction.} Given a homomorphism $\varphi:K\to \mathrm{Aut}(H)$, define
+$H\rtimes_\varphi K$ on the set $H\times K$ by
+\[
+(h_1,k_1)\cdot(h_2,k_2)=(\,h_1\cdot \varphi(k_1)(h_2),\; k_1k_2\,).
+\]
+Then $H\lhd H\rtimes K$, $H\cap K=1$, and $k h k^{-1}=\varphi(k)(h)$. The product is direct iff $\varphi$ is trivial (equivalently $K\lhd H\rtimes K$).
+
+\medskip
+\textbf{Recognition (Internal Semidirect Product).}
+If $G$ has subgroups $H\lhd G$ and $K\le G$ with $H\cap K=1$ and $G=HK$, then $G\cong H\rtimes_\varphi K$ where $\varphi$ is conjugation of $K$ on $H$.
+
+\medskip
+\textbf{Standard classifications via semidirect products (samples).}
+\begin{itemize}\itemsep4pt
+  \item \emph{Order $pq$ ($p<q$ primes).} If $p\nmid(q-1)$ then $G\cong \mathbb{Z}_{pq}$; if $p\mid(q-1)$ there are exactly two types: cyclic and a unique nonabelian semidirect $\mathbb{Z}_q\rtimes \mathbb{Z}_p$.
+  \item \emph{Order $12$.} Five types: three abelian ($\mathbb{Z}_{12}$, $\mathbb{Z}_6\times \mathbb{Z}_2$, $\mathbb{Z}_3\times \mathbb{Z}_2\times \mathbb{Z}_2$) and two core nonabelian families obtained as semidirects (e.g.\ $D_{12}$, $A_4$, or $\mathbb{Z}_3\rtimes \mathbb{Z}_4$ depending on the action).
+  \item \emph{$p^3$ (odd $p$).} Exactly three types: two abelian ($\mathbb{Z}_{p^3}$, $\mathbb{Z}_{p^2}\times \mathbb{Z}_p$, $\mathbb{Z}_p^3$ gives three abelian total) and two nonabelian: the Heisenberg-type $(\mathbb{Z}_p^2)\rtimes \mathbb{Z}_p$ (exponent $p$) and the $\mathbb{Z}_{p^2}\rtimes \mathbb{Z}_p$ type (contains elements of order $p^2$).
+\end{itemize}
+
+\newpage
+
+\noindent \textbf{5.1: Exercise 14.} Let $G=A_1\times A_2\times\cdots\times A_n$, and for each $i$ let $B_i$ be a normal subgroup of $A_i$. Prove that $B_1\times B_2\times\cdots\times B_n\unlhd G$ and that
+\[
+(A_1\times A_2\times\cdots\times A_n)/(B_1\times B_2\times\cdots\times B_n)\cong (A_1/B_1)\times(A_2/B_2)\times\cdots\times(A_n/B_n). 
+\] \\ %verbatim
+
+\noindent\textbf{As General Proposition}: If each $B_i\unlhd A_i$, then $\prod_{i=1}^n B_i\unlhd \prod_{i=1}^n A_i$ and the quotient by $\prod_i B_i$ is naturally isomorphic to $\prod_i (A_i/B_i)$.
+
+\noindent \textbf{As Conditional Proposition}: Let $G=\prod_{i=1}^n A_i$ and $B_i\unlhd A_i$ for all $i$. Then $B:=\prod_{i=1}^n B_i\unlhd G$ and $G/B\cong \prod_{i=1}^n (A_i/B_i)$.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} Conjugation in a direct product is coordinatewise, so normality of each $B_i$ in $A_i$ forces normality of $\prod_i B_i$ in $G$. For the quotient, map $(a_1,\ldots,a_n)$ to $(a_1B_1,\ldots,a_nB_n)$; its kernel is exactly $\prod_i B_i$ and it is onto, so the First Isomorphism Theorem gives $G/\prod_i B_i\cong \prod_i (A_i/B_i)$.\\
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Set-up).} Write $G=\prod_{i=1}^n A_i$ and $B=\prod_{i=1}^n B_i$ with $B_i\unlhd A_i$ for each $i$.\\
+\textbf{Step 2 (Normality via coordinatewise conjugation).} For $a=(a_1,\ldots,a_n)\in G$ and $b=(b_1,\ldots,b_n)\in B$,
+\[
+aba^{-1}=(a_1b_1a_1^{-1},\ldots,a_nb_na_n^{-1}),
+\]
+and since $a_ib_ia_i^{-1}\in B_i$ for each $i$, we have $aba^{-1}\in B$; hence $B\unlhd G$.\\
+\textbf{Step 3 (Define the comparison map).} Define $\varphi:G\to \prod_{i=1}^n (A_i/B_i)$ by
+\[
+\varphi(a_1,\ldots,a_n)=(a_1B_1,\ldots,a_nB_n).
+\]
+This is a homomorphism because multiplication is coordinatewise on both domain and codomain.\\
+\textbf{Step 4 (Kernel).} 
+\[
+\ker\varphi=\{(a_1,\ldots,a_n):a_i\in B_i\ \forall i\}=\prod_{i=1}^n B_i=B.
+\] \\
+\textbf{Step 5 (Surjectivity).} Each projection $A_i\to A_i/B_i$ is onto, so $\varphi$ is onto $\prod_i (A_i/B_i)$.\\
+\textbf{Step 6 (Apply First Isomorphism Theorem).} By the First Isomorphism Theorem, 
+\[
+G/B\cong \prod_{i=1}^n (A_i/B_i),
+\]
+which is the desired natural isomorphism.\\
+
+\newpage
+
+\noindent \textbf{5.2: Exercise 4(a).} In each of parts (a) to (d) determine which pairs of abelian groups listed are isomorphic (here $\{a_1,a_2,\dots,a_k\}$ denotes $\Z_{a_1}\times\Z_{a_2}\times\cdots\times\Z_{a_k}$).
+\\
+(a) $\{4,9\},\ \{6,6\},\ \{8,3\},\ \{9,4\},\ \{6,4\},\ \{64\}$. \\ %verbatim
+
+\noindent\textbf{As General Proposition}: Two finite abelian groups are isomorphic iff their $p$-primary decompositions agree for every prime $p$ (equivalently, they have the same multiset of invariant factors/elementary divisors).
+
+\noindent \textbf{As Conditional Proposition}: Among the six groups above, the only isomorphic pair is $\{4,9\}\cong\{9,4\}$. The other four are pairwise non-isomorphic.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} First split by order: possible orders are $36$ ($\{4,9\},\{6,6\}$), $24$ ($\{8,3\},\{6,4\}$), and $64$ ($\{64\}$). Within a fixed order, compare $p$-parts: cyclic vs. noncyclic $2$-parts or $3$-parts force non-isomorphism.
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Step 1 (Orders).} 
+\[
+|\{4,9\}|=|\{6,6\}|=36,\quad |\{8,3\}|=|\{6,4\}|=24,\quad |\{64\}|=64.
+\]
+Groups of different orders cannot be isomorphic, so compare within $\{36\}$- and $\{24\}$-blocks.\\
+
+\textbf{Step 2 ($36$-block).} 
+\[
+\{4,9\}\cong \Z_4\times\Z_9\cong \Z_{36}\quad(\text{coprime factors }4,9),
+\]
+so it is cyclic. Also $\{9,4\}$ is the same group. But
+\[
+\{6,6\}\cong \Z_6\times\Z_6\cong (\Z_2\times\Z_3)\times(\Z_2\times\Z_3)\cong \Z_2^2\times \Z_3^2,
+\]
+which is not cyclic (its $2$-part is $\Z_2^2$). Hence $\{6,6\}\not\cong \{4,9\}$ and $\{6,6\}\not\cong \{9,4\}$, while $\{4,9\}\cong\{9,4\}$.\\
+
+\textbf{Step 3 ($24$-block).}
+\[
+\{8,3\}\cong \Z_8\times\Z_3\cong \Z_{24}\quad(\text{coprime }8,3;\ \text{cyclic}),
+\]
+whereas
+\[
+\{6,4\}\cong \Z_6\times\Z_4\cong (\Z_2\times\Z_3)\times\Z_4\cong (\Z_4\times\Z_3)\times \Z_2\cong \Z_{12}\times \Z_2,
+\]
+which is not cyclic. Hence $\{8,3\}\not\cong \{6,4\}$.\\
+
+\textbf{Step 4 ($64$-singleton).} $\{64\}\cong \Z_{64}$ has order $64$, so it cannot be isomorphic to any of the others.\\
+
+\textbf{Conclusion.} The only isomorphic pair is $\boxed{\{4,9\}\cong\{9,4\}}$. All others are non-isomorphic.\\
+
+\newpage
+
+\noindent \textbf{Additional: Exercise 1.} Let $G$ be a finite group. Prove that $G$ is abelian if and only if all of its Sylow subgroups are normal and abelian. \\ %verbatim
+
+\noindent\textbf{As General Proposition}: A finite group is abelian $\iff$ each of its Sylow subgroups is normal and abelian.
+
+\noindent \textbf{As Conditional Proposition}: Let $|G|=\prod_{i=1}^k p_i^{a_i}$. Then $G$ is abelian if and only if for every $i$ the Sylow $p_i$-subgroup $P_i$ is normal in $G$ and $P_i$ is abelian.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} The forward direction is immediate: subgroups of an abelian group are abelian and normal. For the converse, if all Sylow subgroups $P_i$ are normal and abelian, then different $P_i$’s commute (their commutator lies in $P_i\cap P_j=1$ by coprime orders), and $G$ is the internal direct product $P_1\cdots P_k\cong P_1\times\cdots\times P_k$, hence abelian.
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{($\Rightarrow$) If $G$ is abelian then its Sylow subgroups are normal and abelian.} Any subgroup of an abelian group is abelian. In an abelian group every subgroup is normal. Hence each Sylow subgroup of $G$ is both normal and abelian.\\
+
+\textbf{($\Leftarrow$) If all Sylow subgroups are normal and abelian then $G$ is abelian.}
+Let $P_i\in\Syl_{p_i}(G)$ be the Sylow $p_i$-subgroups, assumed normal and abelian.
+
+\smallskip
+\textit{Step 1 (Pairwise intersections are trivial).} For $i\neq j$, $|P_i\cap P_j|$ divides both $|P_i|=p_i^{a_i}$ and $|P_j|=p_j^{a_j}$; since $(p_i,p_j)=1$, we have $P_i\cap P_j=\{e\}$.\\
+
+\textit{Step 2 (Different Sylow subgroups commute).} Because $P_i,P_j\trianglelefteq G$, the commutator subgroup $[P_i,P_j]\le P_i\cap P_j=\{e\}$, so $P_i$ and $P_j$ centralize each other. Hence every element of $P_i$ commutes with every element of $P_j$.\\
+
+\textit{Step 3 (Product is a subgroup of full order).} The product
+\[
+H:=P_1P_2\cdots P_k
+\]
+is a subgroup (by normality of each $P_i$) and, using Step 1 and induction,
+\[
+|H|=\prod_{i=1}^k |P_i|=\prod_{i=1}^k p_i^{a_i}=|G|.
+\]
+Thus $H=G$.\\
+
+\textit{Step 4 (Internal direct product).} By Steps 1–2, the multiplication map
+\[
+P_1\times\cdots\times P_k \longrightarrow G,\qquad (x_1,\ldots,x_k)\mapsto x_1\cdots x_k
+\]
+is an injective homomorphism with image $G$, hence an isomorphism. Therefore
+\[
+G\ \cong\ P_1\times\cdots\times P_k.
+\]
+Each $P_i$ is abelian, so their direct product is abelian. Hence $G$ is abelian. \qed
+
+\newpage
+
+\newpage
+
+\noindent \textbf{Additional: Exercise 2.} 
+Let $N,H$ be groups.
+\begin{itemize}
+  \item[(a)] Suppose $\varphi_1,\varphi_2: H\to \Aut(N)$ are homomorphisms and there exist $\psi\in\Aut(N)$ and an isomorphism $\sigma:H\to H$ such that
+  \[
+  \psi\,\varphi_1(h)\,\psi^{-1}\;=\;\varphi_2(\sigma(h))\quad\text{for all }h\in H.
+  \]
+  Prove that $N\rtimes_{\varphi_1} H\ \cong\ N\rtimes_{\varphi_2} H$.
+  \item[(b)] Show that there are exactly four groups of order $28$ up to isomorphism. (Hint: use part (a) and Sylow; you may use $\Aut(\Z/7)\cong C_6$.)
+\end{itemize}
+ %verbatim
+
+\noindent\textbf{As General Proposition}: (a) Semidirect products $N\rtimes_{\varphi_1} H$ and $N\rtimes_{\varphi_2} H$ are isomorphic whenever $\varphi_1$ and $\varphi_2$ are related by pre/post-composition with automorphisms of $H$ and $N$ as above. (b) Up to isomorphism there are exactly four groups of order $28$: 
+\[
+C_{28},\qquad C_{14}\times C_2,\qquad D_{14},\qquad \mathrm{Dic}_7\ (\text{dicyclic of order }28).
+\]
+
+\noindent \textbf{As Conditional Proposition}: (a) With the given $\psi\in\Aut(N)$ and $\sigma\in\Aut(H)$, $N\rtimes_{\varphi_1} H\cong N\rtimes_{\varphi_2} H$. (b) Every group $G$ of order $28=2^2\cdot 7$ is isomorphic to exactly one of the four groups listed above.
+
+\newpage
+
+\dotfill
+
+\emph{Intuition.} (a) View a semidirect product as $N\times H$ with twisted multiplication $(n,h)(m,k)=(n\cdot \varphi(h)(m),\,hk)$. If two actions differ by rebasing $N$ via $\psi$ and relabeling $H$ via $\sigma$, the coordinate change $(n,h)\mapsto (\psi(n),\sigma(h))$ transports one product law to the other. (b) By Sylow, the Sylow-$7$ subgroup $P\cong C_7$ is normal (either unique or characteristic inside a normal $C_{14}$). Then $G\cong C_7\rtimes H$ with $|H|=4$ and action $H\to\Aut(C_7)\cong C_6$. The only possible images have order dividing $\gcd(4,6)=2$: either trivial or the unique order-$2$ subgroup $\{\pm1\}$ (inversion). Taking $H\cong C_4$ or $V_4$ gives exactly two abelian and two nonabelian outcomes.
+
+\dotfill
+
+\emph{Proof.}\\
+\textbf{Part (a).}\\
+\textbf{Step 1 (Definitions).} On the set $N\times H$ define
+\[
+(n,h)\cdot_{\varphi_i}(m,k)\;=\;\bigl(n\,\varphi_i(h)(m),\,hk\bigr)\qquad (i=1,2).
+\]
+Let $F:N\times H\to N\times H$ be $F(n,h):=(\psi(n),\,\sigma(h))$.\\
+
+\textbf{Step 2 (Homomorphism check).} For all $n,m\in N$, $h,k\in H$,
+\[
+\begin{aligned}
+F\big((n,h)\cdot_{\varphi_1}(m,k)\big)
+&=F\big(n\,\varphi_1(h)(m),\,hk\big)
+=(\psi(n\,\varphi_1(h)(m)),\,\sigma(hk))\\
+&=(\psi(n)\cdot \psi\varphi_1(h)\psi^{-1}(\psi(m)),\,\sigma(h)\sigma(k))\\
+&=(\psi(n)\cdot \varphi_2(\sigma(h))(\psi(m)),\,\sigma(h)\sigma(k))\\
+&=F(n,h)\cdot_{\varphi_2} F(m,k),
+\end{aligned}
+\]
+so $F:(N\times H, \cdot_{\varphi_1})\to (N\times H, \cdot_{\varphi_2})$ is a homomorphism. Since $\psi,\sigma$ are bijective, $F$ is bijective with inverse $(n,h)\mapsto (\psi^{-1}(n),\sigma^{-1}(h))$. Hence $F$ is an isomorphism, proving $N\rtimes_{\varphi_1} H\cong N\rtimes_{\varphi_2} H$.\\
+
+\textbf{Part (b).}\\
+\textbf{Step 1 (Normal $7$-Sylow and reduction to semidirects).} Let $G$ have order $28=4\cdot 7$. By Sylow,
+\[
+n_7\equiv 1\pmod 7,\quad n_7\mid 4\ \Rightarrow\ n_7\in\{1,4\}.
+\]
+If $n_7=1$ then the Sylow-$7$ subgroup $P\cong C_7$ is normal. If $n_7=4$, then $G$ has a normal cyclic subgroup $\langle r\rangle\cong C_{14}$ (the rotation subgroup in the dihedral/ dicyclic cases), and its unique subgroup of order $7$, $P=\langle r^2\rangle\cong C_7$, is characteristic in $\langle r\rangle$ and hence normal in $G$. Thus in all cases $P\trianglelefteq G$, and
+\[
+G\ \cong\ C_7\rtimes_\varphi H\qquad\text{for some }H\le G,\ |H|=4,\ \varphi:H\to\Aut(C_7)\cong C_6.
+\]
+
+\textbf{Step 2 (Possible actions).} Since $|H|=4$ and $|\Aut(C_7)|=6$, the image $\varphi(H)$ has order dividing $2$. Hence either:
+\begin{itemize}
+  \item \emph{Trivial action} ($\varphi=1$): $G\cong C_7\times H$.
+  \item \emph{Inversion action} ($\varphi$ onto the unique order-$2$ subgroup $\{\pm 1\}\le C_6$): a nontrivial semidirect.
+\end{itemize}
+By part (a), actions that differ by automorphisms of $H$ or $C_7$ yield isomorphic semidirect products; since $C_6$ has a unique subgroup of order $2$, there is only one nontrivial action type for each isomorphism type of $H$.
+
+\textbf{Step 3 (Take $H\cong C_4$ or $H\cong V_4$).}
+\begin{itemize}
+  \item $H\cong C_4$:
+    \begin{itemize}
+      \item Trivial action: $C_7\times C_4\cong C_{28}$.
+      \item Nontrivial action (generator acts by $x\mapsto x^{-1}$): the dicyclic group $\mathrm{Dic}_7$ of order $28$ with presentation
+      \[
+      \langle a,x\mid a^{14}=1,\ x^4=1,\ x^2=a^7,\ xax^{-1}=a^{-1}\rangle
+      \]
+      (equivalently $C_7\rtimes C_4$ with kernel of the action generated by $x^2$).
+    \end{itemize}
+  \item $H\cong V_4$:
+    \begin{itemize}
+      \item Trivial action: $C_7\times V_4\cong C_{14}\times C_2$.
+      \item Nontrivial action (each nonidentity in $V_4$ acts by inversion, image $\cong C_2$): the dihedral group $D_{14}$ of order $28$.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Step 4 (No further isomorphisms).} The four groups are pairwise nonisomorphic: the abelian ones are distinct by invariant factors ($C_{28}\not\cong C_{14}\times C_2$); among nonabelian groups, $D_{14}$ has an index-$2$ cyclic subgroup of order $14$ whose quotient by it is $C_2$, whereas $\mathrm{Dic}_7$ has a cyclic quotient of order $4$ by its normal $C_7$ and contains an element of order $4$ whose square lies in $C_7$—properties not shared by $D_{14}$. Hence exactly four isomorphism classes occur.
+
+
+\end{document}
